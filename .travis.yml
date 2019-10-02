@@ -3,18 +3,18 @@ service:
   - docker
 
 before_install:
-  - docker build -t flamingoshore/flamingo-customer -f Dockerfile.dev .
+  - docker build -t flamingoshore/docker-reactT -f Dockerfile.dev .
 
 script:
-  - docker run -e CI=true flamingoshore/flamingo-customer npm run test
+  - docker run -e CI=true flamingoshore/docker-reactT npm run test
 
 deploy:
   provider: elasticbeanstalk
   region: "us-east-2"
-  app: flamingo-customer
+  app: docker-react
   env: "DockerReact-env"
   bucket_name: "elasticbeanstalk-us-east-2-563999258802"
-  bucket_path: "flamingo-customer"
+  bucket_path: "docker-react"
   on:
     branch: master
   access_key_id: 
