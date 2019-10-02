@@ -1,0 +1,71 @@
+.customization-div {
+    /*width: 50%;*/
+}
+
+.additional-options-span {
+    color: #999;
+}
+
+.checkbox-no-btm-mgn {
+    margin-bottom: 0px !important;
+}
+
+.checkbox-mgn-top {
+    margin-top: 3px !important;
+}
+
+.additional-options-mgn {
+    margin-bottom: 10px;
+    color: #0b65b1;
+}
+
+.mgn-top-5 {
+    margin-top: 5px;
+}
+
+.custom-checkbox {
+    margin-top: 0px;
+}
+
+.cust-label-margin-bottom {
+    margin-bottom: 8px;
+}
+
+.cust-radio-label-margin-bottom {
+    margin-bottom: 0px;
+}
+
+.custom-radio {
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+
+.custom-radio-group-label {
+    margin-bottom: 3px;
+}
+
+.group-btm-margin {
+    margin-bottom: 10px;
+}
+
+.margin-bottom-0 {
+    margin-bottom: 0px;
+}
+.additional-options-mobile-header {
+    margin-bottom: 5px;
+}
+
+.no-left-padding {
+    padding-left: 0px;
+}
+
+.info-icon {
+   color: #0B9ED0 !important; 
+   cursor: pointer;
+}
+
+.customization-description {
+    color: #0B9ED0 !important;
+    font-style: italic;
+    margin-bottom: 3px;
+}

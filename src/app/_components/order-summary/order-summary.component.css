@@ -1,0 +1,122 @@
+.appointment-info-div {
+    border: 1px solid;
+    border-color: #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+.order-summary-div {
+    /* width: 33.33333333333333333%; */
+    /* width: 25%; */
+}
+
+.thirty-three-percent-width {
+    width: 33.33333333333333333%;
+}
+
+
+
+.appointment-info-header-div {
+
+}
+
+.appointment-location-details-header-div-inner{
+    position: relative;
+}
+
+.appointment-location-details-header-text {
+    font-size: 24px;
+    color: #0B9ED0;
+}
+
+.checkout-hr {
+    margin-top: 10px;
+    margin-bottom: 14px;
+}
+
+.subtotal-div {
+    width: 100%;
+    margin-bottom: 3px;
+}
+
+.booking-fee-div {
+    width: 100%;
+    margin-bottom: 3px;
+}
+
+.info-icon {
+    color: #0B9ED0;
+    cursor: pointer;
+}
+
+.tax-div {
+    width: 100%;
+    margin-bottom: 3px;
+}
+
+.gc-amount {
+    font-size: 16px;
+    font-weight: bold;
+    color: #337ab7; 
+}
+
+.gc-div {
+    margin-bottom: 10px;
+}
+
+.total {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.total-div {
+    width: 100%;
+    /* margin-bottom: 24px; */
+}
+
+.total-amount {
+    font-size: 16px;
+    font-weight: bold;
+    color: #FFBF00;
+}
+
+.complete-order-btn {
+    width: 100%;
+    font-weight: bold;
+    margin-top: 24px;
+}
+
+.warning-div {
+    margin-top: 20px; 
+}
+
+.selected-date-checkout-div {
+    width: 100%;
+    text-align: center;
+    padding-top: 10px;
+    font-weight: bold;
+}
+
+.selected-date-span {
+    color: #0B9ED0;
+}
+
+.refund-div {
+    width: 100%;
+}
+
+.refund > span.red {
+    color: #dc3545;
+}
+
+.refund {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.refund-amount {
+    font-size: 16px;
+    font-weight: bold;
+    color: #28a745;
+}

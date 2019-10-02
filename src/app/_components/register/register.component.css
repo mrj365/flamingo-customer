@@ -1,0 +1,230 @@
+.body {
+    background-image: url(http://localhost:4200/images/register.jpg);
+}
+
+.register-body {
+    /*background-image: url("/images/register.jpg");*/
+}
+
+.btn-blue {
+    background-color: #0B9ED0;
+    color: white !important;
+}
+
+.nav-outter {
+    background-color: white !important;
+}
+
+.login-button {
+    border: 0px;
+    height: 36px;
+    display: inline-block;
+    border-radius: 4px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    padding: 0 43px;
+    font-size: 15px;
+    font-weight: bold !important;
+    outline: none;
+    position: absolute !important;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    cursor: pointer;
+    margin-top: 10px;
+    vertical-align: middle;
+    text-align: center;
+    right: 25px;
+    top: 15px;
+}
+
+@media (max-width: 991px) {
+  .register-div {
+        border-radius: 8px;
+        padding-left: 0px;
+        padding-right: 0px;
+    }
+}
+
+@media (min-width: 992px) {
+  .register-div {
+        border-radius: 8px;
+        padding-left: 0px;
+        padding-right: 0px;
+        margin-top: 50px;
+        margin-bottom: 50px;
+    }
+}
+
+
+
+.register-div-inner-container {
+    width: 100%;
+    display: table;
+}
+
+.register-div-inner {
+    background-color: white;
+    max-width: 800px;
+    border-radius: 8px;
+    display: table;
+    margin: 0 auto;
+}
+
+.register-div-left {
+    padding-left: 0px;
+    padding-right: 0px;
+
+    width: 50%;
+    float: left;
+    position: relative;
+    min-height: 1px;
+    display: block;
+    
+}
+
+.register-right-div {
+    margin-top: 10px;
+
+/*    width: 50%;
+    float: left;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    display: block;*/
+}
+
+@media (max-width: 320px) {
+  .register-right-div {
+        margin-top: 10px;
+        padding-left: 10px !important;
+        padding-right: 10px !important;
+
+    /*    width: 50%;
+        float: left;
+        position: relative;
+        min-height: 1px;
+        padding-right: 15px;
+        padding-left: 15px;
+        display: block;*/
+    }
+}
+
+.register-right-div {
+    margin-top: 10px;
+
+/*    width: 50%;
+    float: left;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+    display: block;*/
+}
+
+.register-right-div-container {
+    max-width: 310px;
+    margin: 0 auto;
+}
+
+.register-img-div {
+    text-align: center;
+}
+
+.register-img-left {
+    width: 100%;
+    overflow: hidden;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.register-img {
+    height: 20%;
+    width: 20%;
+}
+
+.register-hearder-txt {
+    margin: 5px 26px 20px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    /*color: #555;*/
+    color: #0b65b1;
+    white-space: nowrap;
+}
+
+.create-account-header-text {
+    margin: 10px 26px 20px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 24px;
+    color: #555;
+    white-space: nowrap;
+}
+
+.register-sub-header-txt {
+    margin: -10px 26px 30px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+    color: #b5b5b5;
+}
+
+.register-input {
+    font-weight: bold;
+}
+
+.register-continue {
+    width: 100%;
+}
+
+.register-or-span {
+    overflow: hidden;
+    text-align: center;
+    color: #555;
+    font-weight: bold;
+    font-family: 'Helvetica Neue', Helvetica, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic Pro', メイリオ, Meiryo, 'ＭＳ Ｐゴシック', arial, sans-serif;
+    font-size: 12px;
+}
+
+.register-or-div {
+    text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.register-btns-text {
+    text-align: center !important;
+    font-weight: bold;
+}
+
+.tos-div {
+    padding-top: 5px;
+    text-align: center;
+    font-size: 11px;
+}
+
+.already-registered-div {
+    text-align: center;
+    font-weight: bold;
+    padding-top: 15px;
+}
+
+.name-form-group {
+    margin-botom: 15px;
+}
+
+.first-name-error {
+    margin-bottom: 0px;
+}
+
+.last-name-error {
+    margin-top: 0px;
+}
+.form-group-no-bottom-margin {
+    margin-bottom: 0px;
+}
+
+.email-exits-error {
+    color: rgb(169, 68, 66);
+}

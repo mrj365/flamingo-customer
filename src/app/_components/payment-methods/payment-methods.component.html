@@ -1,0 +1,49 @@
+<div class="container container-bottom-padding">
+  <div class="row">
+    <div class="col-xs-12 payment-section-header">
+      <!--<span class="payment-section-header-text">Add Card</span>-->
+      <div class="payment-method-header">
+        Payment Methods
+        <div class="payment-method-header-underline"></div>
+    </div>
+  </div>
+  <div class="row ten-px-offset" *ngFor="let userPaymentMethod of userPaymentMethodListResultDTO.paymentMethods">
+    <div class="col-xs-12 col-lg-8 col-lg-offset-2">
+      <div class="col-xs-12 card-details-div">
+          <div class="col-xs-6 col-no-padding card-details-wrapper">
+            <img [pmImgSrc]="userPaymentMethod.paymentMethodType" class="card-img"/>
+            <span class="hidden-sm hidden-md hidden-lg hidden-xl card-details-span">&nbsp;&nbsp;*******{{userPaymentMethod.lastFour}}</span>
+            <span class="card-details-span hidden-xs">&nbsp;&nbsp;{{formatPaymentMethodTypeStr(userPaymentMethod.paymentMethodType)}} card ending in {{userPaymentMethod.lastFour}}</span>
+          </div>
+          <div class="col-xs-6 card-info-wrapper">
+            <span class="hidden-xs card-expiration-span">Expires {{formatExpirationDate(userPaymentMethod.expirationDate)}}</span>
+            <span class="hidden-sm hidden-md hidden-lg hidden-xl card-details-span">Exp {{formatExpirationDate(userPaymentMethod.expirationDate)}}</span>
+            <!--<span _ngcontent-nbr-22="" class="caret nav-caret caret-card pull-right"></span>-->
+            
+            <div class="dropdown caret-card pull-right">
+              <!--<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Dropdown Example-->
+              <div class="dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+              </div>
+              <!--</button>-->
+              <ul class="dropdown-menu dropdown-menu-right">
+                <li (click)="setPaymentMethodAsPreferred(userPaymentMethod.guid)"><a href="javascript:void(0)"><i class="fa fa-star" aria-hidden="true"></i>&nbsp; &nbsp;Set Preferred</a></li>
+                <li class="divider"></li>
+                <li (click)="deletePaymentMethod(userPaymentMethod.guid)"><a href="javascript:void(0)"><i class="fa fa-trash" aria-hidden="true"></i>&nbsp; &nbsp;Delete</a></li>
+              </ul>
+            </div>
+                      
+            <i *ngIf="userPaymentMethod.preferred" class="hidden-sm hidden-md hidden-lg hidden-xl fa fa-star pull-right star-card-sm" aria-hidden="true"></i>
+            <i *ngIf="userPaymentMethod.preferred" class="hidden-xs fa fa-lg fa-star pull-right star-card" aria-hidden="true"></i>
+            
+          </div>
+        </div>
+    </div>    
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <a routerLink="/add-card" routerLinkActive="active" class="link-white-nodec"><span class="add-card-div"><i class="fa fa-plus-circle" aria-hidden="true"></i> Add card</span></a>
+    </div>
+
+  </div>
+</div>

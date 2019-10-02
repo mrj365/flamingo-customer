@@ -1,0 +1,667 @@
+/*.date-time-services-container {
+
+}*/
+
+@media (max-width: 767px) {
+  .date-time-services-container {
+        width: auto;
+        padding: 0px;
+    }
+}
+
+.date-selection-header {
+    margin-top: -20px;
+    margin-bottom: 5px;
+}
+
+@media (max-width: 767px) {
+  .left-wrapper {
+    padding: 0px;
+    /*margin-top: -20px;*/
+    box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
+    /*border-radius: 8px;*/
+
+    margin-bottom: 30px;
+}
+
+}
+
+@media (min-width: 768px) {
+    .left-wrapper {
+        padding: 0px;
+        /*margin-top: -20px;*/
+        box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
+        border-radius: 8px;
+
+        margin-bottom: 30px;
+    }
+}
+
+
+.calendar-wrapper {
+    display: flex;
+}
+
+.month-and-days {
+    flex-grow: 1;
+    padding-bottom: 10px;
+}
+
+
+@media (max-width: 479px) {
+    .days {
+        padding: 0px;
+    }
+}
+
+@media (min-width: 480px) {
+    .days {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 767px) {
+  .calendar-control-div {
+        /*background-color: #e6e6e6;*/
+        background-color: #f5f3ee;
+    }
+}
+
+@media (min-width: 768px) {
+    .calendar-control-div {
+        /*background-color: #e6e6e6;*/
+        background-color: #f5f3ee;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+    }
+
+}
+
+@media (max-width: 479px) {
+.date-div {
+    text-align: center;
+    font-size: 4.5vw;
+    line-height: 1;
+    font-weight: bold;
+    color: #a3a8a7;
+    background: #4d4d4d;
+    border-radius: 50%;
+    display: inline-block;
+    position: relative;
+    height: 8.5vw;
+    width: 8.5vw;
+    margin-right: 1vw;
+    margin-left: 0;
+    background-color: #f5f5f5;
+    disabled: true;
+    cursor: default;
+}
+}
+
+@media (min-width: 480px) {
+    .date-div {
+        text-align: center;
+        font-size: 18px;
+        line-height: 1;
+        background: #4d4d4d;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 5px;
+        margin-left: 5px;
+        position: relative;
+        height: 36px;
+        width: 36px;
+        
+        color: #a3a8a7;
+        /* background: #e6e5e1 */
+        background-color: #f5f5f5;
+        
+        disabled: true;
+        
+        cursor: default;
+        
+    }
+}
+
+
+
+
+
+/*.date-div-selected {
+    cursor: pointer;
+    background-color: #0073bb;
+    color: white;
+}*/
+
+.date-div.selected {
+    cursor: pointer;
+    background-color: #0073bb;
+    color: white;
+}
+
+.date-div-available {
+    cursor: pointer;
+    background-color: #222;
+    color: white;
+}
+
+.date-div-available.selected {
+    cursor: pointer;
+    background-color: #0073bb;
+    color: white;
+}
+
+.date-number {
+    /*position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    
+    padding-right: 1px;*/
+}
+
+.calendar-control-div {
+    padding: 10px;
+    text-align: center;
+}
+
+.month-div {
+    width: 100%;
+    text-align: center;				
+}
+
+
+.date-span {
+    font-size: 20px;
+    
+    cursor: pointer;				
+    text-decoration: underline;				
+}
+
+.date-span:hover {
+    font-size: 20px;
+    
+    cursor: pointer;				
+    text-decoration: none;				
+}
+
+.not-this-week-div {
+    /*display: none;*/
+    padding-top: 10px;
+}
+
+.previous-div {
+    width: 40px;		
+
+    min-height: 100px;
+    display: inline-flex;
+    align-items: center;	
+
+    border-right: 1px solid #ddd;
+    
+    padding-left: 10px;
+    
+    cursor: pointer;
+}
+
+.previous-div-disabled {
+    width: 40px;		
+
+    min-height: 100px;
+    display: inline-flex;
+    align-items: center;	
+
+    border-right: 1px solid #ddd;
+    
+    padding-left: 10px;
+
+    cursor: not-allowed;
+}
+
+.next-div {
+    width: 40px;
+    
+    min-height: 100px;
+    display: inline-flex;
+    align-items: center;
+    
+    border-left: 1px solid #ddd;
+    
+    padding-left: 20px;
+    
+    cursor: pointer;
+}
+
+.previous-div:hover span{
+    color: #0073bb;
+}
+
+.next-div:hover span {
+    color: #0073bb;
+}
+
+.previous-span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #777;
+    
+    
+}
+
+.next-span {
+    font-size: 16px;
+    font-weight: bold;
+    color: #777;			
+}
+
+/* time selector */
+
+.time-selector-inner {
+    display: flex;
+    /*max-height: 400px;*/
+}
+
+.time-selector-div {
+    background-color: #222;
+
+    padding-top: 10px;
+    padding-bottom: 20px;
+
+    
+    min-height: 200px;
+    /*overflow-y: auto;*/
+    /*border: 1px solid white;*/
+
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+@media (min-width: 768px) {
+    .time-selector-morning {
+        border-bottom-left-radius: 8px;
+    }
+}
+
+.time-selector-afternoon {
+    border-left: 1px solid white;
+    border-right: 1px solid white;
+}
+
+@media (min-width: 768px) {
+    .time-selector-evening {
+        border-bottom-right-radius: 8px;
+    }
+}
+
+.time-selector-container {
+    padding: 0px;
+    position: relative;
+    /*margin-bottom: 20px;*/
+}
+
+.no-availability-div {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: 100%;
+    background-color: #222;
+}
+
+.no-availability-div-span {
+    text-align: center;
+    display: block;
+
+    color: #FFBF00;
+    font-weight: bold;
+    
+}
+
+.time-selector-wrapper {
+    padding: 0px;
+}
+
+.time-selector-inner {
+    padding: 0px;
+}
+
+.time-of-day-header {
+    text-align: center;
+    font-size: 14px;
+    color: white;
+    font-weight: bold;
+    padding-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    display: block;
+}
+
+.time-of-day-header-text {
+    display: block;
+    padding-bottom: 10px;
+}
+
+.time-div {
+    border: 1px solid white;
+    border-radius: 8px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+    /*width: 100%;*/
+    cursor: pointer;
+}
+
+.time-div.selected {
+    background-color: #0073bb;
+}
+
+.time-wrapper {
+    padding: 3px;
+}
+
+.proceed-div {
+    margin-top: 20px;
+}
+
+.continue-button {
+    width: 100%;
+}
+
+.last-row {
+    margin-bottom: 20px;
+}
+
+
+/* Service list */
+
+
+
+.service-div {
+    padding-left: 0px !important;
+    padding-right: 10px !important;
+    margin-bottom: 20px;
+}
+
+.service-div-inner {
+    transition: box-shadow 400ms ease;
+    -webkit-transition: box-shadow 400ms ease;
+    -moz-transition: box-shadow 400ms ease;
+    -ms-transition: box-shadow 400ms ease;
+
+    background-color: #FFFFFF;
+    position: relative;
+    -webkit-flex-grow: 1;
+
+    display: flex;
+}
+
+.service-text {
+    padding: 24px;
+    padding-left: 0px;
+
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    position: relative;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -webkit-flex-grow: 1;
+    -moz-flex-grow: 1;
+    -ms-flex-grow: 1;  
+
+    width: 60%;
+    float: left;  
+}
+
+.service-name {
+    font-size: 14px;
+    line-height: 20px;
+    color: #1C1B1B;
+    font-weight: 600;
+    margin-bottom: 8px;
+
+    display: block;
+}
+
+/* add elipsis to end of text http://hackingui.com/front-end/a-pure-css-solution-for-multiline-text-truncation/*/
+.service-short-description {
+  /* hide text if it more than N lines  */
+  overflow: hidden;
+  /* for set '...' in absolute position */
+  position: relative; 
+  /* use this value to count block height */
+  line-height: 20px;
+  /* max-height = line-height (20) * lines max number (2) */
+  max-height: 40px; 
+  /* fix problem when last visible word doesn't adjoin right side  */
+  text-align: justify;  
+  /* place for '...' */
+  margin-right: -1em;
+  padding-right: 1em;
+}
+/* create the ... */
+.service-short-description:before {
+  /* points in the end */
+  content: '...';
+  /* absolute position */
+  position: absolute;
+  /* set position to right bottom corner of block */
+  right: 0;
+  bottom: 0;
+}
+/* hide ... if we have text, which is less than or equal to max lines */
+.service-short-description:after {
+  /* points in the end */
+  content: '';
+  /* absolute position */
+  position: absolute;
+  /* set position to right bottom corner of text */
+  right: 0;
+  /* set width and height */
+  width: 1em;
+  height: 1em;
+  margin-top: 0.2em;
+  /* bg color = bg color under block */
+  background: white;
+}
+
+.service-price-div {
+    font-size: 14px;
+    line-height: 20px;
+
+    flex-grow: 1;
+    display: flex;
+    align-items: flex-end;
+    font-size: 14px;
+    -webkit-flex-grow: 1;
+    -moz-flex-grow: 1;
+    -ms-flex-grow: 1;
+
+}
+
+.service-price {
+    color: #282727;
+    padding-right: 5px;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.service-img-div {
+    /*width: 40%;*/
+    float: right;
+    display: table;
+}
+
+.service-img {
+    width: 100%;
+    height: auto;
+    max-width: 140px;
+}
+
+.footer-nav-div {
+    
+    background-color: white;
+    text-align: center;
+
+    padding: 20px;
+}
+
+.checkout-button {
+    width: 100%;
+    font-weight: bold;
+}
+
+.remove-service {
+    font-size: 16px;
+    padding-left: 10px;
+    cursor: pointer;
+
+    color: #ccc;
+}
+
+.appointment-info-div {
+    border: 1px solid;
+    border-color: #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 20px;
+
+    width: 20%;
+}
+
+.services-div {
+    padding-left: 0px !important;
+}
+
+/*.order-summary-div {
+    width: 33.33333333333333333%;
+}*/
+
+.appointment-location-details-header-div-inner{
+    position: relative;
+}
+
+.appointment-location-details-header-text {
+    font-size: 24px;
+    color: #0B9ED0;
+}
+
+.checkout-hr {
+    margin-top: 10px;
+    margin-bottom: 14px;
+}
+
+.subtotal-div {
+    width: 100%;
+    margin-bottom: 3px;
+}
+
+.booking-fee-div {
+    width: 100%;
+    margin-bottom: 3px;
+}
+
+.booking-fee-div {
+    width: 100%;
+    margin-bottom: 3px;
+}
+
+.info-icon {
+    color: #0B9ED0;
+    cursor: pointer;
+}
+
+.tax-div {
+    width: 100%;
+    margin-bottom: 3px;
+}
+
+.total-div {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.total {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.total-amount {
+    font-size: 18px;
+    font-weight: bold;
+    color: #FFBF00;
+}
+
+.complete-order-btn {
+    width: 100%;
+    font-weight: bold;
+}
+
+.selected-date-checkout-div {
+    width: 100%;
+    text-align: center;
+    padding-top: 10px;
+    font-weight: bold;
+}
+
+.selected-date-span {
+    color: #0B9ED0;
+}
+
+.ledgend-div {
+    padding-bottom: 5.5vh;
+}
+
+.ledgend-div-inner {
+    float: left;
+}
+
+.ledgend-color {
+    border-radius: 50%;
+    background-color: #0B9ED0;
+    height: 19px;
+    width: 19px;
+    float: left;
+    margin-right: 3px;
+}
+
+.ledgend-color.selected {
+    background-color: #0B9ED0;
+}
+
+.ledgend-color.available {
+    background-color: #222;
+}
+
+.ledgend-color.unavailable {
+    background-color: #f5f5f5;
+}
+
+.ledgend-description {
+    float: left;
+    margin-right: 10px;
+}
+
+.qty-desc {
+    color: #555;
+}
+
+.mobile-service-qty-span {
+    color: #0B9ED0;
+}
+
+.day-number-wrapper {
+    display: flex;
+    justify-content: center; /* align horizontal */
+    align-items: center; /* align vertical */
+    height: 100%;
+    width: 100%;
+}
+
+.no-wrap {
+    white-space: nowrap;
+}

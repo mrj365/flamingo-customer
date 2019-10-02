@@ -1,0 +1,4 @@
+<input (focus)="loadGooglePlaces();" type="text" class="form-control" name="search" #search [(ngModel)]="mapLocationDTO.formattedAddress" placeholder="Address"/>
+
+<div id="homeClickAuto{{autoCompleteId}}" [hidden]="true" class="homeClick" (click)="searchHomeSavedSearchAddress();"></div>
+<div id="workClickAuto{{autoCompleteId}}" [hidden]="true" class="homeClick" (click)="searchWorkSavedSearchAddress();"></div>

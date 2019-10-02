@@ -1,0 +1,71 @@
+<div class="register-body">
+    <!--<button (click)="navToRegister()" aria-label="" class="btn login-button btn-social btn-blue hidden-xs hidden-sm" type="button">Create Account</button>-->
+    <div class="register-div col-xs-12 col-sm-12 col-lg-6 col-lg-offset-3">
+
+        <div class="register-div-inner-container">
+            <div class="register-div-inner">
+
+                <div class="register-div-left hidden-xs hidden-sm">
+                    <img src="images/register-1.jpg" class="register-img-left"/>
+                </div>
+                <div class="register-right-div col-xs-12 col-sm-12 col-md-6">
+                    <div class="register-right-div-container">
+                        <div class="register-img-div">
+                            <!-- <img class="register-img" src="images/logo-blue.png" /> -->
+                            <img [imgSrc]="'static/logo-blue.png'" class="register-img" onerror="this.onerror=null;this.src='images/md-placholder.png';"/>    
+                        </div>
+                        <!--<div class="register-hearder-txt">Welcome to Mingo</div>-->
+                        <!--<div class="register-sub-header-txt">Service at your doorstep!</div>-->
+                        <div class="login-hearder-txt">Sign in</div>
+                        <!--<div class="register-hearder-txt">{{platformName}}</div>-->
+                        <form name="form" (ngSubmit)="onSubmit(userLoginForm.valid, $event)" #userLoginForm="ngForm" email novalidate>
+                            <div class="form-group" [ngClass]="{ 'has-error': userLoginForm.submitted && !email.valid }">
+                                <input (click)="showFNamee()" type="text" class="form-control register-input" name="email" [(ngModel)]="model.email" #email="ngModel" placeholder="Email" required email/>
+                                <div *ngIf="formErrors.email" class="help-block">{{ formErrors.email }}</div>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': userLoginForm.submitted && !password.valid }">
+                                <input type="password" class="form-control register-input" name="password" [(ngModel)]="model.password" #password="ngModel" placeholder="Existing Password" required />
+                                <div *ngIf="formErrors.password" class="help-block">{{ formErrors.password }}</div>
+                                <div *ngIf="showFailedLoginMessage" class="cust-error">Unknown email or password. If you have not already created an account, you can create one 
+                                    <a [routerLink]="['/register']" class="create-account-link">here</a>.</div>
+                            </div>
+                            <div class="form-group">
+                                <button [disabled]="loading" type="submit" class="register-continue btn btn-primary register-btns-text">Sign in</button>
+                                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                <div>
+                                    <div class="register-or-div">
+                                        <span class="register-or-span">OR</span>
+                                    </div>
+                                    <a id="fbBtn" class="btn btn-block btn-social btn-facebook register-btns-text" (click)="loginFacebook()">
+                                        <span class="fa fa-facebook"></span> Sign in with Facebook
+                                    </a>
+                                    <a id="googleLoginBtn" name="googleLoginBtn" class="btn btn-block btn-social btn-google register-btns-text">
+                                        <span class="fa fa-google"></span> Sign in with Google
+                                    </a>
+                                    <div class="already-registered-div">
+                                        <p class="login-link">
+                                            Not a member yet? <a href="javascript:void(0);" (click)="navToRegister()">Create Account</a>
+                                        </p>
+                                        <div>
+                                            <div class="splitter-div">
+                                                <hr class="login-hr"/>
+                                            </div>
+                                        </div>
+                                        <p class="login-link">
+                                            <a [routerLink]="['/forgot-password']">Forgot your password?</a> 
+                                        </p>
+                                    </div>
+                                </div>                                
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+</div>

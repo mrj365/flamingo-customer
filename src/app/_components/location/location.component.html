@@ -1,0 +1,183 @@
+<div [hidden]="hideFirstSearch" class="container-fluid first-search-overlay">
+  <div class="row">
+    <div class="search-img-wrapper">
+      <img src="images/splash-4.jpg" class="hidden-sm hidden-md hidden-lg hidden-xl splash-img"/>
+      <img src="images/splash-3.jpg" class="hidden-xs splash-img"/>
+      <div class="search-overlay-text">
+        <div class="col-xs-12">
+          <div class="search-overlay-text-inner">
+            <span class="find-ll-text">Find a Laundry Lady Near You</span>
+          </div>
+          
+        </div>
+        <div class="col-xs-12 col-md-6 col-md-offset-3">
+          <div class="input-group mb-2 mr-sm-2 mb-sm-0 first-search-input">
+            <input (focus)="loadFirstSerch()" #firstSearchInput type="text" class="form-control first-address-input" id="inlineFormInputGroup" placeholder="Enter Your Address">
+            <div class="input-group-addon">&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i>&nbsp;</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <div class="row how-to-row">
+    <div class="col-xs-12 col-lg-6 col-lg-offset-3">
+      <div class="col-xs-12 how-to-header">
+        <span class="how-to-header-text">How to use {{platformName}}</span>
+      </div>
+      <div class="col-xs-12 col-sm-4 how-to-info-outer">
+        <img src="images/where2.jpg" class="how-to-img" />
+        <div class="how-to-info-wrapper">
+          <span class="how-to-info-header">The Where</span>
+          <span class="how-to-info">Search your location to find the laundry lady nearest you</span>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4 how-to-info-outer">
+        <img src="images/what.jpg" class="how-to-img" />
+        <div class="how-to-info-wrapper">
+          <span class="how-to-info-header">The What</span>
+          <span class="how-to-info">Select the services you want and submit your order</span>
+        </div>
+      </div>
+      <div class="col-xs-12 col-sm-4 how-to-info-outer">
+        <img src="images/pickup.jpg" class="how-to-img" />
+        <div class="how-to-info-wrapper">
+          <span class="how-to-info-header">The When</span>
+          <span class="how-to-info">A laundry lady will pick up your laundry at the selected date</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div [hidden]="true" class="row steps-row">
+    <div class="col-xs-12 col-lg-8 col-lg-offset-2 steps-row-inner col-no-padding steps-text-wrapper-xs">
+      <div class="hidden-sm hidden-md hidden-lg hidden-xl col-xs-12 col-sm-7">
+        <div class="steps-header-div"><span>{{howToText}}</span></div>
+        <div><span>{{howToDesc}}</span></div>
+      </div>
+      <div class="hidden-xs col-sm-7">
+        <div class="steps-header-div"><span>{{howToText}}</span></div>
+        <div><span>{{howToDesc}}</span></div>
+      </div>
+      <div class="col-xs-12 col-sm-5 col-no-padding">
+        <img src="{{howToImg}}" class="steps-img"/>
+      </div>
+    </div>
+  </div>
+
+  <div class="row locations-header">
+    <span>Now accepting pickups from the following locations</span>
+  </div>
+
+  <div class="row">
+    <div class="search-img-wrapper-bottom col-xs-12">
+      <!--<img src="/images/splash-9.png" class="hidden-sm hidden-md hidden-lg hidden-xl splash-img"/>
+      <img src="/images/splash-9.png" class="hidden-xs splash-img"/>-->
+      <div class="search-overlay-text-bottom-full row">
+        <div class="row">
+          <div class="state">
+            Allegheny County
+          </div>
+        </div>
+
+        <div *ngFor="let serviceAreaArrs of serviceAreas2dArr; let i = index" class="row">
+          <div *ngFor="let serviceArea of serviceAreas2dArr[i]" class="col-xs-6 col-sm-2 city">
+            {{serviceArea}}
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="state">
+            Butler County
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6 col-sm-2 city">
+            Adams
+          </div>
+          <div class="col-xs-6 col-sm-2 city">
+            Cranberry
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="state">
+            Westmoreland County
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-6 col-sm-2 city">
+            Hempfield
+          </div>
+          <div class="col-xs-6 col-sm-2 city">
+            Salem
+          </div>
+          <div class="col-xs-6 col-sm-2 city">
+            Unity
+          </div>
+        </div>
+
+
+      </div>
+      <!--<div class="search-overlay-text-bottom">
+        <div class="search-overlay-text-inner-bottom">
+          <span class="find-ll-text">{{howToDesc}}</span>
+        </div>
+      </div>-->
+    </div>
+  </div>
+
+
+
+</div>
+
+
+
+<div [hidden]="!hideFirstSearch" class="container container-bottom-padding">
+  <!--<div class="form-group">
+    <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+  </div>-->
+<!--  <sebm-google-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="false" [zoom]="zoom">
+    <sebm-google-map-marker [latitude]="latitude" [longitude]="longitude"></sebm-google-map-marker>
+  </sebm-google-map>-->
+  <div class="location-search-header">
+    Find a Laundry Lady
+    <div class="location-header-underline"></div>
+  </div>
+  <div class="row locations">
+    <ng-template >
+      <div *ngFor="let locationArrs of location2dArr; let i = index" class="row">
+        <div *ngFor="let location of location2dArr[i]" class="col-xs-12 col-sm-6 col-md-4 location-div">
+          <div class="location-inner">
+            <a [routerLink]="['/storefront', location.storefrontId]" routerLinkActive="active" class="location-anchor">
+              <div class="location-anchor-inner-div">
+                <img [imgSrc]="location.imgUrl" class="location-img-div" onerror="this.onerror=null;this.src='images/md-placholder.png';"/>
+
+                
+                <div class="location-title"></div>
+                <div class="location-details">
+                  <div class="location-title">
+                    <div>{{location.displayName}}</div>
+                  </div>
+                  <div class="location-details-list">
+                    <!--<div>{{location.address1}} ({{location.city}})</div>-->
+                    <div>{{location.city}}</div>
+                  </div>
+                </div>
+                <div class="pull-right distance-div">
+                    <span>{{formatDistance(location.distance)}}mi.</span>
+                  </div>
+                <div class="rating-div">
+                  <div class="rating-div-inner">
+                      <rating [ngModel]=location.rating class="rating-stars" [float]="true" [readonly]="true"></rating></div>
+                      <span class="reviews-span">&nbsp;&nbsp;&nbsp;&nbsp;{{location.reviewCount}} reviews</span>
+                  
+                </div>    
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+.claim-gift-card {
+    text-align: center;
+    font-size: 24px;
+    display: block;
+    margin-top: 70px;
+    margin-bottom: 20px;
+}
+
+.redeem-btn {
+    width: 100%;
+}
+
+.spinner-padding {
+    margin-left: 10px; 
+}

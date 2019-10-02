@@ -1,0 +1,147 @@
+<!-- Taken from example https://getbootstrap.com/docs/3.3/components/ -->
+<nav class="navbar navbar-default nav-div-wrapper nav-no-side-border brand-header-text-color">
+  <div class="container-fluid navigation-div brand-primary-background-color">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-nav" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!--<a routerLink="/locations" routerLinkActive="active" class="navbar-brand hidden-xs"><span class="brand-text">MingoFresh</span></a>
+      <a routerLink="/locations" routerLinkActive="active" class="navbar-brand hidden-sm hidden-md hidden-lg hidden-xl"><span class="brand-text">M</span></a>-->
+      <a routerLink="/" routerLinkActive="active" class="navbar-brand hidden-xs"><span class="brand-header-text-color brand-text">{{platformName}}</span></a>
+      <a routerLink="/" routerLinkActive="active" class="navbar-brand hidden-sm hidden-md hidden-lg hidden-xl"><span class="brand-header-text-color">{{platformNameShort}}</span></a>
+      
+      <!--<li class=""><a routerLink="/login" routerLinkActive="active"><span class="brand-header-text-color">Sign-in &nbsp;&nbsp;&nbsp;</span><i class="fa fa-user-circle fa-lg profile-icon" aria-hidden="true"></i></a></li>-->
+      <a unsecureDisplay routerLink="/login" routerLinkActive="active"  class="navbar-brand pull-right brand-header-text-color hidden-sm hidden-md hidden-lg hidden-xl"><span class="brand-header-text-color">Sign-in &nbsp;&nbsp;&nbsp;</span><i class="fa fa-user-circle fa-lg" aria-hidden="true"></i></a>
+      <a secureDisplay routerLink="/notifications" routerLinkActive="active"  class="navbar-brand pull-right brand-header-text-color hidden-sm hidden-md hidden-lg hidden-xl"><i class="fa fa-bell-o fa-lg" aria-hidden="true"></i></a>
+      <a *ngIf="showCart" secureDisplay routerLink="/shopping-cart" routerLinkActive="active"  class="navbar-brand pull-right brand-header-text-color hidden-sm hidden-md hidden-lg hidden-xl menu-cart"><i class="fa fa-lg fa-shopping-cart" aria-hidden="true"></i><span *ngIf="shoppingCartItemCount > 0" class="badge cart-ct-badge cart-ct-badge-color"><span class="cart-ct-span">{{shoppingCartItemCount}}</span></span></a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbar-collapse-nav">
+      <ul class="nav navbar-nav navbar-right brand-header-text-color">
+        <!--<li class="hidden-xs hidden-sm hidden-md hidden-lg hidden-xl"><a routerLink="/login" routerLinkActive="active"><span class="brand-header-text-color">Sign-in &nbsp;&nbsp;&nbsp;</span><i class="fa fa-user-circle fa-lg profile-icon" aria-hidden="true"></i></a></li>-->
+        <li unsecureDisplay class="hidden-xs hidden-sm"><a routerLink="/login" routerLinkActive="active"  class="brand-header-text-color"><span class="brand-header-text-color">Sign-in &nbsp;&nbsp;&nbsp;</span><i class="fa fa-lg fa-user-circle" aria-hidden="true"></i></a></li>
+        <li *ngIf="showCart" secureDisplay class="hidden-xs"><a routerLink="/shopping-cart" routerLinkActive="active"  class="brand-header-text-color menu-cart"><i class="fa fa-lg fa-shopping-cart" aria-hidden="true"></i><span *ngIf="shoppingCartItemCount > 0" class="badge cart-ct-badge cart-ct-badge-color"><span class="cart-ct-span">{{shoppingCartItemCount}}</span></span></a></li>
+        <li secureDisplay data-toggle="collapse" data-target=".navbar-collapse"><a routerLink="/user-settings" routerLinkActive="active"><i class="fa fa-user-circle fa-lg profile-icon" aria-hidden="true"></i><span class="hidden-sm hidden-md hidden-lg hidden-xl brand-header-text-color"> &nbsp;&nbsp;&nbsp;Settings</span></a></li>
+        <li secureDisplay class="hidden-xs"><a routerLink="/notifications" routerLinkActive="active"><i class="fa fa-bell-o fa-lg notification-icon" aria-hidden="true"></i><span class="hidden-sm hidden-md hidden-lg hidden-xl brand-header-text-color"> &nbsp;&nbsp;&nbsp;Notifications</span></a></li>
+        <li secureDisplay data-toggle="collapse" data-target=".navbar-collapse" class="hidden-sm hidden-md hidden-lg hidden-xl"><a routerLink="/payment-methods" routerLinkActive="active" class="brand-header-text-color"><i class="fa fa-lg fa-credit-card" aria-hidden="true"></i> &nbsp; Payment Methods</a></li>
+        <li secureDisplay data-toggle="collapse" data-target=".navbar-collapse"  class="hidden-sm hidden-md hidden-lg hidden-xl"><a routerLink="/appointments" routerLinkActive="active" class="brand-header-text-color"><i class="fa fa-lg fa-calendar" aria-hidden="true"></i> &nbsp;&nbsp; Appointments</a></li>
+        <li secureDisplay data-toggle="collapse" data-target=".navbar-collapse"  class="hidden-sm hidden-md hidden-lg hidden-xl"><a routerLink="/contact-us" routerLinkActive="active" class="brand-header-text-color"><i class="fa fa-lg fa-life-ring" aria-hidden="true"></i> &nbsp;&nbsp; Help</a></li>
+        <li data-toggle="collapse" data-target=".navbar-collapse"  class="hidden-sm hidden-md hidden-lg hidden-xl"><a routerLink="/about" routerLinkActive="active" class="brand-header-text-color"><i class="fa fa-lg fa-info-circle" aria-hidden="true"></i> &nbsp;&nbsp; About</a></li>
+        <li unsecureDisplay data-toggle="collapse" data-target=".navbar-collapse" class="hidden-sm hidden-md hidden-lg hidden-xl"><a routerLink="/gift" routerLinkActive="active"><i class="fa fa-gift fa-lg profile-icon" aria-hidden="true"></i><span class="hidden-sm hidden-md hidden-lg hidden-xl brand-header-text-color"> &nbsp;&nbsp;&nbsp;Gift Cards</span></a></li>
+        <!-- <li data-toggle="collapse" data-target=".navbar-collapse"  class="hidden-sm hidden-md hidden-lg hidden-xl"><a routerLink="/services" routerLinkActive="active" class="brand-header-text-color"><i class="fa fa-lg fa-truck" aria-hidden="true"></i> &nbsp;&nbsp; Services</a></li> -->
+        <!-- <li data-toggle="collapse" data-target=".navbar-collapse"  class="hidden-sm hidden-md hidden-lg hidden-xl"><a routerLink="/faq" routerLinkActive="active" class="brand-header-text-color"><i class="fa fa-lg fa-info" aria-hidden="true"></i> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FAQ</a></li> -->
+        <li secureDisplay data-toggle="collapse" data-target=".navbar-collapse" class="hidden-sm hidden-md hidden-lg hidden-xl"><a href="javascript:void(0);" (click)="logout();" class="brand-header-text-color"><i class="fa fa-lg fa-sign-out" aria-hidden="true"></i> &nbsp;&nbsp; Log Out</a></li>
+        <li class="dropdown hidden-xs">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret nav-caret brand-header-text-color"></span></a>
+          <ul class="dropdown-menu">
+            <li secureDisplay><a routerLink="/payment-methods" routerLinkActive="active"><i class="fa fa-credit-card" aria-hidden="true"></i> &nbsp; Payment Methods</a></li>
+            <li secureDisplay><a routerLink="/appointments" routerLinkActive="active"><i class="fa fa-calendar" aria-hidden="true"></i> &nbsp; Appointments</a></li>
+            <li unsecureDisplay><a routerLink="/gift" routerLinkActive="active"><i class="fa fa-gift" aria-hidden="true"></i> &nbsp; Gift Cards</a></li>
+            <li secureDisplay><a routerLink="/my-gifts" routerLinkActive="active"><i class="fa fa-gift" aria-hidden="true"></i> &nbsp; My Gift Cards</a></li>
+            <!-- <li secureDisplay role="separator" class="divider"></li> -->
+            <!-- <li><a routerLink="/services" routerLinkActive="active"><i class="fa fa-truck" aria-hidden="true"></i> &nbsp; Services</a></li> -->
+            <!-- <li><a routerLink="/faq" routerLinkActive="active"><i class="fa fa-info" aria-hidden="true"></i> &nbsp;&nbsp;&nbsp; FAQ</a></li> -->
+            <li secureDisplay role="separator" class="divider"></li>
+            <li secureDisplay><a href="javascript:void(0);" (click)="logout();" class="log-out">Log Out</a></li>
+          </ul>
+        </li>
+      </ul>
+      <form [hidden]="!showSearch" class="navbar-form navbar-search-input nav-align-text-center hidden-xs">
+        <div  class="form-group search-form-group">
+          <input (focus)="resetSavedSearchAddresses();" 
+            placeholder="Search for location" 
+            value="{{currentLocation}}" 
+            autocorrect="off" 
+            autocapitalize="off" 
+            spellcheck="off" 
+            type="text" 
+            class="form-control search-text-input" 
+            #search 
+            [formControl]="searchControl">
+        </div>
+        <button type="submit" class="btn btn-default search-btn navbar-search-btn">Search</button>
+      </form>
+    </div>
+  </div>
+
+  
+
+
+
+
+<div id="homeClick" [hidden]="true" class="homeClick" (click)="searchHomeSavedSearchAddress();"></div>
+<div id="workClick" [hidden]="true" class="homeClick" (click)="searchWorkSavedSearchAddress();"></div>
+
+
+
+<div [hidden]="!showSearch" class="container-fluid navigation-div hidden-sm hidden-md hidden-lg hidden-xl">
+    <div class="navbar-header navbar-header-sm brand-primary-background-color">
+      <!--<form *ngIf="showSearch || addressClicked" class="navbar-form navbar-search-input-sm nav-align-text-center hidden-sm hidden-md hidden-lg hidden-xl">
+        <div class="form-group search-form-group">
+          <input placeholder="Search for location" value="{{currentLocation}}" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control search-text-input-sm" name="searchSm" #searchSm [formControl]="searchControlSm">
+        </div>
+      </form>-->
+      <!--<span class="address-span span-block">{{currentLocation}}</span>536 Lincoln Rd-->
+
+      <form [hidden]="!showSmallAddressSearch" class="navbar-form navbar-search-input-sm nav-align-text-center">
+        <div class="form-group search-form-group search-input-form-group-sm">
+          <input (focus)="resetSavedSearchAddresses();" placeholder="Search for location" value="{{currentLocation}}" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control search-text-input-sm" name="searchSm" #searchSm [formControl]="searchControlSm">
+        </div>
+      </form>
+      <div *ngIf="!showSmallAddressSearch" (click)="toggleShowSmallSearch();" class="address-div"><span class="address-span" >{{currentLocationStreetAddress ? currentLocationStreetAddress : 'Search'}}</span></div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <div [hidden]="!showSearch || !showSpSearch" class="search-div">
+    <form class="search-form" name="queryTextForm" #queryTextForm>
+      <div class="searchIconWrapper_3lOQdA">
+        <svg class="search-icon" viewBox="0 0 32 32" width="30" height="30" version="1.1" xmlns="http://www.w3.org/2000/svg">
+          <title>Search</title>
+          <defs></defs>
+          <g>
+            <path fill="#3a3a48" d="M21.5,13.2c0-4.6-3.7-8.2-8.2-8.2C8.7,5,5,8.7,5,13.2c0,4.6,3.7,8.2,8.2,8.2c2,0,3.9-0.8,5.4-2l7.5,7.5
+              l0.9-0.9l-7.5-7.5C20.7,17.2,21.5,15.3,21.5,13.2z M13.2,20.2c-3.8,0-7-3.1-7-7c0-3.8,3.1-7,7-7s7,3.1,7,7
+              C20.2,17.1,17.1,20.2,13.2,20.2z"></path>
+          </g>
+        </svg>
+      </div>
+      <!--<input class="search-input" placeholder="Search for a Service Provider" value="" style="font-family: ClanPro-Book, Helvetica, sans-serif;">-->
+      <input name="queryText" autocomplete=off [(ngModel)]="queryString" (keyup.enter)="searchWithQueryString();" class="search-input" placeholder="Search" value="" style="font-family: ClanPro-Book, Helvetica, sans-serif;">
+    </form>
+  </div>
+</nav>
+
+<div *ngIf="isAdminLoggedIn()" class="container">
+  <div class="col-xs-12 col-md-7 col-md-offset-2 user-warning">
+    <div class="alert alert-danger" role="alert">
+      You are currently loggeed in on behalf of {{getUsersName()}}. Click <a (click)="logout();" href="javascript:void(0);">here</a> to log out
+    </div>
+  </div>
+</div>
+<br [hidden]="!isAdminLoggedIn()" />

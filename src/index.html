@@ -1,0 +1,117 @@
+<!doctype html>
+<html>
+	<head>
+	  <meta charset="utf-8">
+	  <title></title>
+	  <base href="/">
+	  <meta name="viewport" content="width=device-width, initial-scale=1">
+	  <link id="appFavicon" rel="icon" type="image/x-icon" href="favicon.ico">
+	</head>
+	<body style="">
+		<script src="libraries/es6-shim/es6-shim.min.js"></script>
+		<script src="libraries/systemjs/system.js"></script>
+		<script src="https://npmcdn.com/angular2/es6/dev/src/testing/shims_for_IE.js"></script>
+		<div id="fb-root"></div>
+		<script type="text/javascript" src="https://connect.facebook.net/en_US/sdk.js"></script>
+		
+		<script src="https://apis.google.com/js/platform.js"></script>
+
+		<script
+		  src="https://code.jquery.com/jquery-3.2.1.min.js"
+		  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+		  crossorigin="anonymous"></script>
+
+		<!-- bootstrap -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<!-- bootbox library -->
+		 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+		 
+		 <!-- fontawesome -->
+		 <script src="https://use.fontawesome.com/19cb25f164.js"></script>
+
+		 <!-- stripe -->
+		 <script src="https://js.stripe.com/v2/"></script>
+		 
+		 <!-- Croppie -->
+		 <!-- <script src="/libraries/Croppie-master/croppie.js"></script> -->
+		 
+		 <!-- Cropper -->
+		 <link rel="stylesheet" href="libraries/cropper/cropper.min.css">
+
+		 <!-- Font awesome social -->
+		 <link rel="stylesheet" href="libraries/bootstrap-social-gh-pages/bootstrap-social.css">
+
+		 <!-- spin.js -->
+		 <script src="libraries/spinjs/spin.js"></script>
+
+		 <!--Start of Tawk.to Script-->
+		<!--<script type="text/javascript">
+			var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
+			(function(){
+			var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
+			s1.async=true;
+			s1.src='https://embed.tawk.to/5a311da7bbdfe97b137fb679/default';
+			s1.charset='UTF-8';
+			s1.setAttribute('crossorigin','*');
+			s0.parentNode.insertBefore(s1,s0);
+			})();
+			</script>-->
+			<!--End of Tawk.to Script-->
+		
+		<!-- pub nub messaging service -->
+		<script src="https://cdn.pubnub.com/sdk/javascript/pubnub.4.19.0.min.js"></script>
+		  
+
+		 <my-app>
+			 <style>
+			my-app {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				height: 100vh;
+
+				color: white;
+				text-transform: uppercase;
+				font-family: -apple-system,
+					BlinkMacSystemFont,
+					"Segoe UI",
+					Roboto,
+					Oxygen-Sans,
+					Ubuntu,
+					Cantarell,
+					Helvetica,
+					sans-serif;
+				font-size: 2.5em;
+				text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+			}
+			body {
+				background: #0B9ED0;
+				margin: 0;
+				padding: 0;
+			}
+
+			@keyframes dots {
+				50% {
+				transform: translateY(-.4rem);
+				}
+				100% {
+				transform: translateY(0);
+				}
+			}
+
+			.d {
+				animation: dots 1.5s ease-out infinite;
+			}
+			.d-2 {
+				animation-delay: .5s;
+			}
+			.d-3 {
+				animation-delay: 1s;
+			}
+			</style>
+			 
+			 Loading<span class="d">.</span><span class="d d-2">.</span><span class="d d-3">.</span></my-app>
+	</body>
+</html>

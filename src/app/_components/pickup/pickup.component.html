@@ -1,0 +1,153 @@
+<div [hidden]="hideFirstSearch" class="container-fluid first-search-overlay">
+    <div class="row">
+      <div class="search-img-wrapper col-xs-12 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
+          <img src="images/splash.jpg" class="splash-img"/>
+          <!-- <img src="images/splash.jpg" class="hidden-xs col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 splash-img"/> -->
+        <!-- <img src="images/splash-4.jpg" class="hidden-sm hidden-md hidden-lg hidden-xl splash-img"/>
+        <img src="images/splash-3.jpg" class="hidden-xs splash-img"/> -->
+        <div class="search-overlay-text">
+          <div class="col-xs-12">
+            <div class="search-overlay-text-inner">
+              <!-- <span class="find-ll-text">Request a Laundry Pickup</span> -->
+              <span class="find-ll-text">&nbsp;</span>
+            </div>
+            
+          </div>
+          <div class="col-xs-12 col-md-6 col-md-offset-3">
+            <div class="input-group mb-2 mr-sm-2 mb-sm-0 first-search-input">
+              <input (focus)="loadFirstSerch()" #firstSearchInput type="text" class="form-control first-address-input" id="inlineFormInputGroup" placeholder="Enter Your Address">
+              <div class="input-group-addon">&nbsp;<i class="fa fa-chevron-right" aria-hidden="true"></i>&nbsp;</div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+
+    <div class="row locations-header">
+        <span>Learn More</span>
+      </div>
+
+    <div class="row how-to-row">
+      <div class="col-xs-12 col-lg-6 col-lg-offset-3">
+        <div class="col-xs-12 how-to-header">
+          <span class="how-to-header-text">How does it work?</span>
+        </div>
+        <div class="col-xs-12 col-sm-4 how-to-info-outer">
+          <img src="images/where2.jpg" class="how-to-img" />
+          <div class="how-to-info-wrapper">
+            <span class="how-to-info-header">The Where</span>
+            <span class="how-to-info">Start by entering you address</span>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 how-to-info-outer">
+          <img src="images/what.jpg" class="how-to-img" />
+          <div class="how-to-info-wrapper">
+            <span class="how-to-info-header">The What</span>
+            <span class="how-to-info">Select the pickup date you want and submit your order</span>
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 how-to-info-outer">
+          <img src="images/pickup.jpg" class="how-to-img" />
+          <div class="how-to-info-wrapper">
+            <span class="how-to-info-header">The When</span>
+            <span class="how-to-info">A service professional will pick up your laundry on the selected date</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div [hidden]="true" class="row steps-row">
+      <div class="col-xs-12 col-lg-8 col-lg-offset-2 steps-row-inner col-no-padding steps-text-wrapper-xs">
+        <div class="hidden-sm hidden-md hidden-lg hidden-xl col-xs-12 col-sm-7">
+          <div class="steps-header-div"><span>{{howToText}}</span></div>
+          <div><span>{{howToDesc}}</span></div>
+        </div>
+        <div class="hidden-xs col-sm-7">
+          <div class="steps-header-div"><span>{{howToText}}</span></div>
+          <div><span>{{howToDesc}}</span></div>
+        </div>
+        <div class="col-xs-12 col-sm-5 col-no-padding">
+          <img src="{{howToImg}}" class="steps-img"/>
+        </div>
+      </div>
+    </div>
+  
+    <!-- <div class="row locations-header">
+      <span>Now accepting pickups from the following locations</span>
+    </div>
+  
+    <div class="row">
+      <div class="search-img-wrapper-bottom col-xs-12">
+        <div class="search-overlay-text-bottom-full row">
+          <div class="row">
+            <div class="state">
+              Allegheny County
+            </div>
+          </div>
+  
+          <div *ngFor="let serviceAreaArrs of serviceAreas2dArr; let i = index" class="row">
+            <div *ngFor="let serviceArea of serviceAreas2dArr[i]" class="col-xs-6 col-sm-2 city">
+              {{serviceArea}}
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="state">
+              Butler County
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6 col-sm-2 city">
+              Adams
+            </div>
+            <div class="col-xs-6 col-sm-2 city">
+              Cranberry
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="state">
+              Westmoreland County
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-6 col-sm-2 city">
+              Hempfield
+            </div>
+            <div class="col-xs-6 col-sm-2 city">
+              Salem
+            </div>
+            <div class="col-xs-6 col-sm-2 city">
+              Unity
+            </div>
+          </div>
+  
+  
+        </div>
+      </div>
+    </div> -->
+  
+  
+  
+  </div>
+  
+  
+  
+  <div [hidden]="!hideFirstSearch" class="container container-bottom-padding container-pickup">
+    <div class="row locations">
+        <div class="col-xs-12 col-sm-6 col-sm-offset-3 col-md-6 col-md-offset-3">
+            <!-- <a (click)="goToDateSelection()" class="btn btn btn-brand-primary btn-request">Click to Request a Pickup</a> -->
+            <img *ngIf="locations && locations.length > 0" (click)="goToDateSelection()" class="pickup-img hidden-md hidden-lg hidden-xl" src="images/pickup-wash.jpg" />
+            <img *ngIf="locations && locations.length > 0" (click)="goToDateSelection()" class="pickup-img hidden-xs hidden-sm" src="images/pickup-wash.jpg" />
+            <!-- <a (click)="goToDateSelection()" class="btn btn btn-brand-primary btn-request">Click to Request a Pickup</a> -->
+            <div *ngIf="!locations || locations.length == 0" class="no-service">Service not available in your area</div>
+        </div>
+    </div>
+
+    <div class="navbar-fixed-bottom hidden-md hidden-lg hidden-xl">
+      <div class="container-fluid footer-nav-div">
+        <a class="btn btn-primary checkout-button hidden-md hidden-lg hidden-xl" href="javascript:void(0);" (click)="goToDateSelection()">Request a Laundry Pickup</a>
+      </div>
+    </div>
+  </div>

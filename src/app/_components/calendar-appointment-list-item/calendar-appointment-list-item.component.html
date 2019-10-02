@@ -1,0 +1,44 @@
+<div #appointmentContainer class="col-xs-12 apt-wrapper">
+  <div class="apt-img-wrapper">
+    <img class="apt-img" [imgSrc]="appointment.storefrontImageUrl" onerror="this.onerror=null;this.src='images/md-placholder.png';"/>
+  </div>
+  <div [style.font-size]="smallContainer ? '13px' : '14px'" class="apt-body">
+    <div class="apt-body-wrapper">
+      <span class="apt-date-span">09:00 AM</span>
+      
+      <span *ngIf="smallContainer && appointment.refunded && !appointment.fullyRefunded" class="pull-right partial-refund">PR</span>
+      <span *ngIf="smallContainer && appointment.refunded && appointment.fullyRefunded" class="pull-right full-refund">FR</span>
+
+      <span [style.font-size]="smallContainer ? '11px' : '12px'" *ngIf="!smallContainer && appointment.refunded && !appointment.fullyRefunded" class="pull-right partial-refund">P. Refunded</span>
+      <span [style.font-size]="smallContainer ? '11px' : '12px'" *ngIf="!smallContainer && appointment.refunded && appointment.fullyRefunded" class="pull-right full-refund">Refunded</span>
+
+      <span class="hidden-xs service-provider-sp-name span-block">{{appointment.storefrontName}} <i class="fa fa-arrow-right sp-arrow"></i> {{appointment.serviceProviderDisplayName}}</span>
+    </div>
+    <span *ngIf="appointment.refunded && !appointment.fullyRefunded" class="hidden-sm hidden-md hidden-lg hidden-xl partial-refund-sm">Partially Refunded</span>
+    <span *ngIf="appointment.refunded && appointment.fullyRefunded" class="hidden-sm hidden-md hidden-lg hidden-xl full-refund-sm">Refunded</span>
+    <div class="apt-price-status-div">
+      <span *ngIf="!tinyContainer" class="status-span pull-right">
+        <span *ngIf="appointment.status == 'SCHEDULED'" class="apt-status-val scheduled">Scheduled</span>
+        <span *ngIf="appointment.status == 'CANCELLED_BY_USER'" class="apt-status-val cancelled">Cancelled</span>
+        <span *ngIf="appointment.status == 'CANCELLED_BY_SERVICE_PROVIDER_SP_UNAVAILABLE'" class="apt-status-val cancelled">Cancelled</span>
+        <span *ngIf="appointment.status == 'CANCELLED_BY_SERVICE_PROVIDER_CUSTOMER_NO_SHOW'" class="apt-status-val cancelled">No Show</span>
+        <span *ngIf="appointment.status == 'PAYMENT_ERROR'" class="apt-status-val cancelled">Failed</span>
+        <span *ngIf="appointment.status == 'IN_PROGRESS'" class="apt-status-val something">In Progress</span>
+        <span *ngIf="appointment.status == 'COMPLETE'" class="apt-status-val complete">Complete</span>
+      </span>
+
+      <span *ngIf="tinyContainer" class="status-span pull-left">
+        <span *ngIf="appointment.status == 'SCHEDULED'" class="apt-status-val scheduled">Scheduled</span>
+        <span *ngIf="appointment.status == 'CANCELLED_BY_USER'" class="apt-status-val cancelled">Cancelled</span>
+        <span *ngIf="appointment.status == 'CANCELLED_BY_SERVICE_PROVIDER_SP_UNAVAILABLE'" class="apt-status-val cancelled">Cancelled</span>
+        <span *ngIf="appointment.status == 'CANCELLED_BY_SERVICE_PROVIDER_CUSTOMER_NO_SHOW'" class="apt-status-val cancelled">No Show</span>
+        <span *ngIf="appointment.status == 'PAYMENT_ERROR'" class="apt-status-val cancelled">Failed</span>
+        <span *ngIf="appointment.status == 'IN_PROGRESS'" class="apt-status-val something">In Progress</span>
+        <span *ngIf="appointment.status == 'COMPLETE'" class="apt-status-val complete">Complete</span>
+      </span>
+      
+      <span *ngIf="!tinyContainer" class="price-span pull-left">${{appointment.price}}</span>
+      
+    </div>
+  </div>
+</div>

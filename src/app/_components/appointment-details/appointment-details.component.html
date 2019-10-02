@@ -1,0 +1,625 @@
+<div class="container checkout-container hidden-xs hidden-sm hidden-md">
+  <div class="col-lg-12">
+    <div class="col-lg-8">
+      <div *ngIf="showPaymentErrorAlert();" class="alert alert-danger">
+        <strong>Alert: </strong> Your payment method could not be processed. Please update your payment method so your order can be processed.
+      </div> 
+
+      <div class="appointment-info-div">
+        <div class="appointment-info-header-div">
+          <div class="appointment-details-header-text">
+            Appointment Details
+          </div>
+        </div>
+        <hr class="checkout-hr"/>
+        <div class="details-info-div">
+          <div>
+            <div class="appointment-type margin-btm-sm">
+              <span class="appointment-type">Appointment ID: <span class="appointment-details-text-secondary">{{checkoutViewDTO.guid}}</span></span>
+              <span class="status-span pull-right">
+                <span *ngIf="checkoutViewDTO.status == 'SCHEDULED'" class="apt-status-val scheduled">Scheduled for Pickup</span>
+                <span *ngIf="checkoutViewDTO.status == 'CANCELLED_BY_USER'" class="apt-status-val cancelled">Cancelled</span>
+                <span *ngIf="checkoutViewDTO.status == 'CANCELLED_BY_SERVICE_PROVIDER_SP_UNAVAILABLE'" class="apt-status-val cancelled">Cancelled</span>
+                <span *ngIf="checkoutViewDTO.status == 'CANCELLED_BY_SERVICE_PROVIDER_CUSTOMER_NO_SHOW'" class="apt-status-val cancelled">No Show</span>
+                <span *ngIf="checkoutViewDTO.status == 'PAYMENT_ERROR'" class="apt-status-val cancelled">Payment Error</span>
+                <span *ngIf="checkoutViewDTO.status == 'IN_PROGRESS'" class="apt-status-val something">IN PROGRESS</span>
+                <span *ngIf="checkoutViewDTO.status == 'COMPLETE'" class="apt-status-val complete">Complete</span>
+              </span>
+          </div>
+          <div class="appointment-type margin-btm-sm">
+            <span *ngIf="checkoutViewDTO.periodType" class="appointment-type">Repeats: <span class="appointment-details-text first-cap">{{checkoutViewDTO.periodType}}</span></span>
+          </div>
+          
+          <div class="appointment-date margin-btm-sm">
+              <span *ngIf="enableTimeSelection" class="appointment-date">Appointment Date: <span class="appointment-details-text">{{checkoutViewDTO.appointmentDateAndTime}}</span></span>
+              <span *ngIf="!enableTimeSelection" class="appointment-date">Appointment Date: <span class="appointment-details-text">{{checkoutViewDTO.appointmentDate}}</span></span>
+          </div>
+          <div class="appointment-sp margin-btm-sm">
+              <span *ngIf="canEditNote();" (click)="openAddNoteModal();" class="appointment-sp pull-right note-lnk"><i class="fa fa-plus-circle" aria-hidden="true"></i > Edit note</span>
+              <span *ngIf="checkoutViewDTO.staffSelected" class="appointment-sp">Appointment Service Provider: <span class="appointment-details-text">{{checkoutViewDTO.serviceProviderDisplayName}}</span></span>
+              <span *ngIf="!checkoutViewDTO.staffSelected" class="appointment-sp">Appointment Service Provider: <span class="appointment-details-text">Any Staff</span></span>
+          </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="appointment-info-div">
+        <div class="appointment-info-header-div">
+          <div class="appointment-location-details-header-div-inner">
+            <span class="appointment-location-details-header-text">Additional Options</span>
+            <div class="appointment-location-details-edit">
+              <!--<a *ngIf="canEditLocation()" (click)="openCustomizations();" href="javascript:void(0);">Edit</a>-->
+            </div>
+          </div>
+        </div>
+        <hr class="checkout-hr"/>
+        <div class="details-info-div">
+          <div *ngIf="checkoutViewDTO.orderCustomizationGroups.length == 0">
+            <span class="additional-options-span span-block">No additional options selected</span>
+          </div>
+          <div class="customization-div">
+            <app-order-customizations [orderCustomizationGroups]="checkoutViewDTO.orderCustomizationGroups"></app-order-customizations>
+          </div>
+        </div>
+      </div>
+
+      <div class="appointment-info-div">
+        <div class="appointment-info-header-div">
+          
+          <div class="appointment-payment-details-header-div-inner">
+            <span class="appointment-payment-details-header-text">Payment Details</span>
+            <div class="appointment-payment-details-edit">
+              <a *ngIf="!editingPaymentMethod && canEditPaymentDetails();" (click)="editPaymentMethod();" href="javascript:void(0);">Edit</a>
+              <a *ngIf="editingPaymentMethod && !paymentMethodUpdateSubmitted" class="cancel-edit-payment" (click)="cancelEditPaymentMethd();" href="javascript:void(0);">Cancel</a>
+              <button [disabled]="paymentMethodUpdateSubmitted" *ngIf="editingPaymentMethod" (click)="confirmUpdatePaymentMethod();" class="btn btn-brand-primary">Select</button>
+            </div>
+          </div>
+        </div>
+        <hr class="checkout-hr"/>
+        <div [hidden]="editingPaymentMethod" class="card-details-div">
+          <img [pmImgSrc]="checkoutViewDTO.paymentMethodType" class="card-img"/>
+          <span class="hidden-sm hidden-md hidden-lg hidden-xl card-details-span">&nbsp;&nbsp;*******{{checkoutViewDTO.paymentMethodLast4}}</span>
+          <span class="card-details-span hidden-xs">&nbsp;&nbsp;{{formatPaymentMethodTypeStr(checkoutViewDTO.paymentMethodType)}} card ending in {{checkoutViewDTO.paymentMethodLast4}}</span>
+        </div>
+
+        <ng-container *ngIf="editingPaymentMethod">
+          <div class="cc-header-div">
+            <span class="cc-header-div-text pull-left">Credit Cards</span>
+            <span (click)="openAddPaymentMethod();" class="cc-header-div-add pull-right">+ Add a new credit card</span>
+          </div>
+          <div class="row ten-px-offset" *ngFor="let userPaymentMethod of userPaymentMethodListResultDTO.paymentMethods">
+            <div class="col-xs-12 edit-card-details-div radio">
+              <label (click)="setCardGuidForUpdate(userPaymentMethod.guid); this.checked= 'true'" class="col-xs-12"><input type="radio" name="optradiolg" [checked]="userPaymentMethod.guid == cardGuidSelectedForUpdate">
+                <div class="col-xs-6 col-no-padding card-details-wrapper">
+                  <img [pmImgSrc]="userPaymentMethod.paymentMethodType" class="card-img"/>
+                  <span class="hidden-sm hidden-md hidden-lg hidden-xl card-details-span">&nbsp;&nbsp;*******{{userPaymentMethod.lastFour}}</span>
+                  <span class="card-details-span hidden-xs">&nbsp;&nbsp;{{formatPaymentMethodTypeStr(userPaymentMethod.paymentMethodType)}} card ending in {{userPaymentMethod.lastFour}}</span>
+                </div>
+                <div class="col-xs-6 card-info-wrapper">
+                  <span class="hidden-xs card-expiration-span">Expires {{formatExpirationDate(userPaymentMethod.expirationDate)}}</span>
+                  <span class="hidden-sm hidden-md hidden-lg hidden-xl card-details-span">Exp {{formatExpirationDate(userPaymentMethod.expirationDate)}}</span>                  
+                </div>
+              </label>
+            </div>   
+            <hr/>
+          </div>
+        </ng-container>
+      </div>
+
+      <div *ngIf="showEditGiftCardSection" class="appointment-info-div">
+        <div class="appointment-info-header-div">
+          <div class="appointment-location-details-header-div-inner">
+            <span class="appointment-location-details-header-text">Gift Cards</span>
+            <div class="appointment-location-details-edit">
+              <a (click)="openGiftCardModal();" href="javascript:void(0);">Edit</a>
+            </div>
+          </div>
+        </div>
+        <hr class="checkout-hr"/>
+        <div class="details-info-div">
+          <div>
+            <span class="additional-options-span span-block">
+              <i class="fa fa-lg fa-gift gc-icon" aria-hidden="true"></i> &nbsp; 
+              <span (click)="openGiftCardModal();" *ngIf="!checkoutViewDTO.applyGiftCardBalance" class="gc-txt-span-lg pointer">Apply a gift card</span>
+              <span (click)="openGiftCardModal();" *ngIf="checkoutViewDTO.applyGiftCardBalance" class="gc-txt-span-lg pointer">Gift card balance applied (${{gcBalance}})</span>
+              <span class="pull-right">&nbsp;<i [popover]="gcPopover" class="fa fa-info-circle info-icon" aria-hidden="true"></i>
+                <popover-content #gcPopover 
+                  title="Gift Card Balance" 
+                  placement="left"
+                  [animation]="true" 
+                  [closeOnClickOutside]="true" >
+                  Gift card balances are deducted from the total after the order has been processed.
+          </popover-content></span>
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="appointment-info-div">
+        <div class="appointment-info-header-div">
+          
+          <div class="appointment-location-details-header-div-inner">
+            <span class="appointment-location-details-header-text">Location Details</span>
+            <div class="appointment-location-details-edit">
+              <a *ngIf="canEditLocation()" (click)="openCreateSavedSearchAddressModal();" href="javascript:void(0);">Edit</a>
+            </div>
+          </div>
+        </div>
+        <hr class="checkout-hr"/>
+        <div class="map-address-wrapper">
+          <div class="appointment-location-address">
+            <span class="address-1">{{checkoutViewDTO.address1}}, {{checkoutViewDTO.address2}}</span>
+            <span class="address-2">{{checkoutViewDTO.city}}, {{checkoutViewDTO.state}} {{checkoutViewDTO.zip}}</span>
+            <!--<span class="address-name">Michael James</span>-->
+          </div>
+          <div class="map-div">
+              <sebm-google-map [latitude]="lat" [longitude]="lng" [scrollwheel]="false" [zoom]="zoom" [styles]="styles" 
+                [streetViewControl]="false" [zoomControl]="false" [scaleControl]="false" [fullscreenControl]="false" 
+                [draggable]="false" [scrollwheel]="false" [disableDoubleClickZoom]="true">
+              <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
+            </sebm-google-map>
+          </div>
+        </div>
+      </div>
+      
+    </div>
+    <div class="col-lg-4">
+        <app-order-summary [buttonText]="" [buttonAction]="" [subtotal]="checkoutViewDTO.subtotal" [bookingFee]="checkoutViewDTO.bookingFee" 
+        [tax]="checkoutViewDTO.tax" [giftCardAmountApplied]="checkoutViewDTO.giftCardAmountApplied" 
+        [total]="checkoutViewDTO.total" [showPaymentMethodMissingWarning]="!checkoutViewDTO.paymentMethodLast4"
+        [showEstimatedCost]="true" [appointmentDate]="" [affix]="false"
+        [refunded]="checkoutViewDTO.refunded" [cumulativeTotalRefundAmount]="checkoutViewDTO.cumulativeTotalRefundAmount"
+        [cumulativeConvenienceFeeRefundAmount]="checkoutViewDTO.cumulativeConvenienceFeeRefundAmount"
+        [cumulativeSubtotalotalRefundAmount]="checkoutViewDTO.cumulativeSubtotalotalRefundAmount"
+        [cancellationFee]="checkoutViewDTO.cancellationFee" [estimatedTotal]="estimatedTotal" [cumulativeGiftCardAmountAppliedRefundAmount]="checkoutViewDTO.cumulativeGiftCardAmountAppliedRefundAmount"></app-order-summary>
+      <!-- <div class="appointment-info-div order-summary-div">
+        <div class="appointment-info-header-div">
+          
+          <div class="appointment-location-details-header-div-inner">
+            <span class="appointment-location-details-header-text">Order Summary</span>
+          </div>
+        </div>
+        <hr class="checkout-hr"/>
+        <div class="">
+          <div *ngIf="checkoutViewDTO.cancellationFee > 0" class="subtotal-div font-weight-bold danger-text">
+            <span class="subtotal-amount pull-right">${{checkoutViewDTO.cancellationFee}}</span>
+            <span class="subtotal">Cancellation Fee</span>
+          </div>
+          <div class="subtotal-div">
+            <span class="subtotal-amount pull-right">${{checkoutViewDTO.subtotal}}</span>
+            <span class="subtotal">Subtotal</span>
+          </div>
+          <div class="booking-fee-div">
+            <span class="booking-fee-amount pull-right">${{checkoutViewDTO.bookingFee}}</span>
+            <span class="booking-fee">Booking Fee &nbsp;<i [popover]="bookingFeePopover" class="fa fa-info-circle info-icon" aria-hidden="true"></i>
+              <popover-content #bookingFeePopover #bkpop 
+                title="Booking Fee" 
+                placement="top"
+                [animation]="true" 
+                [closeOnClickOutside]="true" >
+            A booking fee will be charged to all orders.
+        </popover-content></span>
+          </div>
+          <div class="tax-div">
+            <span class="tax-amount pull-right">${{checkoutViewDTO.tax}}</span>
+            <span class="tax">Tax</span>
+          </div>
+          <hr class="checkout-hr"/>
+          <div class="total-div">
+            <span class="total-amount pull-right">${{checkoutViewDTO.total}}</span>
+            <span class="total">Total</span>
+          </div>
+          <div *ngIf="checkoutViewDTO.refunded" class="refund-div">
+            <span class="refund-amount pull-right">-${{checkoutViewDTO.cumulativeTotalRefundAmount}}</span>
+            <span class="refund"><span class="red">Refunded</span> &nbsp;<i [popover]="refundPopover" class="fa fa-info-circle info-icon" aria-hidden="true"></i>
+              <popover-content #refundPopover #bkpop 
+                title="Refund" 
+                placement="right"
+                [animation]="true" 
+                [closeOnClickOutside]="true" >
+                  Booking fee: -${{checkoutViewDTO.cumulativeConvenienceFeeRefundAmount}} <br/>
+                  Subtotal: -${{checkoutViewDTO.cumulativeSubtotalotalRefundAmount}}
+              </popover-content>
+            </span>
+          </div>
+        </div>
+      </div> -->
+      
+      <button *ngIf="showCancelButton" [disabled]="cancelOrderSubmitted" (click)="confirmCancelOrder();" class="btn btn-danger complete-order-btn">Cancel Order<i *ngIf="cancelOrderSubmitted" class="fa fa-spinner fa-spin spinner-padding" aria-hidden="true"></i></button>
+    </div>
+
+    <div *ngIf="checkoutViewDTO.services && checkoutViewDTO.services.length > 0" class="col-lg-8">
+      <div class="col-lg-12 appointment-info-div">
+        <div class="col-lg-12 col-no-padding appointment-info-header-div">
+          
+          <div class="col-lg-12 col-no-padding appointment-payment-details-header-div-inner">
+            <span class="appointment-payment-details-header-text">Order Details</span>
+          </div>
+        </div>
+        <div class="col-lg-12 col-no-padding">
+          <hr class="checkout-hr"/>
+        </div>
+        <div class="col-xs-12 col-no-padding services-div">
+          <div *ngFor="let service of checkoutViewDTO.services; let i = index" class="col-xs-12 col-md-12 col-no-padding service-div">
+            <!-- Misc item -->
+            <div *ngIf="i == 0 && checkoutViewDTO.miscCost > 0" class="service-div-inner">
+              <div class="service-text">
+                <div class="service-name">
+                  Misc. Item
+                </div>
+                <div class="service-short-description">
+                  {{checkoutViewDTO.miscCostDescription}}
+                </div>
+                <div class="service-price-div">
+                  <span class="service-price">${{checkoutViewDTO.miscCost}}</span>
+                  <span class="mobile-service-qty-span span-block">1x</span>
+                </div>
+              </div>
+            </div>
+            <div class="service-div-inner">
+              <div class="service-text">
+                <div class="service-name">
+                  {{service.name}}
+                </div>
+                <div class="service-short-description">
+                  {{service.description}}
+                </div>
+                <div class="service-price-div">
+                  <span class="service-price">${{service.price}}<span class="qty-desc" *ngIf="service.quantityDescription">/{{service.quantityDescription}}</span></span>
+                  <span class="mobile-service-qty-span span-block">{{service.quantity}}x</span>
+                </div>
+              </div>
+              <div *ngIf="service.imgUrl" class="service-img-div">
+                <img class="service-img" [imgSrc]="service.imgUrl" onerror="this.onerror=null;this.src='images/md-placholder.png';" (click)="showServiceDetails();">
+              </div>
+            </div>
+          </div>
+      </div>
+
+    </div>
+
+    
+
+      </div>
+  </div>
+</div>
+
+<!-- Mobile version -->
+
+<div class="mobile-container col-xs-12 hidden-lg hidden-xl">
+  <div class="row">
+    <div class="mobile-shop-apt-header col-xs-12">
+      <span class="mobile-shop-name">
+        <!--Mingo Styles-->
+        {{checkoutViewDTO.baseDiaplayName}}
+      </span>
+      <span *ngIf="checkoutViewDTO.staffSelected" class="mobile-appointment-info">
+          <span *ngIf="enableTimeSelection">{{checkoutViewDTO.appointmentDateAndTime}} &#183; {{checkoutViewDTO.serviceProviderDisplayName}}</span>
+          <span *ngIf="!enableTimeSelection">{{checkoutViewDTO.appointmentDate}} &#183; {{checkoutViewDTO.serviceProviderDisplayName}}</span>
+      </span>
+      <span *ngIf="!checkoutViewDTO.staffSelected" class="mobile-appointment-info">
+          <span *ngIf="enableTimeSelection">{{checkoutViewDTO.appointmentDateAndTime}} &#183; Any Staff</span>
+          <span *ngIf="!enableTimeSelection">{{checkoutViewDTO.appointmentDate}} &#183; Any Staff</span>
+      </span>
+      <span *ngIf="checkoutViewDTO.periodType" class="mobile-appointment-info first-cap">
+        Repeats: <span class="first-cap">{{checkoutViewDTO.periodType}}</span>
+      </span>
+      <span class="mobie-apointment-info-underline">
+        ___
+      </span>
+    </div>
+  </div>
+  <div class="row mobile-row-section">
+    <div class="mobile-map-section-div col-xs-12">
+        <div class="row">
+          <div class="col-xs-5 mobile-map-address-div">
+            <sebm-google-map [latitude]="lat" [longitude]="lng" [scrollwheel]="false" [zoom]="zoom" [styles]="styles" 
+                [streetViewControl]="false" [zoomControl]="false" [scaleControl]="false" [fullscreenControl]="false" 
+                [draggable]="false" [scrollwheel]="false" [disableDoubleClickZoom]="true">
+                <sebm-google-map-marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
+              </sebm-google-map>
+          </div>
+          <div class="col-xs-7 mobile-address-div">
+            <div class="mobile-address-container">
+              <span class="mobile-city-name span-block">{{checkoutViewDTO.city}}</span>
+              <span class="mobile-street-address1 span-block">{{checkoutViewDTO.address1}}, {{checkoutViewDTO.address2}}</span>
+              <span class="mobile-street-address2 span-block">{{checkoutViewDTO.city}}, {{checkoutViewDTO.state}} {{checkoutViewDTO.zip}}</span>
+            </div>
+            <div class="mobile-edit-address-container">
+              <span *ngIf="canEditLocation()" (click)="openCreateSavedSearchAddressModal();" class="mobile-street-address1 span-block">Edit address...</span>
+            </div>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  </div>
+    
+  <div *ngIf="!inReview" class="row mobile-row-section">
+    <div class="col-xs-12">
+      <span class="apt-status">Order ID </span>
+      <span class="apt-id-val mobile-id-color">{{checkoutViewDTO.guid}}</span>
+    </div>
+  </div>
+  <div *ngIf="!inReview" class="row mobile-row-section">
+    <div class="col-xs-12">
+      <span class="apt-status">Status </span>
+      <span class="status-span pull-right">
+        <span *ngIf="checkoutViewDTO.status == 'SCHEDULED'" class="apt-status-val scheduled">Scheduled for Pickup</span>
+        <span *ngIf="checkoutViewDTO.status == 'CANCELLED_BY_USER'" class="apt-status-val cancelled">Cancelled</span>
+        <span *ngIf="checkoutViewDTO.status == 'CANCELLED_BY_SERVICE_PROVIDER_SP_UNAVAILABLE'" class="apt-status-val cancelled">Cancelled</span>
+        <span *ngIf="checkoutViewDTO.status == 'CANCELLED_BY_SERVICE_PROVIDER_CUSTOMER_NO_SHOW'" class="apt-status-val cancelled">No Show</span>
+        <span *ngIf="checkoutViewDTO.status == 'PAYMENT_ERROR'" class="apt-status-val cancelled">Payment Error</span>
+        <span *ngIf="checkoutViewDTO.status == 'PENDING'" class="apt-status-val pending">PENDING</span>
+        <span *ngIf="checkoutViewDTO.status == 'IN_PROGRESS'" class="apt-status-val something">IN PROGRESS</span>
+        <span *ngIf="checkoutViewDTO.status == 'COMPLETE'" class="apt-status-val complete">Complete</span>
+      </span>
+    </div>
+  </div>
+  <div *ngIf="!inReview" class="row mobile-row-section">
+    <div class="col-xs-12">
+      <div>
+        <span><b>Additional Options</b></span>
+        <span *ngIf="checkoutViewDTO.orderCustomizationGroups.length == 0" class="additional-options-span span-block">No additional options selected</span>
+      </div>
+      <app-order-customizations [orderCustomizationGroups]="checkoutViewDTO.orderCustomizationGroups"></app-order-customizations>
+    </div>
+  </div>
+  <div class="row mobile-row-section" *ngFor="let service of checkoutViewDTO.services; let i = index" >
+    <!-- misc service -->
+    <div *ngIf="i == 0 && checkoutViewDTO.miscCost > 0" class="col-xs-12">
+      <div class="mobile-service-name-qty-div-no-img pull-left">
+        <span class="mobile-service-name-span span-block">Misc. Item &nbsp;<i [popover]="smBookingFeePopover" class="fa fa-info-circle info-icon" aria-hidden="true"></i></span>
+          <popover-content #smBookingFeePopover 
+                title="Description" 
+                placement="right"
+                [animation]="true" 
+                [closeOnClickOutside]="true" >
+            {{checkoutViewDTO.miscCostDescription}}
+        </popover-content>
+        <span class="mobile-service-qty-span">1x</span>
+      </div>
+      <div class="mobile-service-price-div pull-right">
+        <span class="pull-right mobile-service-price">${{checkoutViewDTO.miscCost}}</span>
+        
+      </div>
+    </div>
+    <div class="col-xs-12">
+      <div *ngIf="service.imgUrl" class="mobile-service-img-div pull-left"><img [imgSrc]="service.imgUrl" onerror="this.onerror=null;this.src='images/md-placholder.png';" class="mobile-service-img"/></div>
+      <div [ngClass]="service.imgUrl ? 'mobile-service-name-qty-div' : 'mobile-service-name-qty-div-no-img'" class="pull-left">
+        <span class="mobile-service-name-span span-block">{{service.name}}</span>
+        <span class="mobile-service-qty-span span-block">{{service.quantity}}x</span>
+      </div>
+      <div class="mobile-service-price-div pull-right"><span class="pull-right mobile-service-price">${{service.price}}<span class="qty-desc" *ngIf="service.quantityDescription">/{{service.quantityDescription}}</span></span></div>
+    </div>
+  </div>
+  <div class="row mobile-row-section">
+    <div class="col-xs-12">
+      <div *ngIf="checkoutViewDTO.cancellationFee > 0" class="subtotal-div danger-text">
+        <span class="subtotal-amount pull-right">${{checkoutViewDTO.cancellationFee}}</span>
+        <span class="subtotal">Cancellation Fee</span>
+      </div>
+      <div class="subtotal-div">
+        <span class="subtotal-amount brand-dark-color pull-right">${{checkoutViewDTO.subtotal}}</span>
+        <span class="subtotal">Subtotal</span>
+      </div>
+      <div class="booking-fee-div">
+        <span class="booking-fee-amount brand-dark-color pull-right">${{checkoutViewDTO.bookingFee}}</span>
+        <span class="booking-fee">Booking Fee &nbsp;<i [popover]="smBookingFeePopover" class="fa fa-info-circle info-icon" aria-hidden="true"></i></span>
+          <popover-content #smBookingFeePopover 
+                title="Booking Fee" 
+                placement="right"
+                [animation]="true" 
+                [closeOnClickOutside]="true" >
+            A booking fee will be charged to all orders.
+        </popover-content>
+      </div>
+      <div class="tax-div">
+        <span class="tax-amount pull-right brand-dark-color">${{checkoutViewDTO.tax}}</span>
+        <span class="tax">Tax</span>
+      </div>
+    </div>
+  </div>
+  <div class="row mobile-row-section">
+  <div *ngIf="checkoutViewDTO.giftCardAmountApplied > 0" class="col-xs-12 mobile-total-div mobile-refund-div">
+      <span class="total-amount pull-right gc-amount">-${{checkoutViewDTO.giftCardAmountApplied}}</span>
+      <span class="total">Gift Card <i [popover]="gcAppliedPopoverMobile" class="fa fa-info-circle info-icon" aria-hidden="true"></i></span>
+      <popover-content #gcAppliedPopoverMobile
+            title="Gift Card Applied" 
+            placement="right"
+            [animation]="true" 
+            [closeOnClickOutside]="true" >
+        This is the amount that will be applied to the order from the gift card. For unprocessed orders, this is an estimated amount.
+      </popover-content>
+
+      <div *ngIf="checkoutViewDTO.cumulativeGiftCardAmountAppliedRefundAmount > 0" class="refund-div">
+        <span class="refund-amount pull-right">-${{checkoutViewDTO.cumulativeGiftCardAmountAppliedRefundAmount}}</span>
+        <span class="refund"><span class="red">Gift Card Refunded</span>
+        </span>
+      </div>
+
+    </div>
+    <div class="col-xs-12 mobile-total-div">
+      <span class="total-amount pull-right">${{checkoutViewDTO.total}}</span>
+      <span class="total">Total</span>
+    </div>
+    <div *ngIf="checkoutViewDTO.refunded" class="col-xs-12 mobile-total-div refund-div">
+            <span class="refund-amount pull-right">-${{checkoutViewDTO.cumulativeTotalRefundAmount}}</span>
+            <span class="refund"><span class="red">Refunded</span>
+            </span>
+          </div>
+  </div>
+  <div *ngIf="canEditNote();"class="row mobile-row-section">
+    <div class="col-xs-12">
+      <span (click)="openAddNoteModal();" class="mobile-note-span">Add a note...</span>
+    </div>
+  </div>
+  <div *ngIf="showEditGiftCardSection" class="row mobile-row-section">
+    <div class="col-xs-12">
+      <span class="mobile-note-span">
+          <div class="pull-right">
+              <a class="edit-gc-balance" (click)="openGiftCardModal();" href="javascript:void(0);">Edit</a>
+            </div>
+        <i class="fa fa-gift" aria-hidden="true"></i> &nbsp; 
+        <span (click)="openGiftCardModal();" *ngIf="!checkoutViewDTO.applyGiftCardBalance" class="gc-txt-span-dark">Apply a gift card</span>
+        
+        <span *ngIf="checkoutViewDTO.applyGiftCardBalance" class="gc-txt-span">Gift card balance applied (${{gcBalance}})</span>
+        <span *ngIf="checkoutViewDTO.applyGiftCardBalance" class="">&nbsp;<i [popover]="gcPopoverMobile" class="fa fa-info-circle info-icon" aria-hidden="true"></i>
+          <popover-content #gcPopoverMobile 
+            title="Gift Card Balance" 
+            placement="top"
+            [animation]="true" 
+            [closeOnClickOutside]="true" >
+            Gift card balances are deducted from the total after the order has been processed.
+    </popover-content></span>
+      </span>
+    </div>
+  </div>
+  <div class="row mobile-row-section">
+    <div *ngIf="!editingPaymentMethod" (click)="canEditPaymentDetails() && editPaymentMethod()" class="col-xs-12">
+      <img [pmImgSrc]="checkoutViewDTO.paymentMethodType" class="mobile-card-img"/>
+      <span class="mobile-card-details-span pull-right">************{{checkoutViewDTO.paymentMethodLast4}}</span>
+    </div>
+
+    <div class="col-xs-12" *ngIf="editingPaymentMethod">
+          <div class="cc-header-div">
+            <span class="cc-header-div-text pull-left">Credit Cards</span>
+            <span (click)="openAddPaymentMethod();" class="cc-header-div-add pull-right">+ Add a new credit card</span>
+          </div>
+          <div class="row ten-px-offset" *ngFor="let userPaymentMethod of userPaymentMethodListResultDTO.paymentMethods">
+            <div class="col-xs-12 edit-card-details-div radio">
+              <label (click)="setCardGuidForUpdateMobile(userPaymentMethod.guid, $event);" class="col-xs-12"><input type="radio" name="optradio" [checked]="userPaymentMethod.guid == cardGuidSelectedForUpdate">
+                <div class="col-xs-7 col-no-padding card-details-wrapper">
+                  <img [pmImgSrc]="userPaymentMethod.paymentMethodType" class="card-img"/>
+                  <span class="hidden-sm hidden-md hidden-lg hidden-xl card-details-span">&nbsp;&nbsp;*******{{userPaymentMethod.lastFour}}</span>
+                  <span class="card-details-span hidden-xs">&nbsp;&nbsp;{{formatPaymentMethodTypeStr(userPaymentMethod.paymentMethodType)}} card ending in {{userPaymentMethod.lastFour}}</span>
+                </div>
+                <div class="col-xs-5 card-info-wrapper">
+                  <span class="pull-right card-details-span">{{formatExpirationDate(userPaymentMethod.expirationDate)}}</span>                  
+                </div>
+              </label>
+            </div>   
+            <hr/>
+          </div>
+          <button (click)="cancelEditPaymentMethd();" class="btn btn-xs btn-brand-primary">Cancel</button>
+        </div>
+  </div>
+  <br/>
+
+</div>
+
+<div *ngIf="showCancelButton" class="col-xs-12 hidden-lg hidden-xl navbar-fixed-bottom col-no-padding">
+  <div class="container-fluid footer-nav-div">
+    <button *ngIf="showCancelButton" (click)="confirmCancelOrder();" [disabled]="cancelOrderSubmitted" class="btn btn-danger checkout-button">Cancel Order<i *ngIf="cancelOrderSubmitted" class="fa fa-spinner fa-spin spinner-padding" aria-hidden="true"></i></button>
+  </div>
+
+  <div id="homeClickCheckout" [hidden]="true" class="homeClick" (click)="searchHomeSavedSearch();"></div>
+  <div id="workClickCheckout" [hidden]="true" class="homeClick" (click)="searchWorkSavedSearch();"></div>
+</div>
+
+  <modal #modalAddNote [size]="lg">
+    <modal-header [ngClass]="'edit-user-modal-header'" [show-close]="true">
+      <h4>Add appointment note</h4>
+    </modal-header>
+    <modal-body [ngClass]="'service-modal-body'">
+      <textarea class="form-control" rows="5" id="comment" [(ngModel)]="tempAppointmentNote"></textarea>
+        
+    </modal-body>
+    <modal-footer>
+      <button type="button" class="btn btn-default" (click)="modalAddNote.close();">Cancel</button>
+      <button type="button" class="btn btn-brand-primary" (click)="addAppointmentNote();">&nbsp;Save&nbsp;</button>
+    </modal-footer>
+    
+  </modal>
+
+  <modal #modalEditLocation [size]="lg">
+    <modal-header [ngClass]="'edit-saved-search-address-modal-header'" [show-close]="true">
+      <h4>Edit Location</h4>
+    </modal-header>
+    <modal-body [ngClass]="'service-modal-body'">
+      <!--<input (focus)="resetSavedSearchAddresses();" type="text" class="form-control" id="searchSavedAddress" name="searchSavedAddress" #searchSavedAddress [(ngModel)]="currentAddress" placeholder="Address"/>-->
+      <app-places-auto-complete [mapLocationDTO]="toMapLocationDTO"></app-places-auto-complete>
+    </modal-body>
+    <modal-footer>
+      <button type="button" class="btn btn-default" (click)="modalEditLocation.close();">Cancel</button>
+    </modal-footer>
+  </modal>
+
+  <modal #addPaymentMethod [size]="lg">
+    <modal-header [ngClass]="'edit-saved-search-address-modal-header'" [show-close]="!paymentMethodUpdateSubmitted">
+      <h4>Add Payment Method</h4>
+    </modal-header>
+    <modal-body [ngClass]="'service-modal-body'">
+      <div class="col-xs-12 col-no-padding">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <span class="panel-title">Payment Details</span>
+            <img class="pull-right cc-img" src="http://i76.imgup.net/accepted_c22e0.png">
+          </div>
+          <div class="panel-body">
+            <form role="form" id="payment-form" (submit)="confirmGetCardData(addPaymentMethodForm.valid)" #addPaymentMethodForm="ngForm" novalidate>
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <div class="input-group">
+                      <input [(ngModel)]="model.number" name="number" #number type="text" class="form-control" id="cardNumber" placeholder="Valid Card Number" required autofocus data-stripe="number" />
+                      <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                    </div>
+                    <div *ngIf="formErrors.number" class="alert alert-danger">
+                      {{ formErrors.number }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-7 col-md-7">
+                  <label class="hidden-sm hidden-md hidden-lg hidden-xl" for="month">Expiration Date</label>
+                  <label class="hidden-xs" for="month">Expiration Date</label>
+                  <div class="form-group">
+                    <div class="col-xs-6 col-lg-6 pl-ziro no-left-padding">
+                      <select class="form-control show-date-sm-date-select" [(ngModel)]="model.month" id="month" name="month" required>
+                        <option *ngFor="let cardMonth of months" [selected]="cardMonth == 01">{{cardMonth}}</option>
+                      </select>
+                    </div>
+                    <div class="col-xs-6 col-lg-6 pl-ziro col-no-padding">
+                      <select class="form-control show-date-sm-date-select" [(ngModel)]="model.year" id="year" name="year" required>
+                        <option *ngFor="let cardYear of years" [selected]="cardYear == currentYear" >{{cardYear}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-5 col-md-5 pull-right">
+                  <div class="form-group">
+                    <label for="cvCode">CVV</label>
+                    <input [(ngModel)]="model.cvv" name="cvv" #cvv type="password" class="form-control" id="cvCode" placeholder="CVV" required [maxlength]="4" data-stripe="cvc" />
+                  </div>
+                </div>
+                <div *ngIf="formErrors.month || formErrors.year || formErrors.cvv" class="alert alert-danger">
+                  <span *ngIf="formErrors.month">{{ formErrors.month }}<br/></span>
+                  <span *ngIf="formErrors.year">{{ formErrors.year }}<br/></span>
+                  <span *ngIf="formErrors.cvv">{{ formErrors.cvv }}<br/></span>
+                </div>
+              </div>
+              <div class="row" style="display:none;">
+                <div class="col-xs-12">
+                  <p class="payment-errors"></p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </modal-body>
+    <modal-footer>
+      <button [disabled]="paymentMethodUpdateSubmitted" (click)="addPaymentMethod.close();" class="btn btn-default" type="submit">&nbsp;&nbsp;Cancel&nbsp;&nbsp;</button>
+      <button [disabled]="paymentMethodUpdateSubmitted" (click)="confirmGetCardData(addPaymentMethodForm.valid);" class="btn btn-brand-primary" type="submit">Add Card <i *ngIf="paymentMethodUpdateSubmitted" class="fa fa-spinner fa-spin spinner-padding" aria-hidden="true"></i></button>
+    </modal-footer>
+  </modal>
+
+  <app-my-gift-apply-modal #giftCardModal 
+    [applyGiftCardBalance]="checkoutViewDTO.applyGiftCardBalance"
+    [appointment]="true"
+    [appointmentId]="appointmentId"
+    [recurring]="checkoutViewDTO.reoccurring"></app-my-gift-apply-modal>

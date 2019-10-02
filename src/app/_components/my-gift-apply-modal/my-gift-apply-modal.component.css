@@ -1,0 +1,35 @@
+.gc-btn {
+    width: 100%;
+    margin-top: 20px;
+
+    /* max-width: 400px; */
+}
+
+.gc-btn-div {
+    text-align: center;
+    margin: 0 auto;
+}
+
+.edit-gc-balance {
+    color: #999;
+}
+
+.gc-txt-span-lg {
+    color: #333;
+}
+
+.gc-icon {
+    color: #39d2c9;
+}
+
+.spinner-padding {
+    margin-left: 10px; 
+}
+
+.gc-note {
+    margin-bottom: 20px;
+}
+
+.gc-msg {
+    color: #777;
+}

@@ -1,0 +1,162 @@
+@media (min-width: 321px){
+    .apt-wrapper {
+        padding: 5px;
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        cursor: pointer;
+
+        /*border: 1px solid #eee;*/
+        /*border-radius: 4px;*/
+
+        /*-webkit-box-shadow: 8px 8px 7px -7px black;
+        -moz-box-shadow: 8px 8px 7px -7px black;
+        box-shadow: 8px 8px 7px -7px black;*/
+
+        /*margin-bottom: 7px;*/
+
+        border-bottom: 1px solid #eee;
+        /*border-right: 1px solid #eee;
+        border-left: 1px solid #eee;*/
+    }
+}
+
+@media (max-width: 320px){
+    .apt-wrapper {
+        padding: 5px;
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        cursor: pointer;
+
+        border: 1px solid #eee;
+        border-radius: 4px;
+
+        margin-bottom: 7px;
+    }
+}
+
+.apt-wrapper {
+    max-height: 200px;
+}
+
+@media (max-width: 767px){
+    .apt-img-wrapper {
+        width: 30%;
+        margin-right: 5px;
+
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+@media (min-width: 768px){
+    .apt-img-wrapper {
+        width: 20%;
+        margin-right: 5px;
+
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
+.apt-img {
+    width: 100%;
+    height: auto;
+    max-height: 150px;
+    border-radius: 50%;
+}
+
+.apt-body-wrapper {
+    flex: 1;
+}
+
+.apt-body {
+    padding: 5px;
+
+    flex: 1; 
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+}
+
+.apt-date-span {
+    font-weight: bold;
+    color: #0B9ED0;
+}
+
+.service-provider-storefront-name {
+    color: #ddd;
+}
+
+.service-provider-sp-name {
+    color: #222;
+}
+
+.partial-refund-sm {
+    color: #525f7f;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.full-refund-sm {
+    color: #3c763d;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.apt-price-status-div {
+    
+}
+
+.status-span {
+    color: #FFBF00;
+}
+
+.apt-status-val {
+    float: right;
+    /*text-transform: lowercase;*/
+    font-weight: bold;
+}
+
+.apt-status-val.scheduled {
+    color: #FFBF00;
+}
+
+.apt-status-val.cancelled {
+    color: #d9534f;
+}
+
+.apt-status-val.pending {
+    color: #0b65b1;
+}
+
+.apt-status-val.complete {
+    color: #0b65b1;
+}
+
+.price-span {
+    color: red;
+}
+
+.partial-refund {
+    color: #525f7f;
+    border: 1px solid;
+    border-radius: 20px;
+    box-shadow: inset 0 0 0 1px rgba(82,95,127,.2);
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-left: 8px;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.sp-arrow {
+    font-size: 10px;
+}

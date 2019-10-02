@@ -1,0 +1,118 @@
+<div *ngIf="showMobileMenu" class="container-fluid main-container hidden-sm hidden-md hidden-lg hidden-xl">
+  <div class="row">
+    <div class="col-xs-12 contact-us-sm-header">
+      What can we help you with?
+    </div>
+  </div>
+  <div  (click)="displayFields(); model.supportType='ACCOUNT'" class="row">
+    <div class="col-xs-12 contact-us-sm-option">
+      Get Help With Your Account <i class="fa fa-chevron-right pull-right contact-chevron" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div  (click)="displayFields(); model.supportType='ISSUE'" class="row">
+    <div class="col-xs-12 contact-us-sm-option">
+      Report an Issue <i class="fa fa-chevron-right pull-right contact-chevron" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div  (click)="displayFields(); model.supportType='SUGGESTION'" class="row">
+    <div class="col-xs-12 contact-us-sm-option">
+      Make a Suggestion <i class="fa fa-chevron-right pull-right contact-chevron" aria-hidden="true"></i>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="(showFullMenu || isLargerThanBootstrapSmall) && !formSubmittedSuccessfully" class="container main-container">
+  <div class="row">
+    <div class="col-xs-12 col-md-offset-1 col-md-10">
+        <div class="page-header-w-underline">
+          Contact Us
+          <div class="page-header-underline"></div>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-md-offset-1 col-md-9">
+      <form (ngSubmit)="onSubmit(contactUsForm.valid)" #contactUsForm="ngForm" novalidate>
+        <div class="form-group row hidden-xs hidden-sm rq">
+          <div class="form-group">
+            <label class="col-sm-2 col-form-label" for="sel1">Contact Type</label>
+            <div class="col-sm-8">
+              <select class="form-control" [(ngModel)]="model.supportType" id="supportType" name="supportType" required>
+                <option value="" selected>[select a contact type]</option>
+                <option value="ACCOUNT">Get Help With Your Account</option>
+                <option value="ISSUE">Report an Issue</option>
+                <option value="SUGGESTION">Make a Suggestion</option>
+              </select>
+              <div *ngIf="formErrors.supportType" class="alert alert-danger">
+                {{ formErrors.supportType }}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-group row rq">
+          <label for="email" class="col-sm-2 col-form-label">Email</label>
+          <div class="col-sm-8">
+            <input [(ngModel)]="model.email" #email="ngModel" name="email" type="email" class="form-control" id="email" placeholder="Email" required email>
+            <div *ngIf="formErrors.email" class="alert alert-danger">
+              {{ formErrors.email }}
+            </div>
+          </div>
+          
+        </div>
+
+        <div class="form-group row rq">
+          <label for="firstName" class="col-sm-2 col-form-label">Name</label>
+          <div class="col-sm-8">
+            <input [(ngModel)]="model.firstName" name="firstName" type="text" class="form-control" id="first-name" placeholder="Name" required>
+            <div *ngIf="formErrors.firstName" class="alert alert-danger">
+              {{ formErrors.firstName }}
+            </div>
+          </div>
+          
+        </div>
+
+        <div class="form-group row rq">
+          <label for="subject" class="col-sm-2 col-form-label">Subject</label>
+          <div class="col-sm-8">
+            <input [(ngModel)]="model.subject" name="subject" type="text" class="form-control" id="subject" placeholder="Subject" required>
+            <div *ngIf="formErrors.subject" class="alert alert-danger">
+            {{ formErrors.subject }}
+          </div>
+          </div>  
+        </div>
+
+        <div class="form-group row rq">
+          <label for="message" class="col-sm-2 col-form-label">Message</label>
+          <div class="col-sm-8">
+            <textarea [(ngModel)]="model.message" name="message" rows="5" class="form-control" id="message" placeholder="Message" required></textarea>
+            <div *ngIf="formErrors.message" class="alert alert-danger">
+              {{ formErrors.message }}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row rq">
+          <div class="offset-sm-2 col-sm-10">
+            <!--<button [disabled]="!contactUsForm.form.valid" type="submit" class="btn btn-brand-primary contact-us-btn">Submit</button>-->
+            <button type="submit" class="btn btn-brand-primary contact-us-btn">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+
+<div *ngIf="formSubmittedSuccessfully" class="container container-bottom-padding">
+  <div class="row">
+    <div class="col-xs-12 col-md-offset-1 col-md-10">
+      <p>Thank you for your interest in Mingo! We've received your request and are looking forward to learning more about your specific needs so that we can provide you with insight and information.</p>
+
+      <p>A mingo team member will contact you soon.</p>
+      <br/>
+      <br/>
+      <br/>
+      <button routerLink="/locations" class="btn btn-brand-primary">Back to site</button>
+    </div>
+  </div>
+</div>

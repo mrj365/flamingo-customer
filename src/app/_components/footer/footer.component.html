@@ -1,0 +1,53 @@
+<div class="footer brand-primary-background-color">
+	<div class="container footer-container brand-primary-background-color">
+		<div>
+			<div class="hidden-xs">
+				<hr class="footer-line footer-seperator" />
+			</div>
+
+		</div>
+		<div>
+			<div class="footer-padding">
+
+				<div class="pull-left">
+					<ul class="list-inline footer-left">
+
+						<li class="hidden-xs hidden-sm">
+							<a [routerLink]="['/locations']" class="lnk-no-dec brand-footer-text-color">
+								<span class="brand-text">{{platformName}}</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				
+
+				<div class="pull-right text-right">
+
+					<ul class="list-inline footer-social brand-footer-text-color">
+						<li *ngIf="showFbSocial"><a class="link-nodec brand-footer-text-color" href="{{fbSocialUrl}}" rel="nofollow" title="Facebook" target="_blank"><i class="fa fa-facebook-official fa-lg"></i></a></li>
+						<li *ngIf="showInstagramSocial"><a class="link-nodec brand-footer-text-color" href="{{instagramSocialUrl}}" rel="nofollow" title="Instagram" target="_blank"><i class="fa fa-instagram fa-lg"></i></a></li>
+						<li *ngIf="showLinkedInSocial"><a class="link-nodec brand-footer-text-color" href="{{linkedInSocialUrl}}" rel="nofollow" title="LinkedIn" target="_blank"><i class="fa fa-linkedin fa-lg"></i></a></li>
+						<li *ngIf="showTwitterSocial"><a class="link-nodec brand-footer-text-color" href="{{twitterSocialUrl}}" rel="nofollow" title="Twitter" target="_blank"><i class="fa fa-twitter fa-lg"></i></a></li>
+					</ul>
+					<nav>
+						<ul class="list-inline brand-footer-text-color">
+							
+							<li><a [routerLink]="['/about-us']" class="link-nodec brand-footer-text-color">About Us</a></li>
+							<li><a [routerLink]="['/privacy']" class="link-nodec brand-footer-text-color">Privacy Policy</a></li>
+							<li><a [routerLink]="['/terms']" class="link-nodec brand-footer-text-color">Terms of service</a></li>
+							<li><a [routerLink]="['/contact-us']" class="link-nodec brand-footer-text-color">Contact</a></li>
+							<li><a [routerLink]="['/gift']" class="link-nodec brand-footer-text-color">Gifts</a></li>
+						</ul>
+					</nav>
+					<p class="footer-trademark">® 2019 Flamingo Shore Inc., Mingo is trademark of Flamingo Shore Inc.</p>
+
+				</div>
+
+
+			</div>
+
+
+
+		</div>
+	</div>
+</div>

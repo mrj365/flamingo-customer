@@ -1,0 +1,265 @@
+<div class="container-fluid date-time-services-container">
+  <div class="row">
+    <div class="col-xs-12">
+      <h3>Appointments</h3>
+    </div>
+  </div>
+  <div class="row appointments-row">
+    <div class="col-xs-12 col-md-3 col-lg-2 filters-header">
+      <div>
+        <div class="ledgend-div">
+          <div class="ledgend-div-inner">
+            <div class="ledgend-color selected"></div>
+            <span class="ledgend-description">Selected</span>
+          </div>
+          <div class="ledgend-div-inner">
+            <div class="ledgend-color available"></div>
+            <span class="ledgend-description">Available</span>
+          </div>
+          <div class="ledgend-div-inner">
+            <div class="ledgend-color unavailable"></div>
+            <span class="ledgend-description">Un-Available</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6 col-lg-7 filters-header">
+      <div class="col-xs-12 col-sm-6">
+        <div class="filter-btn-grp-wrapper">
+          <div class="btn-group btn-group-width" role="group" aria-label="Button group with nested dropdown">
+            <button type="button" class="btn btn-secondary fltr-btn">Any Customer</button>
+            <!--<button type="button" class="btn btn-secondary">2</button>-->
+
+            <div class="btn-group fltr-btn-grp" role="group">
+              <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle filter-button-group-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Scheduled
+              </button>
+              <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
+                <a class="dropdown-item" href="#">Scheduled</a>
+                <a class="dropdown-item" href="#">History</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-md-2 filters-header">
+      <div class="filter-btn-grp-wrapper">
+        <div class="btn-group fltr-btn-sm-wrapper" role="group" aria-label="Button group with nested dropdown">
+          <button type="button" class="btn btn-secondary fltr-btn-sm">Day</button>
+          <button type="button" class="btn btn-secondary fltr-btn-sm">Week</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1 filters-header">
+      <i class="fa fa-refresh refresh-appointments"></i>
+    </div>
+  </div>
+
+  <div class="col-xs-12 col-md-3 col-lg-2 left-wrapper">
+    <div class="calendar-control-div">
+      <div class="calendar-wrapper">
+        
+        <div class="month-and-days">
+        
+          <div class="month-div">
+            <div *ngIf="calendarDTO.offset > 0" (click)="decreaseCalMonth()" class="previous-div">
+              <span class="previous-span">
+                <i class="fa fa-chevron-left"></i>
+              </span>
+            </div>
+
+            <div *ngIf="calendarDTO.offset == 0" class="previous-div-disabled noselect">
+              <span class="previous-span">
+                <i class="fa fa-chevron-left"></i>
+              </span>
+            </div>
+
+            <span class="date-span">{{calendarDTO.month}} 2018</span>
+
+            <div (click)="increaseCalMonth()" class="next-div">
+              <span class="previous-span"><i class="fa fa-chevron-right"></i>
+              </span>
+            </div>
+          </div>
+          
+          <div class="days">
+            <div class="week-day-header-div">
+              <span class="day-of-week-header">
+                <span class="day-abbv hidden-md">SUN</span>
+                <span class="day-abbv hidden-xs hidden-sm hidden-lg hidden-xl">S</span>
+              </span>
+              <span class="day-of-week-header">
+                <span class="day-abbv hidden-md">MON</span>
+                <span class="day-abbv hidden-xs hidden-sm hidden-lg hidden-xl">M</span>
+              </span>
+              <span class="day-of-week-header">
+                <span class="day-abbv hidden-md">TUE</span>
+                <span class="day-abbv hidden-xs hidden-sm hidden-lg hidden-xl">T</span>
+              </span>
+              <span class="day-of-week-header">
+                <span class="day-abbv hidden-md">WED</span>
+                <span class="day-abbv hidden-xs hidden-sm hidden-lg hidden-xl">W</span>
+              </span>
+              <span class="day-of-week-header">
+                <span class="day-abbv hidden-md">THU</span>
+                <span class="day-abbv hidden-xs hidden-sm hidden-lg hidden-xl">T</span>
+              </span>
+              <span class="day-of-week-header">
+                <span class="day-abbv hidden-md">FRI</span>
+                <span class="day-abbv hidden-xs hidden-sm hidden-lg hidden-xl">F</span>
+              </span>
+              <span class="day-of-week-header">
+                <span class="day-abbv hidden-md">SAT</span>
+                <span class="day-abbv hidden-xs hidden-sm hidden-lg hidden-xl">S</span>
+              </span>
+            </div>
+          
+            <div *ngFor="let calendarWeeks of calendarDTO.dateTimeSlots" class="not-this-week-div">
+              <div *ngFor="let calendarDay of calendarWeeks" class="date-div" [ngClass]="(calendarDay.selected) ? 'selected' : (calendarDay.available ? 'date-div-available' : '')" [style.border]="!calendarDay.date ? 'none' : ''" (click)="getAvailableTimeSlots(calendarDay);">
+                <div class="day-number-wrapper">
+                  <span *ngIf="!calendarDay.date" class="date-number"></span>
+                  <span *ngIf="calendarDay.date" class="date-number">{{calendarDay.dayNumber}}</span>
+                </div>
+              </div>            
+            </div>
+          
+          </div>				
+        </div>
+        
+        
+      </div>
+      
+    </div>
+
+    <div class="col-xs-12 current-date-info">
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="date-selected-div">
+            Nov 11, 2018
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-12">
+          <div class="appointment-count">
+            3 Appointments
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 apt-list">
+      <div class="row apt-row" *ngFor="let appointment of appointments">
+        <div class="col-xs-12 padding-5">
+          <app-calendar-appointment-list-item [appointment]="appointment"></app-calendar-appointment-list-item>
+          </div>
+      </div>
+    </div>
+
+  </div>
+
+    <div class="hidden-xs hidden-xs col-md-9 col-lg-10 appointment-sidebar-wrapper">
+      <div class="row">
+        <div class="col-xs-1 hourly-header first-hour">
+          
+        </div>
+        <div class="col-xs-11 hourly-header">
+          <div class="row">
+            <div class="col-xs-3 cal-sp-header header-border-right">
+              <img class="sp-img" src="/images/driver-solo.png"/>
+              Christine
+            </div>
+            <div class="col-xs-3 cal-sp-header header-border-right">
+              <img class="sp-img" src="/images/driver-solo.png"/>
+              Dylan
+            </div>
+            <div class="col-xs-3 cal-sp-header header-border-right">
+              <img class="sp-img" src="/images/driver-solo.png"/>
+              Frank
+            </div>
+            <div class="col-xs-3 cal-sp-header header-border-right">
+              <img class="sp-img" src="/images/driver-solo.png"/>
+              Bobby
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-1">
+          <div class="row">
+            <div class="col-xs-12 border-top-right-hour-column">
+              <span class="hourly-span">8 AM</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-11 one-h-height">
+          <div class="row">
+            <div class="col-xs-3 border-top-right">
+              <div [style.height]="getHeightByAppointmentLength(120)" class="sloted-apt">Christine2</div>
+              <div [style.margin-left]="'20px'" [style.margin-top]="'20px'" [style.height]="getHeightByAppointmentLength(60)" class="sloted-apt">Christine2</div>
+            </div>
+            <div class="col-xs-3 border-top-right">
+              Dylan
+            </div>
+            <div class="col-xs-3 border-top-right">
+              Frank
+            </div>
+            <div class="col-xs-3 border-top-right">
+              Bobby
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="row">
+      <div class="col-xs-1">
+        <div class="row">
+          <div class="col-xs-12 border-top-right-hour-column">
+            <span class="hourly-span selected">9 AM</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-xs-11 hour-selected">
+        <div class="row">
+          <div class="col-xs-3 border-top-right">
+            <!--<div class="sloted-apt">Christine2</div>-->
+            <!--<div class="sloted-apt">Christine2</div>
+            <div class="sloted-apt">Christine2</div>
+            <div class="sloted-apt">Christine2</div>-->
+          </div>
+          <div class="col-xs-3 border-top-right">
+            Dylan
+          </div>
+          <div class="col-xs-3 border-top-right">
+            Frank
+          </div>
+          <div class="col-xs-3 border-top-right">
+            Bobby
+          </div>
+        </div>
+      </div>
+    </div>  
+  </div>
+  
+
+  <!--<div class="hidden-xs hidden-sm col-md-6 appointment-sidebar-wrapper">
+      <div class="col-xs-12">
+        <div class="row apt-row" (click)="goToDetail(appointment.id)" *ngFor="let appointment of appointments">
+          <app-appointment-list-item [appointment]="appointment"></app-appointment-list-item>
+        </div>
+      </div>
+  </div>-->
+
+  <div class="hidden-sm hidden-md hidden-lg hidden-xl col-xs-12">
+    
+
+    <div class="row apt-row" (click)="goToDetail(appointment.id)" *ngFor="let appointment of appointments">
+      <div class="col-xs-12 padding-5">
+        <app-appointment-list-item [appointment]="appointment"></app-appointment-list-item>
+        </div>
+    </div>
+  </div>
+
+</div>

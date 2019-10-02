@@ -1,0 +1,11 @@
+<ng-container *ngFor="let orderCustomizationGroup of orderCustomizationGroups">
+    <div class="group-btm-margin">
+    <label>{{orderCustomizationGroup.groupName}}</label>
+    <div class="custom-checkbox">
+      <label *ngFor="let item of orderCustomizationGroup.items" class="span-block">
+      <span class="normal-font-weight"><i class="fa fa-check"></i>  {{item.displayText}} <span *ngIf="item.showQuantity" class="mobile-service-qty-span">{{item.quantity}}x</span>
+      </span>
+      </label>
+    </div>
+    </div>
+</ng-container>

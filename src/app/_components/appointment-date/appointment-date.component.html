@@ -1,0 +1,220 @@
+<div class="container date-time-services-container">
+
+  <div class="row">
+    <div class="col-xs-12 date-selection-header">
+      <div class="col-xs-12 col-md-8">
+        <h3>Select Date &amp; Time</h3>
+        <div class="ledgend-div">
+          <div class="ledgend-div-inner">
+            <div class="ledgend-color selected"></div>
+            <span class="ledgend-description">Selected</span>
+          </div>
+          <div class="ledgend-div-inner">
+            <div class="ledgend-color available"></div>
+            <span class="ledgend-description">Available</span>
+          </div>
+          <div class="ledgend-div-inner">
+            <div class="ledgend-color unavailable"></div>
+            <span class="ledgend-description">Un-Available</span>
+          </div>
+        </div>
+        <div class="dropdown pull-right">
+          <a href="#" data-toggle="dropdown" class="dropdown-toggle btn btn-default btn-primary">{{reoccurringText}} <b class="caret"></b></a>
+          <ul class="dropdown-menu">
+              <li><a (click)="calendarDTO.periodType = 'NONE'; loadCal(calendarDTO.offset);" href="javascript:void(0)">Does not repeat</a></li>
+              <li><a (click)="calendarDTO.periodType = 'WEEKLY'; loadCal(calendarDTO.offset);" href="javascript:void(0)">Weekly</a></li>
+              <li><a (click)="calendarDTO.periodType = 'BIWEEKLY'; loadCal(calendarDTO.offset);" href="javascript:void(0)">Bi-Weekly</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        
+      </div>
+    </div>
+  </div>
+  <div class="col-xs-12 col-md-8 left-wrapper">
+    <div class="calendar-control-div">
+      <div class="calendar-wrapper">
+
+        <div *ngIf="calendarDTO.offset > 0" (click)="decreaseCalMonth()" class="previous-div">
+          <span class="previous-span">
+            <i class="fa fa-chevron-left"></i>
+          </span>
+        </div>
+
+        <div *ngIf="calendarDTO.offset == 0" class="previous-div-disabled noselect">
+          <span class="previous-span">
+            <i class="fa fa-chevron-left"></i>
+          </span>
+        </div>
+        
+        <div class="month-and-days">
+        
+          <div class="month-div">
+            <span (click)="toggleFullCal()" class="date-span">{{calendarDTO.month}}</span>
+          </div>
+          
+          <div class="days">
+          
+            <div *ngFor="let calendarWeeks of calendarDTO.dateTimeSlots" class="not-this-week-div">
+              <div *ngFor="let calendarDay of calendarWeeks" class="date-div" [ngClass]="(calendarDay.selected) ? 'selected' : (calendarDay.available ? 'date-div-available' : '')" (click)="getAvailableTimeSlots(calendarDay);">
+                <div class="day-number-wrapper">
+                  <span *ngIf="!calendarDay.date" class="date-number"></span>
+                  <span *ngIf="calendarDay.date" class="date-number">{{calendarDay.dayNumber}}</span>
+                </div>
+              </div>            
+            </div>
+          
+          </div>				
+        </div>
+        
+        <div (click)="increaseCalMonth()" class="next-div">
+          <span class="previous-span"><i class="fa fa-chevron-right"></i>
+          </span>
+        </div>
+      </div>
+      
+    </div>
+
+    <div *ngIf="enableTimeSelection" class="col-xs-12 time-selector-container">
+        <div *ngIf="calendarDTO.slotsAvailable && !(calendarDTO.selectedCalendarDate && calendarDTO.selectedCalendarDate.available)" class="no-availability-div">
+          <span class="no-availability-div-span">No availability on this date.</span>
+        </div>
+        <div *ngIf="!daysAvailableInRange" class="no-availability-div">
+          <span class="no-availability-div-span">There are no more appointmens available for the current month. Navigate to the next month to view additional timeslots</span>
+        </div>
+        <div class="col-xs-12 time-selector-wrapper">
+          <div class="col-xs-12 time-selector-inner">
+            <div class="col-xs-4 time-selector-div time-selector-morning">
+              <div class="time-of-day-header">
+                  <span class="time-of-day-header-text">
+                    Morning
+                  </span>
+                  <div *ngFor="let timeSlot of calendarDTO.selectedCalendarDate.morningTimeSlots">
+                    <div class="col-xs-12 col-lg-6 time-wrapper">
+                      <div class="col-xs-12 time-div" [ngClass]="timeSlot.selected ? 'selected' : ''" (click)="selectTime(timeSlot)">
+                          <span class="time-span">{{timeSlot.startTime}}</span>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class="col-xs-4 time-selector-div time-selector-afternoon">
+              <div class="time-of-day-header">
+                  <span class="time-of-day-header-text">
+                    Afternoon
+                  </span>
+                  <div *ngFor="let timeSlot of calendarDTO.selectedCalendarDate.afternoonTimeSlots">
+                    <div class="col-xs-12 col-lg-6 time-wrapper">
+                      <div class="col-xs-12 time-div" [ngClass]="timeSlot.selected ? 'selected' : ''" (click)="selectTime(timeSlot)">
+                          <span class="time-span">{{timeSlot.startTime}}</span>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+            <div class="col-xs-4 time-selector-div time-selector-evening">
+              <div class="time-of-day-header">
+                  <span class="time-of-day-header-text">
+                    Evening
+                  </span>
+                  <div *ngFor="let timeSlot of calendarDTO.selectedCalendarDate.eveningTimeSlots">
+                    <div class="col-xs-12 col-lg-6 time-wrapper">
+                      <div class="col-xs-12 time-div" [ngClass]="timeSlot.selected ? 'selected' : ''" (click)="selectTime(timeSlot)">
+                          <span class="time-span">{{timeSlot.startTime}}</span>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <div class="hidden-xs hidden-sm col-md-3 col-md-offset-1">
+      <app-order-summary *ngIf="(shoppingCart.services && shoppingCart.services.length > 0) || pickupProfile"  [buttonText]="'Checkout'" [subtotal]="shoppingCart.subtotal" [bookingFee]="shoppingCart.bookingFee" 
+      [tax]="shoppingCart.tax" [giftCardAmountApplied]="shoppingCart.giftCardAmountApplied" 
+      [total]="shoppingCart.total" [showPaymentMethodMissingWarning]="false"
+      [showEstimatedCost]="!pickupProfile" [appointmentDate]="getAppointmentDate()" 
+      [buttonAction]="reviewAppointment.bind(this)" [estimatedTotal]="true"></app-order-summary>
+    <!-- <div *ngIf="(shoppingCart.services && shoppingCart.services.length > 0) || pickupProfile" class="appointment-info-div order-summary-div affix">
+      <div class="appointment-info-header-div">
+        
+        <div class="appointment-location-details-header-div-inner">
+          <span *ngIf="!pickupProfile" class="appointment-location-details-header-text">Order Summary</span>
+          <span *ngIf="pickupProfile" class="appointment-location-details-header-text">Checkout</span>
+        </div>
+      </div>
+      <hr class="checkout-hr"/>
+      <div *ngIf="!pickupProfile" class="">
+        <div class="subtotal-div">
+          <span class="subtotal-amount pull-right">${{shoppingCart.subtotal}}</span>
+          <span class="subtotal">Subtotal</span>
+        </div>
+        <div class="booking-fee-div">
+          <span class="booking-fee-amount pull-right">${{shoppingCart.bookingFee}}</span>
+          <span class="booking-fee">Booking Fee &nbsp;<i [popover]="bookingFeePopover" class="fa fa-info-circle info-icon" aria-hidden="true"></i>
+            <popover-content #bookingFeePopover #bkpop 
+              title="Booking Fee" 
+              placement="top"
+              [animation]="true" 
+              [closeOnClickOutside]="true" >
+          A booking fee will be charged to all orders.
+      </popover-content></span>
+        </div>
+        <div class="tax-div">
+          <span class="tax-amount pull-right">${{shoppingCart.tax}}</span>
+          <span class="tax">Tax</span>
+        </div>
+        <hr class="checkout-hr"/>
+        <div class="total-div">
+          <span class="total-amount pull-right">${{shoppingCart.total}}</span>
+          <span class="total">Estimated Total</span>
+        </div>
+      </div>
+    
+      <button [disabled]="!calendarDTO.selectedCalendarDate.available" (click)="reviewAppointment();" class="btn btn-brand-primary complete-order-btn">Checkout</button>
+      <div *ngIf="calendarDTO.selectedCalendarDate.available" class="selected-date-checkout-div">
+        <span class="selected-date-span">{{calendarDTO.selectedCalendarDate.selectedTimeSlot.formattedCheckoutDateTime}}</span>
+      </div>
+    </div> -->
+  </div>
+
+  <div class="col-xs-12 col-md-8 right-wrapper">
+    <div class="col-xs-12 services-div">
+          <div *ngFor="let service of shoppingCart.services" class="col-xs-12 service-div">
+            <div class="service-div-inner">
+              <div class="service-text">
+                <div class="service-name">
+                  {{service.name}}
+                </div>
+                <div class="service-short-description hidden-xs">
+                  {{service.description}}
+                </div>
+                <div class="service-price-div">
+                  <span class="service-price">${{service.price}}<span class="qty-desc" *ngIf="service.quantityDescription">/{{service.quantityDescription}}</span> <span class="mobile-service-qty-span">{{service.quantity}}x</span></span>
+                </div>
+              </div>
+              <div class="service-img-div no-wrap">
+                <img class="service-img" [imgSrc]="service.imgUrl">
+                <span (click)="removeService(service.id)" class="remove-service"><i class="fa fa-times" aria-hidden="true"></i></span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+  </div>
+
+  <div *ngIf="calendarDTO.selectedCalendarDate.available" class="navbar-fixed-bottom hidden-md hidden-lg hidden-xl">
+    <div *ngIf="enableTimeSelection" class="container-fluid footer-nav-div">
+      <a class="btn btn-primary checkout-button hidden-xs" href="javascript:void(0);" (click)="reviewAppointment()">Checkout: {{calendarDTO.selectedCalendarDate.selectedTimeSlot.formattedCheckoutDateTime}}</a>
+      <a class="btn btn-primary checkout-button hidden-sm" href="javascript:void(0);" (click)="reviewAppointment()">Checkout: {{calendarDTO.selectedCalendarDate.selectedTimeSlot.formattedCheckoutDateTimeSm}}</a>
+    </div>
+    <div *ngIf="!enableTimeSelection"  class="container-fluid footer-nav-div">
+        <a class="btn btn-primary checkout-button hidden-xs" href="javascript:void(0);" (click)="reviewAppointment()">Checkout: {{formatDateWithoutTime(calendarDTO.selectedCalendarDate.date)}}</a>
+        <a class="btn btn-primary checkout-button hidden-sm" href="javascript:void(0);" (click)="reviewAppointment()">Checkout: {{formatDateWithoutTime(calendarDTO.selectedCalendarDate.date)}}</a>
+      </div>
+  </div>
+
+</div>

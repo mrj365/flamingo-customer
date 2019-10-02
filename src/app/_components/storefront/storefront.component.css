@@ -1,0 +1,584 @@
+.storefront-basic-info {
+    margin-bottom: 16px;
+}
+
+.storefront-logo {
+    /*border-radius: 3px;*/
+    float: left;
+    /*margin-right: 20px;*/
+    width: 100%;
+    height: auto;
+    max-height: 60px;
+    max-width: 60px;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+.storefront-name-address-div {
+    /*margin-left: 80px;*/
+}
+
+.storefront-icon-name-address-inner {
+    margin-bottom: 20px;
+}
+
+.storefront-name {
+    color: #222;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    font-size: 30px;
+    line-height: 36px;
+    margin: 0
+}
+
+.storefront-address {
+    color: #222;
+    font-size: 16px;
+    line-height: normal;
+    margin: 0;
+}
+
+.storefront-reviews-div {
+    padding-top: 15px;
+    position: relative;
+}
+
+.rating-stars {
+    font-size: 12px !important;
+}
+
+.storefront-profile-img-wrapper {
+    position: relative;
+}
+
+.storefront-profile-img {
+    width: 100%;
+    height: auto;
+}
+
+.rating-stars-mini-div {
+    /*position: absolute;
+    bottom: 0;
+    right: 0;*/
+    margin: 0 auto;
+    margin-top: 5px;
+    text-align: center;
+    vertical-align: sub;
+}
+
+.rating-stars-mini {
+    font-size: 11px !important;
+}
+.sebm-google-map-container {
+      height: 220px;
+    }
+
+.storefront-info-div {
+    padding: 20px;
+}
+
+.storefront-info-p {
+    margin: 0 0 10px 0;
+    padding-left: 25px;
+    position: relative;
+
+    font-size: 14px;
+    line-height: 24px;
+    -webkit-font-smoothing: antialiased;
+
+
+}
+
+.storefront-marker {
+    color: #0B9ED0;
+    font-size: 18px;
+    position: absolute;
+    top: 3px;
+    left: 0;
+}
+
+.directions-anchor {
+    color: #FFBF00;
+    font-weight: bold;
+}
+
+.storefront-montra-p {
+    padding-top: 20px;
+    font-size: 14px;
+    line-height: 24px;
+}
+
+.services-div {
+    padding-left: 0px !important;
+}
+
+.service-div {
+    padding-left: 0px !important;
+    padding-right: 10px !important;
+    /*margin-bottom: 20px;*/
+}
+
+.service-div-inner {
+    transition: box-shadow 400ms ease;
+    -webkit-transition: box-shadow 400ms ease;
+    -moz-transition: box-shadow 400ms ease;
+    -ms-transition: box-shadow 400ms ease;
+
+    background-color: #FFFFFF;
+    cursor: pointer;
+    position: relative;
+    -webkit-flex-grow: 1;
+
+    display: flex;
+}
+
+.service-div-inner:hover {
+    background-color: rgb(250, 250, 250);
+}
+
+.service-text {
+    padding: 24px;
+
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    position: relative;
+    -webkit-flex-direction: column;
+    -moz-flex-direction: column;
+    -ms-flex-direction: column;
+    -webkit-flex-grow: 1;
+    -moz-flex-grow: 1;
+    -ms-flex-grow: 1;  
+
+    width: 60%;
+    float: left;  
+
+    height: 138px;
+}
+
+.service-name {
+    font-size: 14px;
+    line-height: 20px;
+    color: #1C1B1B;
+    font-weight: 600;
+    margin-bottom: 8px;
+
+    display: flex;
+}
+
+/* add elipsis to end of text http://hackingui.com/front-end/a-pure-css-solution-for-multiline-text-truncation/*/
+.service-short-description {
+  /* hide text if it more than N lines  */
+  overflow: hidden;
+  /* for set '...' in absolute position */
+  position: relative; 
+  /* use this value to count block height */
+  line-height: 20px;
+  /* max-height = line-height (20) * lines max number (2) */
+  max-height: 40px; 
+  /* fix problem when last visible word doesn't adjoin right side  */
+  text-align: justify;  
+  /* place for '...' */
+  margin-right: -1em;
+  padding-right: 1em;
+}
+/* create the ... */
+.service-short-description:before {
+  /* points in the end */
+  content: '...';
+  /* absolute position */
+  position: absolute;
+  /* set position to right bottom corner of block */
+  right: 0;
+  bottom: 0;
+}
+
+/* hide ... if we have text, which is less than or equal to max lines */
+.service-short-description:after {
+  /* points in the end */
+  content: '';
+  /* absolute position */
+  position: absolute;
+  /* set position to right bottom corner of text */
+  right: 0;
+  /* set width and height */
+  width: 1em;
+  height: 1em;
+  margin-top: 0.2em;
+  /* bg color = bg color under block */
+  background: white;
+}
+
+.service-div-inner:hover .service-short-description:after {
+  /* points in the end */
+  content: '';
+  /* absolute position */
+  position: absolute;
+  /* set position to right bottom corner of text */
+  right: 0;
+  /* set width and height */
+  width: 1em;
+  height: 1em;
+  margin-top: 0.2em;
+  /* bg color = bg color under block */
+  background: rgb(250, 250, 250);;
+}
+
+.center-name {
+    
+}
+
+.service-price-div {
+    font-size: 14px;
+    line-height: 20px;
+
+    flex-grow: 1;
+    display: flex;
+    align-items: flex-end;
+    font-size: 14px;
+    -webkit-flex-grow: 1;
+    -moz-flex-grow: 1;
+    -ms-flex-grow: 1;
+
+}
+
+.service-price {
+    color: #282727;
+    padding-right: 5px;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.service-img-div {
+    width: 40%;
+    float: right;
+    position: relative;
+}
+
+.selected-service-badge {
+    position: absolute;
+    right: -3px;
+    top: -9px;
+    text-align: center;
+    /*border-radius: 30px 30px 30px 30px;*/
+    color:#0B9ED0;
+    font-size:18px;
+}
+
+.selected-service-badge-no-img {
+    position: absolute;
+    right: 0px;
+    top: 9px;
+    text-align: center;
+    /*border-radius: 30px 30px 30px 30px;*/
+    color:#0B9ED0;
+    font-size:18px;
+}
+
+.service-img {
+    width: 100%;
+    height: auto;
+    max-width: 176px;
+}
+
+
+/* Popup Styles */
+
+.popup-service-img-div {
+    text-align: center;
+}
+
+.popup-service-img {
+	width: 100%;
+    max-width: 400px;
+	min-width: 200px;
+	height: auto;
+	
+    margin: 0 auto; 
+	margin-bottom: 20px;
+	
+}
+
+.popup-service-description {
+	font-size: 12px;
+	color: #222;
+    margin-top: 10px;
+}
+
+.popup-service-name {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.popup-service-price {
+	font-size: 20px;
+	font-weight: bold;
+    display: inline;
+}
+
+@media(max-width: 340px) {
+    .popup-service-price {
+        font-size: 16px;
+        font-weight: bold;
+        display: inline;
+    }
+}
+
+.popup-buy-button-div {
+	position:absolute;
+	bottom:0;
+	left:50%;
+	margin-left: -50%;
+}
+
+.popup-buy-button{
+	width: 100%;
+	margin: 10px;
+
+}
+
+.popup-service-text {
+	min-width: 200px;
+}
+
+.popup-button {
+	width: 100%;
+	font-weight: bold;
+}
+
+.modal-body {
+	height: 80vh;
+    overflow-y: auto;
+}
+
+.qty-btn {
+	font-weight: bold;
+	color: #337ab7;
+
+}
+
+.qty-input {
+	display: inline;
+	width: 100px;
+	text-align: center;
+	font-weight: bold;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+
+.staff-img {
+    float: left;
+    /*width: 100%;*/
+    /*max-width: 90px;*/
+    width: 90px;
+    height: auto;
+
+    border-radius: 50%;
+}
+
+.staff-text {
+    padding-left: 20px;
+    /*display: table;*/
+}
+
+.change-staff-header {
+    margin-top: 0px;
+    margin-bottom: 10px;
+    display: block;
+    font-size: 20px;
+}
+
+.change-staff-header-selection-enabled {
+    cursor: pointer;
+}
+
+.footer-nav {
+    background-color: white;
+}
+
+.footer-nav-div {
+    
+    background-color: white;
+    text-align: center;
+
+    padding: 15px;
+}
+
+.checkout-button {
+    width: 100%;
+    font-weight: bold;
+}
+
+
+.select-service-provider-div {
+    display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	-webkit-box-align: center;
+
+	align-items: center;
+    
+    margin-bottom: 20px;
+
+    /*width: 25%;*/
+}
+
+.appointment-info-div {
+    border: 1px solid;
+    border-color: #ddd;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    padding: 20px;
+}
+
+/*.order-summary-div {
+    width: 33.33333333333333333%;
+}*/
+
+.appointment-location-details-header-div-inner{
+    position: relative;
+}
+
+.appointment-location-details-header-text {
+    font-size: 24px;
+    color: #0B9ED0;
+}
+
+.checkout-hr {
+    margin-top: 10px;
+    margin-bottom: 14px;
+}
+
+.subtotal-div {
+    width: 100%;
+    margin-bottom: 3px;
+}
+
+.booking-fee-div {
+    width: 100%;
+    margin-bottom: 3px;
+}
+
+.booking-fee-div {
+    width: 100%;
+    margin-bottom: 3px;
+}
+
+.info-icon {
+    color: #0B9ED0;
+    cursor: pointer;
+}
+
+.tax-div {
+    width: 100%;
+    margin-bottom: 3px;
+}
+
+.total-div {
+    width: 100%;
+    margin-bottom: 24px;
+}
+
+.total {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.total-amount {
+    font-size: 18px;
+    font-weight: bold;
+    color: #FFBF00;
+}
+
+.complete-order-btn {
+    width: 100%;
+    font-weight: bold;
+}
+
+.quantity-div {
+    /*display: inline;*/
+    vertical-align: text-bottom;
+    float: right;
+}
+
+.quantity-btn {
+    /*padding-top: 4px;
+    padding-bottom: 4px;
+    margin-top: -3px;*/
+
+    padding-top: 2px;
+    padding-bottom: 2px;
+    margin-top: -3px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.quantity-input {
+    /*height: 30px;
+    width: 30px;
+    border-radius: 4px;
+    text-align: center;*/
+
+    height: 26px;
+    width: 30px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.remove-from-cart-wrapper {
+    /*margin-bottom: -7px;
+    margin-top: 7px;*/
+}
+
+.remove-from-cart-div {
+    text-align: center;
+}
+
+.remove-from-cart-text {
+    color: #ac2925;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.select-staff-div {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin: 15px;
+    margin-top: 20px;
+    color: #0b65b1;
+}
+
+.select-services-div {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    margin: 15px;
+    margin-bottom: 20px;
+    color: #0b65b1;
+}
+
+.qty-desc {
+    color: #555;
+}
+
+.blur-background {
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius='3');
+    -webkit-filter: url(#blur-filter);
+    filter: url(#blur-filter);
+    -webkit-filter: blur(3px);
+    filter: blur(10px) grayscale(80%);
+}
+
+.service-name-blue {
+    color: #0b65b1;
+}

@@ -1,0 +1,60 @@
+<!-- Taken from example https://getbootstrap.com/docs/3.3/components/ -->
+<nav class="navbar navbar-default nav-div-wrapper nav-no-side-border" [ngClass]="headerPadding ? '' : 'padding-bottom-zero margin-bottom-zero'">
+  <div class="container-fluid navigation-div">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-nav" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <!--<a routerLink="/locations" routerLinkActive="active" class="navbar-brand hidden-xs"><span class="brand-text">MingoFresh</span></a>
+      <a routerLink="/locations" routerLinkActive="active" class="navbar-brand hidden-sm hidden-md hidden-lg hidden-xl"><span class="brand-text">M</span></a>-->
+      <a routerLink="/locations" routerLinkActive="active" class="navbar-brand hidden-xs"><span class="brand-text">{{platformName}}</span></a>
+      <a routerLink="/locations" routerLinkActive="active" class="navbar-brand hidden-sm hidden-md hidden-lg hidden-xl"><span class="brand-text">{{platformNameShort}}</span></a>
+      
+      <!--<li class=""><a routerLink="/login" routerLinkActive="active"><span class="menu-text">Sign-in &nbsp;&nbsp;&nbsp;</span><i class="fa fa-user-circle fa-lg profile-icon" aria-hidden="true"></i></a></li>-->
+      <a unsecureDisplay routerLink="/login" routerLinkActive="active"  class="navbar-brand pull-right menu-text hidden-sm hidden-md hidden-lg hidden-xl"><span class="menu-text">Sign-in &nbsp;&nbsp;&nbsp;</span><i class="fa fa-user-circle fa-lg" aria-hidden="true"></i></a>
+      <a secureDisplay routerLink="/notifications" routerLinkActive="active"  class="navbar-brand pull-right menu-text hidden-sm hidden-md hidden-lg hidden-xl"><i class="fa fa-bell-o fa-lg" aria-hidden="true"></i></a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="navbar-collapse-nav">
+      <ul class="nav navbar-nav navbar-right">
+        <!--<li class="hidden-xs hidden-sm hidden-md hidden-lg hidden-xl"><a routerLink="/login" routerLinkActive="active"><span class="menu-text">Sign-in &nbsp;&nbsp;&nbsp;</span><i class="fa fa-user-circle fa-lg profile-icon" aria-hidden="true"></i></a></li>-->
+        <li unsecureDisplay class="hidden-xs hidden-sm"><a routerLink="/login" routerLinkActive="active"  class="menu-text"><span class="menu-text">Sign-in &nbsp;&nbsp;&nbsp;</span><i class="fa fa-lg fa-user-circle" aria-hidden="true"></i></a></li>
+        <li secureDisplay data-toggle="collapse" data-target=".navbar-collapse"><a routerLink="/user-settings" routerLinkActive="active"><i class="fa fa-user-circle fa-lg profile-icon" aria-hidden="true"></i><span class="hidden-sm hidden-md hidden-lg hidden-xl menu-text"> &nbsp;&nbsp;&nbsp;Settings</span></a></li>
+        <li secureDisplay class="hidden-xs"><a routerLink="/notifications" routerLinkActive="active"><i class="fa fa-bell-o fa-lg notification-icon" aria-hidden="true"></i><span class="hidden-sm hidden-md hidden-lg hidden-xl menu-text"> &nbsp;&nbsp;&nbsp;Notifications</span></a></li>
+        <li secureDisplay data-toggle="collapse" data-target=".navbar-collapse" class="hidden-sm hidden-md hidden-lg hidden-xl"><a routerLink="/payment-methods" routerLinkActive="active" class="menu-text"><i class="fa fa-lg fa-credit-card" aria-hidden="true"></i> &nbsp; Payment Methods</a></li>
+        <li secureDisplay data-toggle="collapse" data-target=".navbar-collapse"  class="hidden-sm hidden-md hidden-lg hidden-xl"><a routerLink="/appointments" routerLinkActive="active" class="menu-text"><i class="fa fa-lg fa-calendar" aria-hidden="true"></i> &nbsp;&nbsp; Your Trips</a></li>
+        <li secureDisplay data-toggle="collapse" data-target=".navbar-collapse" class="hidden-sm hidden-md hidden-lg hidden-xl"><a href="javascript:void(0);" (click)="logout();" class="menu-text"><i class="fa fa-lg fa-calendar" aria-hidden="true"></i> &nbsp;&nbsp; Log Out</a></li>
+        <li secureDisplay class="dropdown hidden-xs">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret nav-caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a routerLink="/payment-methods" routerLinkActive="active"><i class="fa fa-credit-card" aria-hidden="true"></i> &nbsp; Payment Methods</a></li>
+            <li><a routerLink="/appointments" routerLinkActive="active"><i class="fa fa-calendar" aria-hidden="true"></i> &nbsp; Your Trips</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="javascript:void(0);" (click)="logout();" class="log-out">Log Out</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  
+
+
+
+
+<div id="homeClick" [hidden]="true" class="homeClick" (click)="searchHomeSavedSearchAddress();"></div>
+<div id="workClick" [hidden]="true" class="homeClick" (click)="searchWorkSavedSearchAddress();"></div>
+
+</nav>
+
+<div *ngIf="isAdminLoggedIn()" class="container">
+  <div class="col-xs-12 col-md-7 col-md-offset-2 user-warning">
+    <div class="alert alert-danger" role="alert">
+      You are currently loggeed in on behalf of {{getUsersName()}}. Click <a (click)="logout();" href="javascript:void(0);">here</a> to log out
+    </div>
+  </div>
+</div>
+<br [hidden]="!isAdminLoggedIn()" />

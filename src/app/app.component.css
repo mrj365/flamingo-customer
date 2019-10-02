@@ -1,0 +1,23 @@
+@media(max-width: 320px) {
+    .body-wrapper {
+        margin-bottom: 171px;
+    }
+}
+
+@media(max-width: 375px) {
+    .body-wrapper {
+        margin-bottom: 160px;
+    }
+}
+
+@media(max-width: 501px) {
+    .body-wrapper {
+        margin-bottom: 140px;
+    }
+}
+
+@media(max-width: 767px) {
+    .body-wrapper {
+        margin-bottom: 120px;
+    }
+}

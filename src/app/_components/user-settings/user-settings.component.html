@@ -1,0 +1,176 @@
+<div class="container container-bottom-padding container-pull-up">
+  <div class="row">
+    <div class="col-xs-12 col-md-3 picture-div">
+        <div class="profile-img-div">
+          <img [imgSrc]="user.imgUrl" (click)="modalEditPhoto.open()" class="profile-img img-thumbnail" />
+
+          <div class="hidden-xs hidden-sm info-div">
+            <span class="name-span span-block">{{user.firstName}} {{user.lastName}}<i (click)="modalEditUser.open();" class="fa fa-pencil pull-right edit-icon" aria-hidden="true"></i></span>
+            <span class="email-span span-block">{{user.email}}</span>
+            <span class="phone-span span-block">{{user.phone}}</span>
+
+          </div>
+        </div>
+				
+      </div>
+    <div class="col-xs-12  col-md-8">
+      <br/>
+
+      
+
+      <form class="hidden-md hidden-lg hidden-xl" #editUserMobileNGForm="ngForm" novalidate>
+        <div class="form-group row">
+          <label for="inputEmail3" class="col-sm-2 col-form-label">First Name</label>
+          <div *ngIf="!editMode" (click)="enableEditing();" class="pull-right edit-mobile-span"><span>Edit&nbsp;&nbsp;</span><span><i class="fa fa-pencil edit-icon" aria-hidden="true"></i></span></div>
+          <div *ngIf="editMode" class="pull-right edit-mobile-span"><span><i (click)="cancelUpdateUser();" class="fa fa-lg fa-times edit-icon color-red" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;</span><span><i (click)="onSubmitMobile(editUserMobileNGForm.valid, $event);" class="fa fa-lg fa-check edit-icon color-green" aria-hidden="true"></i></span></div>
+          <div class="col-md-6 position-inherit" [ngClass]="{ 'has-error': editUserMobileNGForm.submitted && !firstName.valid}">
+            <input [readonly]="!editMode" type="text" class="form-control form-control-bottom" placeholder="First Name" name="firstName" [(ngModel)]="editUserMobileFormDTO.firstName" #firstName="ngModel" required>
+            <div *ngIf="formErrorsMobile.firstName" class="has-error help-block">{{ formErrorsMobile.firstName}}</div>
+          </div>
+          
+        </div>
+
+        <div class="form-group row" [ngClass]="{ 'has-error': editUserMobileNGForm.submitted && !lastName.valid}">
+          <label for="inputEmail3" class="col-sm-2 col-form-label">Last Name</label>
+          <div class="col-md-6">
+            <input [readonly]="!editMode" type="text" class="form-control form-control-bottom" placeholder="Last Name" name="lastName" [(ngModel)]="editUserMobileFormDTO.lastName" #lastName="ngModel" required>
+            <div *ngIf="formErrorsMobile.lastName" class="has-error help-block">{{ formErrorsMobile.lastName }}</div>
+          </div>
+        </div>
+
+        <div class="form-group row" [ngClass]="{ 'has-error': editUserMobileNGForm.submitted && !email.valid}">
+          <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
+          <div class="col-md-6">
+            <input [readonly]="!editMode" type="email" class="form-control form-control-bottom" placeholder="Email" name="email" [(ngModel)]="editUserMobileFormDTO.email" #email="ngModel" email>
+            <div *ngIf="formErrorsMobile.email" class="has-error help-block">{{ formErrorsMobile.email }}</div>
+          </div>
+        </div>
+
+        <div class="form-group row" [ngClass]="{ 'has-error': editUserMobileNGForm.submitted && !phone.valid}">
+          <label for="inputEmail3" class="col-sm-2 col-form-label">Phone</label>
+          <div class="col-md-6">
+            <input [readonly]="!editMode" type="text" class="form-control form-control-bottom" name="phone" [(ngModel)]="editUserMobileFormDTO.phone" #phone="ngModel" placeholder="Phone" required minlength="10" maxlength="10" phone>
+            <div *ngIf="formErrorsMobile.phone" class="has-error help-block">{{ formErrorsMobile.phone }}</div>
+          </div>
+        </div>
+      </form>
+
+      <!--<hr/>-->
+      
+    </div>
+  <!--</div> 
+  <div class="row">-->
+    <div class="col-xs-12 col-md-offset-1 col-md-6">
+      <div class="places-header">
+        <span class="places-header-text span-block">Saved Places</span>
+
+      </div>
+
+      <div class="place-selector-div">
+        <span class="places-icon"><i class="fa fa-lg fa-home" aria-hidden="true"></i></span>
+        <span class="cursor-pointer" *ngIf="!homeLocation"(click)="openCreateSavedSearchLocationModal('Home');"> &nbsp;Add Home</span>
+        <span class="cursor-pointer" *ngIf="homeLocation" (click)="updateSavedSearchLocation(homeLocation)"> &nbsp;{{homeLocation.address1}} {{homeLocation.city}}</span>
+        <span class="cursor-pointer pull-right" *ngIf="homeLocation" (click)="updateSavedSearchWorkLocation(homeLocation)"><i class="fa fa-trash" aria-hidden="true"></i></span>
+      </div>
+      <div class="place-selector-div">
+        <span class="places-icon"><i class="fa fa-lg fa-suitcase" aria-hidden="true"></i></span>
+        <span class="cursor-pointer" *ngIf="!workLocation" (click)="openCreateSavedSearchLocationModal('Work');"> &nbsp;Add Work</span>
+        <span class="cursor-pointer" *ngIf="workLocation" (click)="updateSavedSearchLocation(workLocation)"> &nbsp;{{workLocation.address1}} {{workLocation.city}}</span>
+        <span class="cursor-pointer pull-right" *ngIf="workLocation" (click)="updateSavedSearchWorkLocation(workLocation)"><i class="fa fa-trash" aria-hidden="true"></i></span>
+      </div>
+    </div>
+  </div>
+
+
+  <modal #modalEditUser [size]="lg">
+    <modal-header [ngClass]="'edit-user-modal-header'" [show-close]="true">
+      <h4>Edit User</h4>
+    </modal-header>
+    <modal-body [ngClass]="'service-modal-body'">
+      <form name="editUserNGForm" #editUserNGForm="ngForm" novalidate>
+        <div class="form-group name-form-group" [ngClass]="{ 'has-error': editUserNGForm.submitted && (!firstName.valid || !lastName.valid)}">
+            <div class="row">
+              <div class="form-group form-group-no-bottom-margin col-xs-6" [ngClass]="{ 'has-error': editUserNGForm.submitted && (!firstName.valid || !lastName.valid)}">
+                  <input type="text" class="form-control register-input" name="firstName" [(ngModel)]="editUserFormDTO.firstName" #firstName="ngModel" placeholder="First Name" required />
+              </div>
+              <div class="form-group form-group-no-bottom-margin col-xs-6" style="padding-left: 10px;" [ngClass]="{ 'has-error': editUserNGForm.submitted && !lastName.valid }">
+                  <input type="text" class="form-control register-input" name="lastName" [(ngModel)]="editUserFormDTO.lastName" #lastName="ngModel" placeholder="Last Name" required />
+              </div>
+          </div>
+          
+          <div *ngIf="formErrors.firstName" class="has-error help-block first-name-error">{{ formErrors.firstName}}</div>
+          <div *ngIf="formErrors.lastName" class="has-error help-block last-name-error">{{ formErrors.lastName }}</div>
+          
+      </div>
+      <div class="form-group" [ngClass]="{ 'has-error': editUserNGForm.submitted && !email.valid }">
+          <input type="text" class="form-control register-input" name="email" [(ngModel)]="editUserFormDTO.email" #email="ngModel" placeholder="Email" email/>
+          <div *ngIf="formErrors.email" class="help-block">{{ formErrors.email }}</div>
+      </div>
+      <div class="form-group" [ngClass]="{ 'has-error': editUserNGForm.submitted && !phone.valid }">
+          <input type="text" class="form-control register-input" name="phone" [(ngModel)]="editUserFormDTO.phone" #phone="ngModel" placeholder="Phone" required minlength="10" maxlength="10" phone/>
+          <div *ngIf="formErrors.phone" class="help-block">{{ formErrors.phone }}</div>
+      </div>
+  </form>
+        
+    </modal-body>
+    <modal-footer>
+      <button type="button" class="btn btn-default" (click)="modalEditUser.close();">Cancel</button>
+      <button type="button" class="btn btn-brand-primary" (click)="onSubmit2(editUserNGForm.valid, $event); modalEditUser.close();">&nbsp;Save&nbsp;</button>
+    </modal-footer>
+    
+</modal>
+
+
+<modal #modalEditLocation [size]="lg">
+    <modal-header [ngClass]="'edit-saved-search-location-modal-header'" [show-close]="true">
+      <h4>Edit Location</h4>
+    </modal-header>
+    <modal-body [ngClass]="'service-modal-body'">
+      <input type="text" class="form-control" id="searchSavedAddress" name="searchSavedAddress" #searchSavedAddress [(ngModel)]="currentAddress" placeholder="Address"/>
+    </modal-body>
+    <modal-footer>
+      <button type="button" class="btn btn-default" (click)="modalEditLocation.close();">Cancel</button>
+    </modal-footer>
+</modal>
+
+<modal (onDismiss)="resetCropper()" (onClose)="resetCropper()" #modalEditPhoto [size]="lg" >
+    <modal-header [ngClass]="'edit-saved-search-location-modal-header'" [show-close]="true">
+      <h4>Edit Photo</h4>
+    </modal-header>
+    <modal-body [ngClass]="'service-modal-body edit-photo-modal-body'">
+      <div class="col-xs-12 img-wrapper-div">
+        <div class="form-group img-form-group-div">
+          <div [hidden]="true">
+          <input type="file" (change)="readURL($event)" id="upload"  #file />
+          </div>
+          <br/>
+          <div class="img-wrapper-inner-div">
+            
+            <!-- Hidden cropper div -->
+            <div [hidden]="hideCroppieDiv" id="croppieDiv" class="croppie-div">
+              <img #croppieImg id="croppieImg" name="croppieImg" class="croppie-div-img" src="images/na.png" />
+            </div>
+            
+            <!-- loaded or cropped image div -->
+            <div id="croppedDiv" #croppedDiv [hidden]="hideCroppedDiv" class="cropped-div">
+              <img *ngIf="user.imgUrl" id="croppedImg" #croppedImg (click)="file.click()" [imgSrc]="user.imgUrl" class="form-image cropped-img" onError="this.src='images/na.png';"/>
+              <img *ngIf="!user.imgUrl" id="croppedImg" #croppedImg (click)="file.click()" [imgSrc]="user.imgUrl" class="imgUploadBtn form-image cropped-img" />
+              <div (click)="file.click()" class="cropped-overlay"><span>Edit Photo</span></div>
+            </div>
+            <div>
+              <!--<input id="getCroppedCanvasBtn" type="button" (click)="uploadImg()" [hidden]="hideCroppedCanvasBtn" value="Use this selection" class="cropped-canvas-btn"/>-->
+              <button id="rotateBtn" (click)="rotateCropper();" [hidden]="hideRotateBtn" type="button" class="rotate-btn" ><i class="fa fa-rotate-right"></i></button>
+            </div>
+            <input #imageUrl name="imageUrl" [hidden]="true"/>
+          </div>
+        </div>				
+      </div>
+    </modal-body>
+    <modal-footer>
+      <button id="getCroppedCanvasBtn" type="button" *ngIf="!hideCroppedCanvasBtn" 
+          type="button" class="btn btn-brand-primary" (click)="uploadImg();">Use this image</button>
+      <button type="button" class="btn btn-default" (click)="modalEditPhoto.close();">Cancel</button>
+    </modal-footer>
+</modal>
+  
+</div>

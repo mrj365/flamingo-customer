@@ -1,0 +1,13 @@
+.current-balance-text {
+    text-align: center;
+    font-size: 24px;
+    display: block;
+    margin-top: 20px;
+}
+
+.current-balance {
+    text-align: center;
+    font-size: 30px;
+    display: block;
+    color: #0073bb;
+}

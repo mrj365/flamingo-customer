@@ -1,0 +1,29 @@
+@media(max-width: 768px){
+    .contact-us-btn {
+        width: 100%
+    }
+}
+
+@media(min-width: 769px){
+    .contact-us-btn {
+        float: right;
+    }
+}
+
+.contact-us-sm-header {
+    border-bottom: 1px solid #eee;
+    font-weight: bold;
+    height: 45px;
+    line-height: 45px;
+}
+
+.contact-us-sm-option {
+    height: 45px;
+    line-height: 45px;
+    border-bottom: 1px solid #eee;
+}
+
+.contact-chevron {
+    line-height: 45px !important;
+    color: #999;
+}

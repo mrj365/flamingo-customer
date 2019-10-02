@@ -1,0 +1,25 @@
+<div class="container notifications-container">
+  <div class="row">
+    <!--<div class="col-xs-12 notification-section-header">
+      <span class="notification-section-header-text">Your Notifications</span>
+    </div>-->
+  <div class="notification-header">
+      Notifications
+      <div class="notification-header-underline"></div>
+  </div>
+  </div>
+  <div *ngFor="let notification of notificationListResult.notifications" class="row notificaiton-row" [ngClass]="(notification.read == false)?'unread':''">
+    <div class="col-xs-12">
+      <div (click)="readNotification(notification)" class="notification-container">
+        <span class="notification-title span-block nt-span-margin">{{notification.title}}</span>
+        <span class="notification-text span-block nt-span-margin">
+          {{notification.content}} 
+        </span>
+        <span class="notification-date span-block nt-span-margin">{{notification.sentDate}}</span>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="notificationListResult.notifications.length == 0" class="no-notifications-wrapper">
+    <span class="no-notifications">No Notifications</span>
+  </div>
+</div>

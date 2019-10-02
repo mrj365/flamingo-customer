@@ -1,0 +1,79 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 payment-section-header">
+      <!--<span class="payment-section-header-text">Add Card</span>-->
+      <div class="payment-method-header">
+        Add Payment Method
+        <div class="payment-method-header-underline"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <span class="panel-title">Payment Details</span>
+          <img class="pull-right cc-img" src="images/cards.png">
+        </div>
+        <div class="panel-body">
+          <form role="form" id="payment-form" (submit)="getCardData(addPaymentMethodForm.valid)" #addPaymentMethodForm="ngForm" novalidate>
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="form-group">
+                  <label for="cardNumber">CARD NUMBER</label>
+                  <div class="input-group">
+                    <input [(ngModel)]="model.number" name="number" #number type="text" class="form-control" id="cardNumber" placeholder="Valid Card Number" required autofocus data-stripe="number" />
+                    <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                  </div>
+                  <div *ngIf="formErrors.number" class="alert alert-danger">
+                    {{ formErrors.number }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-7 col-md-7">
+                <div class="form-group">
+                  <label for="expMonth">EXPIRATION DATE</label>
+                  <div class="col-xs-6 col-lg-6 pl-ziro no-left-padding">
+                    <select class="form-control show-date-sm-date-select" [(ngModel)]="model.month" id="month" name="month" required>
+                      <option *ngFor="let cardMonth of months" [selected]="cardMonth == 01">{{cardMonth}}</option>
+                    </select>
+                  </div>
+                  <div class="col-xs-6 col-lg-6 pl-ziro col-no-padding">
+                    <select class="form-control show-date-sm-date-select" [(ngModel)]="model.year" id="year" name="year" required>
+                      <option *ngFor="let cardYear of years" [selected]="cardYear == currentYear" >{{cardYear}}</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+              <div class="col-xs-5 col-md-5 pull-right">
+                <div class="form-group">
+                  <label for="cvCode">CVV</label>
+                  <input [(ngModel)]="model.cvv" name="cvv" #cvv type="password" class="form-control" id="cvCode" placeholder="CVV" required [maxlength]="4" data-stripe="cvc" />
+                </div>
+              </div>
+              <div *ngIf="formErrors.month || formErrors.year || formErrors.cvv" class="alert alert-danger">
+                <span *ngIf="formErrors.month">{{ formErrors.month }}<br/></span>
+                <span *ngIf="formErrors.year">{{ formErrors.year }}<br/></span>
+                <span *ngIf="formErrors.cvv">{{ formErrors.cvv }}<br/></span>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <button [disabled]="newPaymentMethodFormSubmitted" class="btn btn-brand-primary btn-block" type="submit">Add Payment Method <i *ngIf="newPaymentMethodFormSubmitted" class="fa fa-spinner fa-spin spinner-padding" aria-hidden="true"></i></button>
+              </div>
+            </div>
+            <div class="row" style="display:none;">
+              <div class="col-xs-12">
+                <p class="payment-errors"></p>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <img class="pull-left" src="images/stripe.svg">
+      <img class="ssl-seal pull-right" src="images/RapidSSL_SEAL.gif">
+    </div>
+  </div>
+</div>

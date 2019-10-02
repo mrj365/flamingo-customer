@@ -1,0 +1,9 @@
+<div id="body-wrapper" [ngClass]="showFooter ? 'body-wrapper' : ''">
+	<div id="body-wrapper-inner">
+		<app-navigation-bar *ngIf="!hailProfile" [hidden]="!showNav"></app-navigation-bar>
+		<app-nav-bar-hail *ngIf="hailProfile" [hidden]="!showNav"></app-nav-bar-hail>
+		<router-outlet class="body-outlet"></router-outlet>
+	</div>
+</div>
+<app-footer *ngIf="showFooter" class="app-footer"></app-footer>
+<app-footer-mobile *ngIf="!showFooter" class="app-footer-mobile"></app-footer-mobile>

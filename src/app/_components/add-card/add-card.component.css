@@ -1,0 +1,95 @@
+.payment-method-header {
+    font-size: 24px;
+    margin-top: 22px;
+    /*padding-left: 24px;*/
+    padding-right: 24px;
+    color: #1C1B1B;
+    /*border-bottom: 1px solid #eee;*/
+}
+
+.payment-method-header-underline {
+    content: '';
+    display: block;
+    width: 48px;
+    height: 4px;
+    position: relative;
+    top: 10px;
+    margin-bottom: 40px;
+    background-color: #FFBF00;
+}
+
+.payment-section-header {
+    margin-bottom: 30px;
+    /*border-bottom: 1px solid #999;*/
+}
+
+.payment-section-header-text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0B9ED0;
+    display: block;
+    /*margin-bottom: 15px;*/
+    padding-bottom: 15px;
+}
+
+.btn-brand-primary {
+  background-color: #FFBF00;
+  border-color: #FFBF00;
+  color: white;
+  font-weight: bold;
+}
+.btn-brand-primary:hover,
+.btn-brand-primary:focus,
+.btn-brand-primary:active,
+.btn-brand-primary.active {
+  background-color: #e6ac00;
+  border-color: #cc9900;
+  color: white;
+  font-weight: bold;
+}
+.btn-brand-primary.disabled:hover,
+.btn-brand-primary.disabled:focus,
+.btn-brand-primary.disabled:active,
+.btn-brand-primary.disabled.active,
+.btn-brand-primary[disabled]:hover,
+.btn-brand-primary[disabled]:focus,
+.btn-brand-primary[disabled]:active,
+.btn-brand-primary[disabled].active,
+fieldset[disabled] .btn-brand-primary:hover,
+fieldset[disabled] .btn-brand-primary:focus,
+fieldset[disabled] .btn-brand-primary:active,
+fieldset[disabled] .btn-brand-primary.active {
+  background-color: #FFBF00;
+  border-color: #FFBF00;
+  color: white;
+  font-weight: bold;
+}
+
+.btn:focus, .btn:active:focus, .btn.active:focus { 
+    outline: none !important; 
+    outline-style: none; 
+} 
+
+.cc-img {
+    height: 22px;
+    width: auto;
+}
+
+.no-left-padding {
+    padding-left: 0px;
+}
+
+@media(max-width: 767px){
+    .show-date-sm-date-select {
+        padding: 6px 2px;
+    }
+}
+
+.spinner-padding {
+    margin-left: 10px; 
+}
+
+.ssl-seal {
+    height: 41px;
+    width: auto;
+}

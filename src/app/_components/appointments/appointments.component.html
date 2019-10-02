@@ -1,0 +1,35 @@
+<div class="flex-container container-bottom-padding">
+  <div class="appt-filter-div">
+    <div class="container">
+      <div class="dropdown apt-search-dropdown">
+        <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Filter: {{appointmentFilterValue}}&nbsp;
+          <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+          <li><a (click)="filterScheduled()" href="javascript:void(0);">Scheduled</a></li>
+          <li><a (click)="filterHistory()"href="javascript:void(0);">History</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container container-bottom-padding">
+  <div class="row apt-row" (click)="goToDetail(appointment.id)" *ngFor="let appointment of appointments">
+    <div class="col-sm-offset-2 col-xs-12 col-sm-8">
+      <div class="row">
+        <app-appointment-list-item [appointment]="appointment"></app-appointment-list-item>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="appointments.length == 0" class="no-appointments-wrapper">
+    <span class="no-appointments">No Appointments</span>
+  </div>
+  <nav *ngIf="appointments.length > 0 && pageCount > 1" aria-label="appointment-navigation">
+    <ul class="pager">
+      <li [ngClass]="currentPage > 1 ? '' : 'disabled'"><a (click)="canNavigateBackward() && navigateBackward();" href="javascript:void(0);">Previous</a></li>
+      &nbsp;{{currentPage}} / {{pageCount}}&nbsp;
+      <li [ngClass]="currentPage < pageCount ? '' : 'disabled'"><a (click)="canNavigateForward() && navigateForward();"href="javascript:void(0);">&nbsp;&nbsp;&nbsp;Next&nbsp;&nbsp;&nbsp;</a></li>
+    </ul>
+  </nav>
+</div>

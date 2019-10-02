@@ -1,0 +1,43 @@
+<div class="container-fluid main-container hidden-md hidden-lg hidden-xl">
+  <div class="row">
+    <div class="col-xs-12 contact-us-sm-header">
+      About
+    </div>
+  </div>
+  <div [routerLink]="['/about-us']" class="row pointer">
+    <div class="col-xs-12 contact-us-sm-option">
+      About Us <i class="fa fa-chevron-right pull-right contact-chevron" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div [routerLink]="['/privacy']" class="row pointer">
+    <div class="col-xs-12 contact-us-sm-option">
+      Privacy Policy <i class="fa fa-chevron-right pull-right contact-chevron" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div  [routerLink]="['/terms']" class="row pointer">
+    <div class="col-xs-12 contact-us-sm-option">
+      Terms of Service <i class="fa fa-chevron-right pull-right contact-chevron" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div *ngIf="fbSocialUrl" (click)="route(fbSocialUrl);" class="row pointer">
+    <div class="col-xs-12 contact-us-sm-option">
+      Facebook <i class="fa fa-chevron-right pull-right contact-chevron" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div *ngIf="instagramSocialUrl" (click)="route(instagramSocialUrl);" class="row pointer">
+    <div class="col-xs-12 contact-us-sm-option">
+      Instagram <i class="fa fa-chevron-right pull-right contact-chevron" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div *ngIf="linkedInSocialUrl" (click)="route(linkedInSocialUrl);" class="row pointer">
+    <div class="col-xs-12 contact-us-sm-option">
+      LinkedIn <i class="fa fa-chevron-right pull-right contact-chevron" aria-hidden="true"></i>
+    </div>
+  </div>
+  <div *ngIf="twitterSocialUrl" (click)="route(twitterSocialUrl);" class="row pointer">
+    <div class="col-xs-12 contact-us-sm-option">
+      Twitter <i class="fa fa-chevron-right pull-right contact-chevron" aria-hidden="true"></i>
+    </div>
+  </div>
+</div>
+

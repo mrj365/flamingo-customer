@@ -1,0 +1,460 @@
+@import 'demo.sass';
+
+/* You can add global styles to this file, and also import other style files */
+
+body {
+  font-family: 'Helvetica Neue', Helvetica, sans-serif;
+  font-size: 12px;
+  height: 100%;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+}
+
+#body-wrapper {
+  min-height: 100%;
+}
+
+#body-wrapper-inner {
+  overflow: auto;
+  /*padding-bottom: 171px;*/
+}
+
+.brand-primary-background-color {
+  background-color: $primary-color;
+}
+
+/***************************
+ * Header Styles
+ ***************************/
+
+.brand-header-text-color {
+  color: $header-text-color !important;
+}
+
+.navbar-default .navbar-nav>li>a {
+  color: $header-text-color !important;
+}
+
+.brand-header-text-color {
+  color: $header-text-color;
+}
+
+.nav-caret {
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-top: 6px solid $header-text-color;
+}
+
+.search-btn {
+  background-color: $header-button-color !important;
+  border-top-left-radius: 0px !important;
+  border-top-right-radius: 4px !important;
+  border-bottom-left-radius: 0px !important;
+  border-bottom-right-radius: 4px !important;
+
+  // background-color: #0B9ED0;
+  // border: $header-button-color 1px solid !important;
+  border: none !important;
+
+  color: $header-button-font-color !important;
+  font-weight: bold !important;
+
+  margin-left: -4px;
+}
+
+.search-btn:hover {
+  // background-color: #0B9ED0;
+  background-color: $header-button-color-hover  !important;
+  border: $header-button-color-hover 1px solid !important;
+  color: $header-button-font-color !important;
+  font-weight: bold !important;
+}
+
+.search-btn:active {
+  background-color: $header-button-color-hover !important;
+  border: $header-button-border-color-click 1px solid !important;
+  color: $header-button-font-color !important;
+  font-weight: bold !important;
+}
+
+.search-btn:focus {
+  background-color: $header-button-color-hover !important;
+  /*border: #0B9ED0 1px solid !important;*/
+  color: $header-button-font-color !important;
+  font-weight: bold !important;
+  outline: none !important;
+}
+
+.cart-ct-badge-color {
+  background-color: $header-button-color !important;
+  color: $header-text-color !important;
+}
+
+/*****************
+* Footer styles
+***************/
+.brand-footer-text-color {
+  color: $footer-text-color
+}
+
+a:link.brand-footer-text-color, a:visited.brand-footer-text-color {
+  color: $footer-text-color;
+}
+a:hover.brand-footer-text-color {
+  color: $footer-text-color;
+}
+
+.footer-trademark {
+  color: $footer-text-color-secondary;
+}
+
+.footer-seperator {
+  border-color: $footer-text-color;
+}
+
+
+
+
+
+
+
+
+
+.theme-background-color {
+  background-color: #0b65b1 !important;
+}
+
+
+
+
+
+
+
+.span-block {
+  display: block;
+}
+
+.col-no-padding {
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+}
+
+.container-bottom-padding {
+  padding-bottom: 70px;
+}
+
+.page-header-w-underline {
+  font-size: 32px;
+  margin-top: 22px;
+  /*padding-left: 24px;*/
+  padding-right: 24px;
+  color: #1C1B1B;
+}
+
+.page-header-underline {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 4px;
+  position: relative;
+  top: 10px;
+  margin-bottom: 50px;
+  background-color: #FFBF00;
+}
+
+.btn.btn-brand-primary, .btn-brand-primary {
+  background-color: #FFBF00;
+  border-color: #FFBF00;
+  color: white;
+}
+
+.btn.btn-brand-primary {
+  &:hover, &:focus, &:active, &.active {
+    background-color: #e6ac00;
+    border-color: #cc9900;
+    color: white;
+  }
+}
+
+.btn-brand-primary {
+  &:hover, &:focus, &:active, &.active {
+    background-color: #e6ac00;
+    border-color: #cc9900;
+    color: white;
+  }
+  &.disabled {
+    &:hover, &:focus, &:active, &.active {
+      background-color: #FFBF00;
+      border-color: #FFBF00;
+      color: white;
+    }
+  }
+  &[disabled] {
+    &:hover, &:focus, &:active, &.active {
+      background-color: #FFBF00;
+      border-color: #FFBF00;
+      color: white;
+    }
+  }
+}
+
+fieldset[disabled] .btn-brand-primary {
+  &:hover, &:focus, &:active, &.active {
+    background-color: #FFBF00;
+    border-color: #FFBF00;
+    color: white;
+  }
+}
+
+.form-control-bottom {
+  border-radius: 0px !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-top: none !important;
+  box-shadow: none !important;
+}
+
+.form-group.rq {
+  .control-label:after, .col-form-label:after {
+    content: "*";
+    color: red;
+  }
+}
+
+.service-modal-header > div.modal-header {
+  padding: 5px 12px !important;
+  padding-bottom: 0px !important;
+  border: none !important;
+}
+
+.edit-user-modal-header > div.modal-header {
+  padding: 5px 12px !important;
+  padding-bottom: 0px !important;
+}
+
+@media (max-width: 767px) {
+  .service-modal-body > div.modal-body {
+    height: calc(100vh - 130px) !important;
+    overflow-y: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .service-modal-body > div.modal-body {
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .service-provider-modal-body > div.modal-body {
+    height: calc(100vh - 80px) !important;
+    overflow-y: auto;
+  }
+}
+
+@media (min-width: 768px) {
+  .service-provider-modal-body > div.modal-body {
+    overflow-y: auto;
+  }
+}
+
+.form-group-no-bottom-margin {
+  margin-bottom: 0px;
+}
+
+.pac-item {
+  cursor: default;
+  padding: 0 4px;
+  /*text-overflow: ellipsis;
+  overflow: hidden;*/
+  white-space: normal;
+  line-height: 20px;
+  text-align: left;
+  border-top: 1px solid #e6e6e6;
+  font-size: 11px;
+  /*color: orange;*/
+  /*color: #999;*/
+  z-index: 999999999999999;
+  padding: 5px;
+}
+
+.pac-icon {
+  width: 15px;
+  height: 20px;
+  margin-right: 7px;
+  margin-top: 6px;
+  display: inline-block;
+  vertical-align: top;
+  background-image: url(https://maps.gstatic.com/mapfiles/api-3/images/autocomplete-icons.png);
+  background-size: 34px;
+  float: left;
+}
+
+.pac-icon-saved-search {
+  width: 15px;
+  height: 20px;
+  margin-right: 7px;
+  /*margin-top: 6px;*/
+  display: inline-block;
+  vertical-align: top;
+  /*background-image: url(https://maps.gstatic.com/mapfiles/api-3/images/autocomplete-icons.png);
+  background-size: 34px;*/
+  float: left;
+  color: #bbb;
+}
+
+.pac-icon-marker {
+  background-position: -1px -161px;
+}
+
+.pac-item-query {
+  font-size: 13px;
+  padding-right: 3px;
+  color: #000;
+}
+
+.pac-container, .pac-item {
+  /*width: inherit !important;*/
+  z-index: 2000;
+  /*display:block;*/
+}
+
+.edit-saved-search-address-modal-header > div.modal-header {
+  padding: 5px 12px !important;
+  padding-bottom: 0px !important;
+}
+
+.cancel-edit-payment {
+  margin-right: 10px;
+}
+
+.mg-page-header {
+  font-size: 24px;
+  /*margin-top: 22px;*/
+  /*padding-left: 24px;*/
+  padding-right: 24px;
+  color: #1C1B1B;
+  /*border-bottom: 1px solid #eee;*/
+  margin: 0px 20px;
+  padding-bottom: 10px;
+}
+
+.page-header-underline {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 4px;
+  position: relative;
+  top: 10px;
+  margin-bottom: 30px;
+  background-color: #FFBF00;
+}
+
+.page-header-sm {
+  font-size: 20px;
+  /*padding-left: 24px;*/
+  padding-right: 24px;
+  color: #1C1B1B;
+  /*border-bottom: 1px solid #eee;*/
+}
+
+.page-header-underline-sm {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 4px;
+  position: relative;
+  top: 10px;
+  margin-bottom: 30px;
+  background-color: #FFBF00;
+}
+
+.cropper-modal {
+  background: #f2f2f2 !important;
+}
+
+.service-modal-body.edit-photo-modal-body > div.modal-body {
+  background: #f2f2f2;
+}
+
+.search-form-group > popover-content > .popover.bottom {
+  margin-top: 43px;
+}
+
+.noselect {
+  -webkit-touch-callout: none;
+  /* iOS Safari */
+  -webkit-user-select: none;
+  /* Safari */
+  -khtml-user-select: none;
+  /* Konqueror HTML */
+  -moz-user-select: none;
+  /* Firefox */
+  -ms-user-select: none;
+  /* Internet Explorer/Edge */
+  user-select: none;
+  /* Non-prefixed version, currently
+     supported by Chrome and Opera */
+}
+
+.cust-error {
+  color: #a94442;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.spinner-padding {
+  margin-left: 10px;
+}
+
+.danger-text {
+  color: #d9534f;
+}
+
+.font-weight-bold {
+  font-weight: bold;
+}
+
+.spinner-padding {
+  margin-left: 10px;
+}
+
+.pointer {
+  cursor: pointer !important;
+}
+
+.cursor-default {
+  cursor: default !important;
+}
+
+.bullet {
+  display: list-item;
+  /* This has to be "list-item"                                               */
+  list-style-type: disc;
+  /* See https://developer.mozilla.org/en-US/docs/Web/CSS/list-style-type     */
+  list-style-position: inside;
+}
+
+.width-100 {
+  width: 100%;
+}
+
+.brand-dark-color {
+  color: #0b65b1;
+}
+
+.normal-weight {
+  font-weight: normal;
+}
+
+.first-cap {
+  text-transform: lowercase;
+  display: inline-block;
+  &::first-letter {
+    text-transform: uppercase;
+  }
+}

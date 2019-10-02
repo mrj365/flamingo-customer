@@ -1,0 +1,56 @@
+.about-us-header {
+    font-size: 24px;
+    font-weight: bold;
+    color: #FFBF00;
+    padding-bottom: 20px;
+}
+
+.about-us-img {
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+.about-us-container {
+    padding-bottom: 20px;
+}
+
+.about-us-highlight {
+    color: rgb(0, 0, 255);
+}
+
+.about-text {
+    font-size: 15px;
+    margin-bottom: 20px;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.review-section {
+    margin-top: 50px;
+    
+    padding: 10px;
+    
+}
+
+.review-section-inner {
+    background-color: #f6f7f9;
+    border-radius: 8px;
+}
+
+.reviews-header {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
+.review-highlight {
+    font-size: 15px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.review-text {
+    margin-bottom: 20px;
+}

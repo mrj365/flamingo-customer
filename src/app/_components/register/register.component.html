@@ -1,0 +1,125 @@
+<div class="register-body">
+    <!--<button  (click)="navToLogin()" aria-label="" class="btn login-button btn-social btn-blue hidden-xs hidden-sm" type="button">Sign in</button>-->
+    <div class="register-div col-xs-12 col-sm-12 col-lg-6 col-lg-offset-3">
+
+        <div class="register-div-inner-container">
+            <div class="register-div-inner">
+
+                <div class="register-div-left hidden-xs hidden-sm">
+                    <img src="images/register-1.jpg" class="register-img-left"/>
+                </div>
+                <div class="register-right-div col-xs-12 col-sm-12 col-md-6">
+                    <div class="register-right-div-container">
+                        <div class="register-img-div">
+                            <!-- <img class="register-img" src="images/logo-blue.png" /> -->
+                            <img [imgSrc]="'static/logo-blue.png'" class="register-img" onerror="this.onerror=null;this.src='images/md-placholder.png';"/>
+                        </div>
+                        <!--<div class="register-hearder-txt">{{platformName}}</div>-->
+                        <!--<div class="register-hearder-txt">Welcome to Mingo</div>-->
+                        <!--<div class="register-sub-header-txt">Service at your doorstep!</div>-->
+                        
+                        <div class="create-account-header-text">Create account</div>
+                        <!--<div class="register-sub-header-txt">Create a new account</div>-->
+                        <form *ngIf="!showUserDetailsForm" name="creatUserStep1Form" (ngSubmit)="onSubmit(creatUserStep1Form.valid, $event)" #creatUserStep1Form="ngForm" novalidate>
+                            <div class="form-group" [ngClass]="{ 'has-error': creatUserStep1Form.submitted && !email.valid }">
+                                <input type="text" class="form-control register-input" name="email" [(ngModel)]="model.email" #email="ngModel" placeholder="Email" email required/>
+                                <div *ngIf="formErrors.email" class="help-block">{{ formErrors.email }}</div>
+                                <div *ngIf="showUserExistsError" class="help-block email-exits-error">A user with this email address already exists. Please select another. If this account email address belongs to you, then please try <a (click)="navToLogin()" href="javascript:void(0);">signing in</a> instead.</div>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': creatUserStep1Form.submitted && !password.valid }">
+                                <input (keypress.enter)="onSubmit(creatUserStep1Form.valid)" type="password" class="form-control register-input" name="password" [(ngModel)]="model.password" #password="ngModel" placeholder="Create a Password" minlength="6" required notblank />
+                                <div *ngIf="formErrors.password" class="help-block">{{ formErrors.password }}</div>
+                            </div>
+                            <!--<div *ngIf="emailRegistration" class="form-group">
+                                <div class="row">
+                                    <div class="form-group col-xs-6">
+                                        <input type="text" class="form-control register-input" name="firstName" [(ngModel)]="userDetails.firstName" #firstName="ngModel" placeholder="First Name" required />
+                                    </div>
+                                    <div class="form-group col-xs-6" style="padding-left: 10px;">
+                                        <input type="text" class="form-control register-input" name="lastName" [(ngModel)]="userDetails.lastName" #firstName="ngModel" placeholder="Last Name" required />
+                                    </div>
+                                </div>
+                                <input type="text" class="form-control register-input" name="phone" [(ngModel)]="userDetails.phone" #firstName="ngModel" placeholder="Phone" required />
+                            </div>-->
+                            <div class="form-group">
+                                <button [disabled]="loading" type="submit" class="register-continue btn btn-primary register-btns-text">Create account</button>
+                                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                <!--<a [routerLink]="['/']" class="btn btn-link">Register</a>-->
+                                <div [hidden]="emailRegistration">
+                                    <div class="register-or-div">
+                                        <span class="register-or-span">OR</span>
+                                    </div>
+                                    <a id="fbBtn" class="btn btn-block btn-social btn-facebook register-btns-text" (click)="loginFacebook()">
+                                        <span class="fa fa-facebook"></span> Create account with Facebook
+                                    </a>
+                                    <a id="googleBtn" class="btn btn-block btn-social btn-google register-btns-text">
+                                        <span class="fa fa-google"></span> Create account with Google
+                                    </a>
+                                    <div class="already-registered-div">
+                                        <p>
+                                            Already registered? <a href="javascript:void(0);" (click)="navToLogin()">Sign in</a>
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="tos-div">
+                                    <p>
+                                        
+                                        Creating an account means you’re okay with {{platformName}}'s <a [routerLink]="['/terms']">Terms of Service</a> and Stripe's <a href="https://stripe.com/us/legal">Services Agreement</a>
+                                    </p>
+                                </div>
+                                
+                            </div>
+                        </form>
+
+
+
+
+
+
+
+                        <form *ngIf="showUserDetailsForm" (ngSubmit)="onSubmit2(creatUserStep2Form.valid, $event)" name="creatUserStep2Form" #creatUserStep2Form="ngForm" novalidate>
+                            <div class="form-group name-form-group" [ngClass]="{ 'has-error': creatUserStep2Form.submitted && (!firstName.valid || !lastName.valid)}">
+                                <div class="row">
+                        
+                                    <div class="form-group form-group-no-bottom-margin col-xs-6" [ngClass]="{ 'has-error': creatUserStep2Form.submitted && (!firstName.valid || !lastName.valid)}">
+                                        <input type="text" class="form-control register-input" name="firstName" [(ngModel)]="userDetails.firstName" #firstName="ngModel" placeholder="First Name" notblank required />
+                                    </div>
+                                    <div class="form-group form-group-no-bottom-margin col-xs-6" style="padding-left: 10px;" [ngClass]="{ 'has-error': creatUserStep2Form.submitted && !lastName.valid }">
+                                        <input type="text" class="form-control register-input" name="lastName" [(ngModel)]="userDetails.lastName" #lastName="ngModel" placeholder="Last Name" notblank required />
+                                    </div>
+                                </div>
+                                
+                                <div *ngIf="formErrors2.firstName" class="has-error help-block first-name-error">{{ formErrors2.firstName}}</div>
+                                <div *ngIf="formErrors2.lastName" class="has-error help-block last-name-error">{{ formErrors2.lastName }}</div>
+                                
+                            </div>
+                            <div *ngIf="!model.email" class="form-group" [ngClass]="{ 'has-error': creatUserStep2Form.submitted && !email.valid }">
+                                <input type="text" class="form-control register-input" name="email" [(ngModel)]="userDetails.email" #email="ngModel" placeholder="email" required email/>
+                                <div *ngIf="formErrors2.email" class="help-block">{{ formErrors2.email }}</div>
+                            </div>
+                            <div class="form-group" [ngClass]="{ 'has-error': creatUserStep2Form.submitted && !phone.valid }">
+                                <input type="text" class="form-control register-input" name="phone" [(ngModel)]="userDetails.phone" #phone="ngModel" placeholder="Phone" required minlength="10" maxlength="10" NumbersOnly phone/>
+                                <div *ngIf="formErrors2.phone" class="help-block">{{ formErrors2.phone }}</div>
+                            </div>
+                            <div class="form-group">
+                                <button [disabled]="loading" type="submit" class="register-continue btn btn-primary register-btns-text">Complete Registration<i *ngIf="loading" class="fa fa-spinner fa-spin spinner-padding" aria-hidden="true"></i></button>
+                                <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+                                <div class="tos-div">
+                                    <p>
+                                        Creating an account means you’re okay with {{platformName}}'s <a [routerLink]="['/terms']">Terms of Service</a> and Stripe's <a href="https://stripe.com/us/legal">Services Agreement</a>
+                                    </p>
+                                </div>
+                                
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+
+
+    </div>
+</div>

@@ -1,0 +1,21 @@
+<modal #giftCardModal [size]="lg">
+  <modal-header [ngClass]="'edit-user-modal-header'" [show-close]="true">
+    <h4>Redeem Gift Card</h4>
+  </modal-header>
+  <modal-body [ngClass]="'service-modal-body'">
+    <app-my-gift-balance></app-my-gift-balance>
+    <div class="gc-btn-div">
+      <button [disabled]="updatingBalance" *ngIf="!applyGiftCardBalance && !redeemGiftCardMode" (click)="applyGiftCardBalanceToOrder(true)" type="btn" class="btn btn-brand-primary gc-btn">Apply Balance to Order
+          <i *ngIf="updatingBalance" class="fa fa-spinner fa-spin spinner-padding" aria-hidden="true"></i>
+      </button>
+      <button [disabled]="updatingBalance" *ngIf="applyGiftCardBalance && !redeemGiftCardMode" (click)="applyGiftCardBalanceToOrder(false)" type="btn" class="btn btn-brand-primary gc-btn">Remove Gift Card from Order
+          <i *ngIf="updatingBalance" class="fa fa-spinner fa-spin spinner-padding" aria-hidden="true"></i>
+      </button>
+      <button *ngIf="!redeemGiftCardMode" (click)="redeemGiftCardMode = true;" type="btn" class="btn btn-brand-primary gc-btn gc-note">Add a New Gift Card</button>
+    </div>
+    <app-my-gift-redeem *ngIf="redeemGiftCardMode"></app-my-gift-redeem>
+    <span class="gc-msg" *ngIf="!redeemGiftCardMode">*Gift card balances are deducted from the total after the order has been processed.</span>
+  </modal-body>
+  <modal-footer>
+    <button type="button" class="btn btn-default" (click)="giftCardModal.close();">Cancel</button>
+  </modal-footer>

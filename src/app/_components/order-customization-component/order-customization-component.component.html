@@ -1,0 +1,59 @@
+  <modal #modalEditCustomizations [size]="lg">
+    <modal-header [ngClass]="'edit-user-modal-header'" [show-close]="true">
+      <h4>Additional options</h4>
+    </modal-header>
+    <modal-body [ngClass]="'service-modal-body'">
+
+      <ng-container *ngFor="let orderCustomizationGroup of orderCustomizationGroups.orderCustomizationGroups">
+
+        <ng-container *ngIf="orderCustomizationGroup.selector == 'CHECKBOX'">
+          <div class="form-check group-btm-margin">
+            <label>{{orderCustomizationGroup.groupName}}</label>
+            <i class="fa fa-info-circle info-icon" aria-hidden="true" (click)="customizationDescription.hidden = !customizationDescription.hidden"></i>
+            <span #customizationDescription [hidden]="true" class="span-block customization-description">{{orderCustomizationGroup.description}}</span>
+            <div class="checkbox custom-checkbox">
+              <label *ngFor="let item of orderCustomizationGroup.items" class="span-block">
+                <input [(ngModel)]="item.selected" type="checkbox"> {{item.displayText}}
+              </label>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="orderCustomizationGroup.selector == 'DROPDOWN'">
+          <div class="col-xs-12 no-left-padding group-btm-margin">
+            <div class="form-group col-sm-6 col-no-padding margin-bottom-0">
+              <label class="cust-label-margin-bottom">{{orderCustomizationGroup.groupName}}</label>
+              <i class="fa fa-info-circle info-icon" aria-hidden="true" (click)="customizationDescription.hidden = !customizationDescription.hidden"></i>
+              <span #customizationDescription [hidden]="true" class="span-block customization-description">{{orderCustomizationGroup.description}}</span>
+              <select #t class="form-control" (change)="setSelected(t.value, orderCustomizationGroup)">
+                <ng-container *ngFor="let item of orderCustomizationGroup.items">
+                  <option [selected]="item.selected" [value]="item.id">{{item.displayText}}</option>
+                </ng-container>
+              </select>
+            </div>
+          </div>
+        </ng-container>
+
+        <ng-container *ngIf="orderCustomizationGroup.selector == 'RADIO'">
+          <div class="form-check group-btm-margin">
+            <label class="custom-radio-group-label">{{orderCustomizationGroup.groupName}}</label>
+            <i class="fa fa-info-circle info-icon" aria-hidden="true" (click)="customizationDescription.hidden = !customizationDescription.hidden"></i>
+            <span #customizationDescription [hidden]="true" class="span-block customization-description">{{orderCustomizationGroup.description}}</span>
+            <ng-container *ngFor="let item of orderCustomizationGroup.items">
+              <div class="radio custom-radio">
+                <label (click)="setSelected(item.id, orderCustomizationGroup)"><input [checked]="item.selected" type="radio" name="optradio{{orderCustomizationGroup.id}}">{{item.displayText}}</label>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+
+
+      </ng-container>
+        
+    </modal-body>
+    <modal-footer>
+      <button type="button" class="btn btn-default" (click)="closeCustomizations();">Cancel</button>
+      <button type="button" class="btn btn-brand-primary" (click)="addOrderCustomizations();">&nbsp;Save&nbsp;</button>
+    </modal-footer>
+    
+  </modal>

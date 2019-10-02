@@ -1,0 +1,297 @@
+<div class="container container-bottom-padding" [ngClass]="showFirstSearch ? 'blur-background' : ''">
+  <div class="row storefront-basic-info">
+    <div class="col-xs-12 col-md-9 storefront-icon-name-address">
+        <div class="storefront-icon-name-address-inner">
+          <div class="col-xs-12 col-sm-5 storefront-name-address-div">
+            <h1 class="storefront-name">{{storefront.displayName}}</h1>
+            <p *ngIf="showAddress" class="storefront-address">
+								{{storefront.address1}}, {{storefront.zip}}, {{storefront.city}}</p>
+            <p *ngIf="!showAddress" class="storefront-address">
+								{{storefront.city}}</p>
+          </div>
+        </div>
+    </div>
+    <div class="hidden-xs hidden-sm col-md-3 storefront-ratings-reviews-div">
+      <div class="storefront-reviews-div">
+        <div>
+        <rating [(ngModel)]="storefront.rating" class="rating-stars" [float]="true" [readonly]="true"></rating></div>
+                  <span *ngIf="storefront.reviewCount == 1" class="reviews-span">{{storefront.reviewCount}} review</span>
+                  <span *ngIf="storefront.reviewCount != 1" class="reviews-span">{{storefront.reviewCount}} reviews</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-md-9 storefront-img-div">
+      <div class="col-xs-12 col-md-11 col-no-padding">
+        <div class="storefront-profile-img-wrapper">
+          <img [imgSrc]="storefront.imgUrl" class="storefront-profile-img" onerror="this.onerror=null;this.src='images/md-placholder.png';"/>
+        </div>
+        <div class="hidden-md hidden-lg hidden-xl rating-stars-mini-div">
+            <rating [(ngModel)]="storefront.rating" class="rating-stars-mini" [float]="true" [readonly]="true"></rating>
+                    <span *ngIf="storefront.reviewCount == 1" class="reviews-span">{{storefront.reviewCount}} review</span>
+                    <span *ngIf="storefront.reviewCount != 1" class="reviews-span">{{storefront.reviewCount}} reviews</span>
+          </div>
+      </div>
+            <!-- Bring services here -->
+
+      <div class="hidden-md hidden-lg hidden-xl row">
+        <div class="col-xs-12 col-md-9 storefront-img-div">
+          <div class="select-staff-div">
+            <span class=""><span *ngIf="selectStaffEnabled">Change </span>{{serviceProviderName}}</span>
+          </div>
+          <div class="col-xs-12 select-service-provider-div" (click)="selectStaffEnabled && getStorefrontServiceProviders(); selectStaffEnabled && modalServiceProviders.open();">
+
+                <div class="staff-div-inner">
+                  <img *ngIf="selectedServiceProviderViewDTO.imgUrl" class="staff-img" [imgSrc]="selectedServiceProviderViewDTO.imgUrl" onerror="this.onerror=null;this.src='images/md-placholder.png';">
+                  <img *ngIf="!selectedServiceProviderViewDTO.imgUrl" class="staff-img" src="images/md-placholder.png" onerror="this.onerror=null;this.src='images/md-placholder.png';">
+                </div>
+
+                <div class="staff-text">
+                  <div class="service-name">
+                    {{selectedServiceProviderViewDTO.displayName}}
+                  </div>
+                  <div *ngIf="selectedServiceProviderViewDTO.id == 0" class="service-short-description">
+                      Select any of our experienced staff
+                  </div>
+                </div>
+              </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-xs-12 storefront-img-div">
+          <div #servicesHeader (click)="scrollToServices()" class="hidden-md hidden-lg hidden-xl select-services-div">
+            <span class="">Select Services</span>
+          </div>
+          <h2 class="hidden-xs hidden-sm">Select Services</h2>
+          <div class="col-xs-12 services-div">
+            <div *ngFor="let service of storefront.services" class="col-xs-12 col-md-6 service-div">
+              <div class="service-div-inner" (click)="modalService.open(); showServiceDetailsModal(service.id);">
+                <span *ngIf="service.selected && !service.imgUrl" class="selected-service-badge-no-img"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
+                <div class="service-text">
+                  <div class="service-name service-name-blue">
+                    {{service.name}}
+                  </div>
+                  <div class="service-short-description">
+                    {{service.description}}
+                  </div>
+                  <div class="service-price-div">
+                    <span class="service-price">${{service.price}}<span class="qty-desc" *ngIf="service.quantityDescription">/{{service.quantityDescription}}</span></span>
+                  </div>
+                </div>
+                <div *ngIf="service.imgUrl" class="service-img-div">
+                  <span *ngIf="service.selected" class="selected-service-badge"><i class="fa fa-check-circle" aria-hidden="true"></i></span>
+                  <img class="service-img" [imgSrc]="service.imgUrl" onerror="this.onerror=null;this.src='images/md-placholder.png';">
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+
+
+    </div>
+
+    
+    <!--<div class="hidden-xs hidden-sm col-md-1"></div>-->
+    <div class="hidden-xs hidden-sm col-md-3">
+        <app-order-summary *ngIf="displayCheckoutBtn"  [buttonText]="'Select Date & Time'" [subtotal]="shoppingCart.subtotal" [bookingFee]="shoppingCart.bookingFee" 
+            [tax]="shoppingCart.tax" [giftCardAmountApplied]="shoppingCart.giftCardAmountApplied" 
+            [total]="shoppingCart.total" [showPaymentMethodMissingWarning]="false"
+            [showEstimatedCost]="true" [appointmentDate]="" [buttonAction]="selectDate.bind(this)"
+            [estimatedTotal]="true"></app-order-summary>
+      
+      <!-- <div  *ngIf="displayCheckoutBtn" class="appointment-info-div order-summary-div">
+        <div class="appointment-info-header-div">
+          
+          <div class="appointment-location-details-header-div-inner">
+            <span class="appointment-location-details-header-text">Order Summary</span>
+          </div>
+        </div>
+        <hr class="checkout-hr"/>
+        <div class="">
+          <div class="subtotal-div">
+            <span class="subtotal-amount pull-right">${{shoppingCart.subtotal}}</span>
+            <span class="subtotal">Subtotal</span>
+          </div>
+          <div class="booking-fee-div">
+            <span class="booking-fee-amount pull-right">${{shoppingCart.bookingFee}}</span>
+            <span class="booking-fee">Booking Fee &nbsp;<i [popover]="bookingFeePopover" class="fa fa-info-circle info-icon" aria-hidden="true"></i>
+              <popover-content #bookingFeePopover #bkpop 
+                title="Booking Fee" 
+                placement="top"
+                [animation]="true" 
+                [closeOnClickOutside]="true" >
+            A booking fee will be charged to all orders.
+        </popover-content></span>
+          </div>
+          <div class="tax-div">
+            <span class="tax-amount pull-right">${{shoppingCart.tax}}</span>
+            <span class="tax">Tax</span>
+          </div>
+          <hr class="checkout-hr"/>
+          <div class="total-div">
+            <span class="total-amount pull-right">${{shoppingCart.total}}</span>
+            <span class="total">Estimated Total</span>
+          </div>
+        </div>
+        <button routerLink="/date-selection" routerLinkActive="active" class="btn btn-brand-primary complete-order-btn">Select Date & Time</button>
+      </div> -->
+      <!--<div class="map-div">
+          <sebm-google-map [latitude]="storefront.latitude" [longitude]="storefront.longitude" [scrollwheel]="false" [zoom]="zoom" [styles]="styles" 
+                [streetViewControl]="false" [zoomControl]="false" [scaleControl]="false" [fullscreenControl]="false" 
+                [draggable]="false" [scrollwheel]="false" [disableDoubleClickZoom]="true">
+          <sebm-google-map-marker [latitude]="storefront.latitude" [longitude]="storefront.longitude"></sebm-google-map-marker>
+        </sebm-google-map>
+      </div>
+      <div class="storefront-info-div">
+        <div>
+          <p class="storefront-info-p">
+            <i class="fa fa-map-marker fa-lg storefront-marker"></i>
+            <strong>{{storefront.displayName}}</strong>
+            <br>
+            <span *ngIf="showAddress">{{storefront.address1}}, {{storefront.zip}}, {{storefront.city}}</span>
+            <span *ngIf="!showAddress">{{storefront.city}}</span>
+            <br>
+            <a class="directions-anchor" href="https://www.google.com/maps/search/?api=1&query={{storefront.address1}} {{storefront.city}} {{storefront.state}} {{storefront.zip}}" target="_blank">Get directions</a>	</p>
+        </div>
+      </div>-->
+      
+      <div class="col-xs-12 hidden-xs hidden-sm storefront-img-div">
+        <span class="change-staff-header"><span *ngIf="selectStaffEnabled">Change </span>{{serviceProviderName}}</span>
+          <div class="col-xs-12 select-service-provider-div" [ngClass]="selectStaffEnabled ? 'change-staff-header-selection-enabled' : ''" (click)="selectStaffEnabled && getStorefrontServiceProviders(); selectStaffEnabled && modalServiceProviders.open();">
+
+            <div class="staff-div-inner">
+              <img class="staff-img" [imgSrc]="selectedServiceProviderViewDTO.imgUrl" onerror="this.onerror=null;this.src='images/md-placholder.png';">
+            </div>
+
+            <div class="staff-text">
+              <div class="service-name service-name-blue">
+                {{selectedServiceProviderViewDTO.displayName}}
+              </div>
+              <div *ngIf="selectedServiceProviderViewDTO.id == 0" class="service-short-description">
+                  Select Staff
+              </div>
+            </div>
+          </div>
+      </div>
+
+    </div>
+
+      
+
+
+  </div>
+  
+</div>
+
+<div *ngIf="displayCheckoutBtn" class="hidden-md hidden-lg hidden-xl col-xs-12 navbar-fixed-bottom footer-nav">
+  <div class="footer-nav-div">
+    <a routerLink="/date-selection" routerLinkActive="active" class="btn btn-brand-primary checkout-button">Select Date & Time</a>
+  </div>
+</div>
+
+
+<modal #modalServiceProviders [cssClass]="sm-modal" [size]="lg">
+    <modal-header [ngClass]="'service-provider-modal-header'" [show-close]="true">
+        <h4 class="modal-title">Select Staff</h4>
+    </modal-header>
+    <modal-body [ngClass]="'service-provider-modal-body'">
+
+      <div class="col-xs-12 select-service-provider-div" (click)="selectServiceProvider(); modalServiceProviders.close();">
+
+          <div class="staff-div-inner">
+            <img class="staff-img" src="images/md-placholder.png">
+          </div>
+
+          <div class="staff-text">
+            <div class="service-name">
+              {{defaultServiceProviderViewDTO.displayName}} (No Preference)
+            </div>
+          </div>
+      </div>
+        
+      <div *ngFor="let serviceProvider of serviceProviderViewDTOs" >
+        <div class="col-xs-12 select-service-provider-div" (click)="selectServiceProvider(serviceProvider); modalServiceProviders.close();">
+
+          <div class="staff-div-inner">
+            <img class="staff-img" [imgSrc]="serviceProvider.imgUrl" onerror="this.onerror=null;this.src='images/md-placholder.png';">
+          </div>
+
+          <div class="staff-text">
+            <div class="service-name">
+              {{serviceProvider.displayName}}
+            </div>
+          </div>
+        </div>
+      </div>
+        
+    </modal-body>    
+</modal>
+
+
+
+<modal #modalService [size]="lg">
+    <modal-header [ngClass]="'service-modal-header'" [show-close]="true">
+    </modal-header>
+    <modal-body [ngClass]="'service-modal-body'">
+        
+        <div class="col-xs-12">
+						<div *ngIf="selectedServiceViewDTO.imgUrl" class="col-xs-12 col-sm-6">
+							<div class="popup-service-img-div">
+								<img class="popup-service-img" [imgSrc]="selectedServiceViewDTO.imgUrl" onerror="this.onerror=null;this.src='images/md-placholder.png';" />
+							</div>
+						</div>
+						<div *ngIf="selectedServiceViewDTO.imgUrl" class="col-xs-12 col-sm-6 popup-service-text">
+							<p class="popup-service-name">{{selectedServiceViewDTO.name}}</p>
+							<p class="popup-service-price">${{selectedServiceViewDTO.price}}<span class="qty-desc" *ngIf="selectedServiceViewDTO.quantityDescription">/{{selectedServiceViewDTO.quantityDescription}}</span></p>
+              <div class="quantity-div">
+                <button (click)="decreaseQuantity(selectedServiceViewDTO);" type="button" class="btn btn-default quantity-btn">-</button>
+                <input [(ngModel)]="selectedServiceViewDTO.updatedQuantity" (ngModelChange)="manualQuantity(selectedServiceViewDTO)" type="text" class="quantity-input" value="{{selectedServiceViewDTO.updatedQuantity}}" IntegersOnly/>
+                <button (click)="increaseQuantity(selectedServiceViewDTO);" type="button" class="btn btn-default quantity-btn">+</button>
+              </div>
+							<p class="popup-service-description">{{selectedServiceViewDTO.description}}</p>
+						</div>
+
+            <div *ngIf="!selectedServiceViewDTO.imgUrl" class="col-xs-12 popup-service-text">
+							<p class="popup-service-name">{{selectedServiceViewDTO.name}}</p>
+							<p class="popup-service-price">${{selectedServiceViewDTO.price}}<span class="qty-desc" *ngIf="selectedServiceViewDTO.quantityDescription">/{{selectedServiceViewDTO.quantityDescription}}</span></p>
+              <div class="quantity-div">
+                <button (click)="decreaseQuantity(selectedServiceViewDTO);" type="button" class="btn btn-default quantity-btn">-</button>
+                <input [(ngModel)]="selectedServiceViewDTO.updatedQuantity" (ngModelChange)="manualQuantity(selectedServiceViewDTO)" type="text" class="quantity-input" value="{{selectedServiceViewDTO.updatedQuantity}}" IntegersOnly />
+                <button (click)="increaseQuantity(selectedServiceViewDTO);" type="button" class="btn btn-default quantity-btn">+</button>
+              </div>
+							<p class="popup-service-description">{{selectedServiceViewDTO.description}}</p>
+						</div>
+					</div>
+          <div *ngIf="serviceExistsInCart()" class="col-xs-12 remove-from-cart-wrapper">
+            <div class="remove-from-cart-div">
+              <span class="remove-from-cart-text" (click)="removeServiceFromCart(); modalService.close()">Remove from Cart</span>
+            </div>
+          </div>
+        
+    </modal-body>
+    <modal-footer>
+      <button *ngIf="!serviceExistsInCart()" [disabled]="!selectedServiceViewDTO.updatedQuantity || selectedServiceViewDTO.updatedQuantity == '0'" type="button" class="btn btn-primary popup-button" (click)="addOrUpdateServiceToCart(); modalService.close()">Add to Cart: ${{parsePrice(selectedServiceViewDTO.price * selectedServiceViewDTO.updatedQuantity)}}</button>
+      <button *ngIf="serviceExistsInCart()" [disabled]="(selectedServiceViewDTO.quantityInCart != 0 && selectedServiceViewDTO.quantityInCart == selectedServiceViewDTO.updatedQuantity) || (!selectedServiceViewDTO.updatedQuantity || selectedServiceViewDTO.updatedQuantity == '0')" type="button" class="btn btn-brand-primary popup-button" (click)="addOrUpdateServiceToCart(); modalService.close()">Update Cart: ${{parsePrice(selectedServiceViewDTO.price * selectedServiceViewDTO.updatedQuantity)}}</button>
+      <!--<button *ngIf="serviceExistsInCart()" type="button" class="btn btn-danger popup-button" (click)="removeServiceFromCart(); modalService.close()">Remove from Cart: ${{selectedServiceViewDTO.price}}</button>-->
+    </modal-footer>
+    
+</modal>
+
+<modal #modalEditLocation [size]="lg" [keyboard]="false" [backdrop]="'static'" (onDismiss)="modalEditLocation.open();">
+    <modal-header [ngClass]="'edit-saved-search-location-modal-header'" [show-close]="false">
+      <h4>Edit Location</h4>
+    </modal-header>
+    <modal-body [ngClass]="'service-modal-body'">
+      <p>Enter your address to see if this {{serviceProviderName}} is available in your area</p>
+      <input (focus)="loadFirstSerch()" type="text" class="form-control" id="searchSavedAddress" name="searchSavedAddress" #searchSavedAddress [(ngModel)]="currentAddress" placeholder="Address"/>
+    </modal-body>
+    <modal-footer>
+      <!--<button type="button" class="btn btn-default" (click)="modalEditLocation.close();">Cancel</button>-->
+    </modal-footer>
+</modal>

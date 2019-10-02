@@ -1,0 +1,283 @@
+<div class="container-fluid container-relative">
+  <div [hidden]="status" class="overlay overlay-container">
+    <div class="overlay-content">
+      <div  (click)="modalEditLocation.open();" class="text-content tc-main"><i class="fa fa-circle fa-sm overlay-input-icon" aria-hidden="true"></i><input [ngModel]="toMapLocationDTO.address1" class="overlay-input" placeholder="Where to?"></div><!-- div for input -->
+      <div *ngIf="lastSearchedAddress && !destinationNotSelected"(click)="updateSearchLastSearchedLocation(); modalEditLocation.open();" class="text-content text-content-2"><i class="fa fa-map-marker fa-sm overlay-input-icon-prev" aria-hidden="true"></i ><div class="overlay-previous-location-div">{{lastSearchedAddress}}</div></div><!-- div for input -->
+      <div *ngIf="homeAddress && !destinationNotSelected" (click)="updateSearchHomeAddress(); modalEditLocation.open();" class="text-content text-content-3"><i class="fa fa-map-marker fa-sm overlay-input-icon-prev" aria-hidden="true"></i ><div class="overlay-previous-location-div">{{homeAddress}}</div></div><!-- div for input -->
+
+    </div>
+  </div>
+
+  <div class="row locations">
+        <div class="map-div">
+          <sebm-google-map #map [latitude]="lat" [longitude]="lng" [scrollwheel]="true" [zoom]="zoom" [styles]="styles" 
+                [streetViewControl]="false" [zoomControl]="false" [scaleControl]="false" [fullscreenControl]="false" 
+                [draggable]="true" [disableDoubleClickZoom]="true" [disableDefaultUI]="true"
+                [style.height]="screenHeight" [fitBounds]="bounds" [usePanning]="true">
+          <sebm-google-map-marker #marker [latitude]="lat" [longitude]="lng"></sebm-google-map-marker>
+          <sebm-google-map-marker #marker *ngIf="destLat" [latitude]="destLat" [longitude]="destLng"></sebm-google-map-marker>
+        </sebm-google-map>
+      </div>
+  </div>
+</div>
+<div *ngIf="!status && destinationNotSelected" class="col-xs-12 navbar-fixed-bottom col-no-padding">
+  <div class="container-fluid footer-nav-div">
+    <div class="row payment-methods-div">
+      <div *ngIf="!editingPaymentMethod" (click)="editPaymentMethod();" class="col-xs-12">
+        <ng-container *ngIf="selectedPaymentMethod.guid">
+          <img [pmImgSrc]="selectedPaymentMethod.paymentMethodType" class="mobile-card-img"/>
+          <span class="mobile-card-details-span">
+            <span class="circles-span">
+              <i class="fa fa-circle fa-sm card-circle" aria-hidden="true"></i>
+              <i class="fa fa-circle fa-sm card-circle" aria-hidden="true"></i>
+              <i class="fa fa-circle fa-sm card-circle" aria-hidden="true"></i>
+              <i class="fa fa-circle fa-sm card-circle" aria-hidden="true"></i>
+            </span>
+            {{selectedPaymentMethod.lastFour}} <i class="fa fa-angle-down fa-sm card-chev" aria-hidden="true"></i ></span> 
+        </ng-container>
+        <ng-container *ngIf="!selectedPaymentMethod.guid">
+          <span class="missing-payment-method-span">Add payment method</span>
+        </ng-container>
+      </div>
+      
+      <div class="col-xs-12" *ngIf="editingPaymentMethod">
+            <div class="cc-header-div">
+              <span class="cc-header-div-text pull-left">Credit Cards</span>
+              <span (click)="openAddPaymentMethod();" class="cc-header-div-add pull-right">+ Add a new credit card</span>
+            </div>
+            <div class="row ten-px-offset" *ngFor="let userPaymentMethod of userPaymentMethodListResultDTO.paymentMethods">
+              <div class="col-xs-12 edit-card-details-div radio">
+                <label (click)="setCardGuidForUpdateMobile(userPaymentMethod.guid);" class="col-xs-12"><input type="radio" name="optradio" [checked]="userPaymentMethod.guid == cardGuidSelectedForUpdate" />
+                  <div class="col-xs-8 col-no-padding card-details-wrapper">
+                    <img [pmImgSrc]="userPaymentMethod.paymentMethodType" class="card-img-editing-sm"/>
+                    <span class="card-details-span">&nbsp;&nbsp;
+                      <span class="circles-span">
+                        <i class="fa fa-circle fa-sm card-circle" aria-hidden="true"></i>
+                        <i class="fa fa-circle fa-sm card-circle" aria-hidden="true"></i>
+                        <i class="fa fa-circle fa-sm card-circle" aria-hidden="true"></i>
+                        <i class="fa fa-circle fa-sm card-circle" aria-hidden="true"></i>
+                      </span>
+                      {{userPaymentMethod.lastFour}}
+                    </span>
+                  </div>
+                  <div class="col-xs-4 card-info-wrapper">
+                    <span class="pull-right hidden-sm hidden-md hidden-lg hidden-xl card-details-span">{{formatExpirationDate(userPaymentMethod.expirationDate)}}</span>                  
+                  </div>
+                </label>
+              </div>   
+              <hr/>
+            </div>
+        </div>
+    </div>
+    <button (click)="requestPickup();" class="btn btn-primary footer-nav-button">Request Pickup</button>
+  </div>
+</div>
+
+<div *ngIf="status == 'REQUESTED'" class="col-xs-12 navbar-fixed-bottom col-no-padding requesting-div">
+  <div class="container-fluid footer-nav-div">
+  <span> 
+    <span class="span-block">Requesting Pickup</span>
+    <img class="waiting-img" src="/images/waiting.gif" /></span>
+    <button (click)="cancelPickupRequest();" class="btn btn-primary footer-nav-button">Cancel</button>
+  </div>
+</div>
+
+<div *ngIf="status == 'ACCEPTED'" class="col-xs-12 navbar-fixed-bottom col-no-padding requesting-div">
+  <div class="container-fluid footer-nav-div">
+    <div class="row">
+      <div class="col-xs-12">
+        <span class="span-block ariving-span">Arriving in 1 minute</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <img class="driver-img" src="/images/driver.png"/>
+      </div>
+      <div class="col-xs-6">
+        <span class="span-block make-model-span">Acura TSX</span>
+        <span class="span-block plate-span">ABC1234</span>
+      </div>
+    </div>
+    <div class="row driver-row-top-margin">
+      <div class="col-xs-4">
+        <span class="driver-name-span">Thomas</span>
+      </div>
+      <div class="col-xs-4">
+        <span class="star-rating-span">5.0 <i class="fa fa-star fa-sm star-rating-icon" aria-hidden="true"></i></span>
+      </div>
+      <div class="col-xs-4">
+          <span class="trips-span">{{tripCount}} trips</span>
+      </div>
+    </div>
+    <div class="row driver-row-top-margin">
+      <div class="col-xs-12">
+        <input (click)="openAddNoteModal();" class="form-control notes-input" placeholder="Any pickup notes?">
+      </div>
+    </div>
+    <div class="row driver-row-top-margin">
+      <div class="col-xs-12">
+        <button (click)="cancelPickupRequest();" class="btn btn-primary footer-nav-button">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="status == 'TRIP_STARTED'" class="col-xs-12 navbar-fixed-bottom col-no-padding requesting-div">
+  <div class="container-fluid footer-nav-div">
+    <div class="row">
+      <div class="col-xs-12">
+        <span class="span-block ariving-span">You're on your way</span>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-6">
+        <img class="driver-img" src="/images/driver.png"/>
+      </div>
+      <div class="col-xs-6">
+        <span class="span-block make-model-span">Acura TSX</span>
+        <span class="span-block plate-span">ABC1234</span>
+      </div>
+    </div>
+    <div class="row driver-row-top-margin">
+      <div class="col-xs-4">
+        <span class="driver-name-span">Thomas</span>
+      </div>
+      <div class="col-xs-4">
+        <span class="star-rating-span">5.0 <i class="fa fa-star fa-sm star-rating-icon" aria-hidden="true"></i></span>
+      </div>
+      <div class="col-xs-4">
+          <span class="trips-span">{{tripCount}} trips</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="status == 'RATE'" class="col-xs-12 navbar-fixed-bottom col-no-padding requesting-div">
+  <div class="container-fluid footer-nav-div">
+    <div class="row">
+      <div class="col-xs-9">
+        <span class="span-block how-was-span">How was your trip with Thomas?</span>
+        <span class="span-block trip-review-dest-span">Thursday to NW 104th St</span>
+      </div>
+      <div class="col-xs-3">
+        <img class="driver-solo-img" src="/images/driver-solo.png"/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <rating [(ngModel)]="rating" class="rating-stars" [float]="false" [readonly]="false"></rating>
+      </div>
+    </div>
+    <div class="row driver-row-top-margin">
+      <div class="col-xs-12">
+        <button (click)="rateTrip();" class="btn btn-primary footer-nav-button">Rate</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <modal #modalEditLocation [size]="lg">
+    <modal-header [ngClass]="'edit-saved-search-address-modal-header'" [show-close]="true">
+      <h4>Edit Location</h4>
+    </modal-header>
+    <modal-body [ngClass]="'service-modal-body'">
+      <span class="span-block">From</span>
+      <app-places-auto-complete [mapLocationDTO]="fromMapLocationDTO"></app-places-auto-complete>
+      <br/>
+      <span class="span-block">To</span>
+      <app-places-auto-complete [mapLocationDTO]="toMapLocationDTO"></app-places-auto-complete>
+    </modal-body>
+    <modal-footer>
+      <button type="button" class="btn btn-default" (click)="modalEditLocation.close();">Cancel</button>
+      <button (click)="popoverConfirm()" type="button" class="btn btn-brand-primary" (click)="modalEditLocation.close();">Confirm</button>
+    </modal-footer>
+  </modal>
+
+  <modal #addPaymentMethod [size]="lg">
+    <modal-header [ngClass]="'edit-saved-search-address-modal-header'" [show-close]="true">
+      <h4>Add Payment Method</h4>
+    </modal-header>
+    <modal-body [ngClass]="'service-modal-body'">
+      <div class="col-xs-12 col-no-padding">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <span class="panel-title">Payment Details</span>
+            <img class="pull-right cc-img" src="images/cards.png">
+          </div>
+          <div class="panel-body">
+            <form role="form" id="payment-form" (submit)="getCardData(addPaymentMethodForm.valid)" #addPaymentMethodForm="ngForm" novalidate>
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="form-group">
+                    <label for="cardNumber">Card Number</label>
+                    <div class="input-group">
+                      <input [(ngModel)]="model.number" name="number" #number type="text" class="form-control" id="cardNumber" placeholder="Valid Card Number" required autofocus data-stripe="number" />
+                      <span class="input-group-addon"><i class="fa fa-credit-card"></i></span>
+                    </div>
+                    <div *ngIf="formErrors.number" class="alert alert-danger">
+                      {{ formErrors.number }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xs-7 col-md-7">
+                  <label class="hidden-sm hidden-md hidden-lg hidden-xl" for="month">Expiration Date</label>
+                  <label class="hidden-xs" for="month">Expiration Date</label>
+                  <div class="form-group">
+                    <div class="col-xs-6 col-lg-6 pl-ziro no-left-padding">
+                      <select class="form-control show-date-sm-date-select" [(ngModel)]="model.month" id="month" name="month" required>
+                        <option *ngFor="let cardMonth of months" [selected]="cardMonth == 01">{{cardMonth}}</option>
+                      </select>
+                    </div>
+                    <div class="col-xs-6 col-lg-6 pl-ziro col-no-padding">
+                      <select class="form-control show-date-sm-date-select" [(ngModel)]="model.year" id="year" name="year" required>
+                        <option *ngFor="let cardYear of years" [selected]="cardYear == currentYear" >{{cardYear}}</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-5 col-md-5 pull-right">
+                  <div class="form-group">
+                    <label for="cvCode">CVV</label>
+                    <input [(ngModel)]="model.cvv" name="cvv" #cvv type="password" class="form-control" id="cvCode" placeholder="CVV" required [maxlength]="4" data-stripe="cvc" />
+                  </div>
+                </div>
+                <div *ngIf="formErrors.month || formErrors.year || formErrors.cvv" class="alert alert-danger">
+                  <span *ngIf="formErrors.month">{{ formErrors.month }}<br/></span>
+                  <span *ngIf="formErrors.year">{{ formErrors.year }}<br/></span>
+                  <span *ngIf="formErrors.cvv">{{ formErrors.cvv }}<br/></span>
+                </div>
+              </div>
+              <div class="row" style="display:none;">
+                <div class="col-xs-12">
+                  <p class="payment-errors"></p>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <img class="pull-left" src="images/stripe.svg">
+        <img class="ssl-seal pull-right" src="images/RapidSSL_SEAL.gif">
+      </div>
+    </modal-body>
+    <modal-footer>
+      <button (click)="addPaymentMethod.close();" class="btn btn-default" type="submit">&nbsp;&nbsp;Cancel&nbsp;&nbsp;</button>
+      <button [disabled]="processingAddCard" (click)="getCardData(addPaymentMethodForm.valid);" class="btn btn-brand-primary" type="submit">Add Card<i *ngIf="processingAddCard" class="fa fa-spinner fa-spin spinner-padding" aria-hidden="true"></i></button>
+    </modal-footer>
+  </modal>
+
+  <modal #modalAddNote [size]="lg">
+    <modal-header [ngClass]="'edit-user-modal-header'" [show-close]="true">
+      <h4>Add pickup note</h4>
+    </modal-header>
+    <modal-body [ngClass]="'service-modal-body'">
+      <textarea class="form-control" rows="5" id="comment" [(ngModel)]="tempPickupNote"></textarea>
+        
+    </modal-body>
+    <modal-footer>
+      <button type="button" class="btn btn-default" (click)="modalAddNote.close();">Cancel</button>
+      <button type="button" class="btn btn-brand-primary" (click)="saveNote();">&nbsp;Save&nbsp;</button>
+    </modal-footer>
+    
+  </modal>

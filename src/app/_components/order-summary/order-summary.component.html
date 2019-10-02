@@ -1,0 +1,93 @@
+<div class="appointment-info-div order-summary-div" [ngClass]="affix ? 'affix thirty-three-percent-width': ''">
+  <div class="appointment-info-header-div">
+    
+    <div class="appointment-location-details-header-div-inner">
+      <span *ngIf="showEstimatedCost" class="appointment-location-details-header-text">Order Summary</span>
+      <span *ngIf="!showEstimatedCost" class="appointment-location-details-header-text">Complete Order</span>
+    </div>
+  </div>
+  <hr class="checkout-hr"/>
+  <div *ngIf="showEstimatedCost" class="">
+    <div *ngIf="cancellationFee > 0" class="subtotal-div font-weight-bold danger-text">
+        <span class="subtotal-amount pull-right">${{cancellationFee}}</span>
+        <span class="subtotal">Cancellation Fee</span>
+      </div>
+    <div class="subtotal-div">
+      <span class="subtotal-amount pull-right">${{subtotal}}</span>
+      <span class="subtotal">Subtotal</span>
+    </div>
+    <div class="booking-fee-div">
+      <span class="booking-fee-amount pull-right">${{bookingFee}}</span>
+      <span class="booking-fee">Booking Fee &nbsp;<i [popover]="bookingFeePopover" class="fa fa-info-circle info-icon" aria-hidden="true"></i>
+        <popover-content #bookingFeePopover #bkpop 
+          title="Booking Fee" 
+          placement="right"
+          [animation]="true" 
+          [closeOnClickOutside]="true" >
+      A booking fee will be charged to all orders.
+  </popover-content></span>
+    </div>
+    <div class="tax-div">
+      <span class="tax-amount pull-right">${{tax}}</span>
+      <span class="tax">Tax</span>
+    </div>
+    <hr class="checkout-hr"/>
+    <div *ngIf="giftCardAmountApplied > 0" class="gc-div">
+      <span class="gc-amount pull-right">${{giftCardAmountApplied}}</span>
+      <span class="total">Gift Card <i [popover]="gcAppliedPopover" class="fa fa-info-circle info-icon" aria-hidden="true"></i></span>
+    <popover-content #gcAppliedPopover 
+          title="Gift Card Applied" 
+          placement="top"
+          [animation]="true" 
+          [closeOnClickOutside]="true" >
+          This is the amount that will be applied to the order from your gift card. For unprocessed orders, this is an estimated amount.
+  </popover-content>
+  
+      <div *ngIf="cumulativeGiftCardAmountAppliedRefundAmount > 0" class="refund-div">
+        <span class="refund-amount pull-right">-${{cumulativeGiftCardAmountAppliedRefundAmount}}</span>
+        <span class="refund"><span class="red">Gift Card Refunded</span>
+        </span>
+      </div>
+
+    </div>
+    <div *ngIf="estimatedTotal" class="total-div">
+      <span class="total-amount pull-right">${{total}}</span>
+      <span class="total">Estimated Total <i [popover]="totalPopover" class="fa fa-info-circle info-icon" aria-hidden="true"></i></span>
+    <popover-content #totalPopover 
+          title="Estimated Total" 
+          placement="top"
+          [animation]="true" 
+          [closeOnClickOutside]="true" >
+      This is just an estimated cost for your order.  Your card on file will NOT be charged until your order is laundered, dried, weighed, prepared for return and the proper total is determined upon completion!
+  </popover-content>
+    </div>
+    <div *ngIf="!estimatedTotal" class="total-div">
+        <span class="total-amount pull-right">${{total}}</span>
+        <span class="total">Total</span>
+      </div>
+    <div *ngIf="refunded" class="refund-div">
+        <span class="refund-amount pull-right">-${{cumulativeTotalRefundAmount}}</span>
+        <span class="refund"><span class="red">Refunded</span> &nbsp;<i [popover]="refundPopover" class="fa fa-info-circle info-icon" aria-hidden="true"></i>
+          <popover-content #refundPopover #bkpop 
+            title="Refund" 
+            placement="right"
+            [animation]="true" 
+            [closeOnClickOutside]="true" >
+              Booking fee: -${{cumulativeConvenienceFeeRefundAmount}} <br/>
+              Subtotal: -${{cumulativeSubtotalotalRefundAmount}}
+          </popover-content>
+        </span>
+      </div>
+  </div>
+
+  <button *ngIf="buttonText" [disabled]="showPaymentMethodMissingWarning || processing" (click)="onClick();" class="btn btn-primary complete-order-btn">{{buttonText}}</button>
+
+  <div *ngIf="appointmentDate" class="selected-date-checkout-div">
+    <span class="selected-date-span">{{appointmentDate}}</span>
+  </div>
+
+  <br *ngIf="showPaymentMethodMissingWarning"/>
+  <div class="alert alert-danger warning-div" *ngIf="showPaymentMethodMissingWarning">
+    <strong>Warning!</strong> A payment method must be added before your order can be completed.
+</div>
+</div>

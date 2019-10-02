@@ -1,0 +1,230 @@
+  
+
+  <div class="container checkout-container hidden-xs hidden-sm hidden-md">
+    <div class="mg-page-header hidden-xs hidden-sm hidden-md">
+      Shopping Cart
+      <div class="page-header-underline"></div>
+    </div>
+    <div *ngIf="shoppingCart.services && shoppingCart.services.length > 0" class="col-lg-8">
+      <div class="col-lg-12 appointment-info-div">
+        <div class="col-lg-12 col-no-padding appointment-info-header-div">
+          
+          <div class="col-lg-12 col-no-padding appointment-payment-details-header-div-inner">
+            <span class="appointment-payment-details-header-text">Order Details</span>
+          </div>
+        </div>
+        <div class="col-lg-12 col-no-padding">
+          <hr class="checkout-hr"/>
+        </div>
+        <div class="col-xs-12 col-no-padding services-div">
+          <div *ngFor="let service of shoppingCart.services" class="col-xs-12 col-md-12 col-no-padding service-div">
+            <div class="service-div-inner">
+              <div class="service-text">
+                <div class="service-name">
+                  {{service.name}}
+                </div>
+                <div class="service-short-description">
+                  {{service.description}}
+                </div>
+                <div class="service-price-div">
+                  <span class="service-price">${{service.price}}<span class="qty-desc" *ngIf="service.quantityDescription">/{{service.quantityDescription}}</span></span>
+                  <span class="mobile-service-qty-span span-block">{{service.quantity}}x</span>
+                  <span (click)="removeService(service.id)" class="delete-service">Delete</span>
+                </div>
+              </div>
+              <div *ngIf="service.imgUrl" class="service-img-div">
+                <img class="service-img" [imgSrc]="service.imgUrl" onerror="this.onerror=null;this.src='images/md-placholder.png';" (click)="showServiceDetails();">
+              </div>
+            </div>
+          </div>
+      </div>
+
+    </div>
+  </div>
+  <div *ngIf="!shoppingCart.services || !shoppingCart.services.length > 0" class="col-lg-8">
+    <h3>Your Shopping Cart is empty.</h3>  
+    <span [routerLink]="['/locations']" class="continue-shopping">Continue Shopping</span>
+  </div>
+
+  <div *ngIf="shoppingCart.services && shoppingCart.services.length > 0" class="col-lg-4">
+      <app-order-summary [buttonText]="'Select Date & Time'" [buttonAction]="checkout.bind(this)" [subtotal]="shoppingCart.subtotal" [bookingFee]="shoppingCart.bookingFee" 
+      [tax]="shoppingCart.tax" [giftCardAmountApplied]="shoppingCart.giftCardAmountApplied" 
+      [total]="shoppingCart.total" [showPaymentMethodMissingWarning]="!shoppingCart.paymentMethodLast4"
+      [showEstimatedCost]="true" [appointmentDate]="getCheckoutDateFormatted()" [affix]="true"
+      [estimatedTotal]="true"></app-order-summary>
+    <!-- <div class="appointment-info-div order-summary-div affix">
+      <div class="appointment-info-header-div">
+        
+        <div class="appointment-location-details-header-div-inner">
+          <span class="appointment-location-details-header-text">Order Summary</span>
+        </div>
+      </div>
+      <hr class="checkout-hr"/>
+      <div class="">
+        <div class="subtotal-div">
+          <span class="subtotal-amount pull-right">${{shoppingCart.subtotal}}</span>
+          <span class="subtotal">Subtotal</span>
+        </div>
+        <div class="booking-fee-div">
+          <span class="booking-fee-amount pull-right">${{shoppingCart.bookingFee}}</span>
+          <span class="booking-fee">Booking Fee &nbsp;<i [popover]="bookingFeePopover" class="fa fa-info-circle info-icon" aria-hidden="true"></i>
+          <popover-content #bookingFeePopover #bkpop 
+            title="Booking Fee" 
+            placement="right"
+            [animation]="true" 
+            [closeOnClickOutside]="true" >
+            A booking fee will be charged to all orders.
+          </popover-content></span>
+        </div>
+        <div class="tax-div">
+          <span class="tax-amount pull-right">${{shoppingCart.tax}}</span>
+          <span class="tax">Tax</span>
+        </div>
+        <hr class="checkout-hr"/>
+        <div *ngIf="shoppingCart.giftCardAmountApplied > 0" class="gc-div">
+          <span class="gc-amount pull-right">${{shoppingCart.giftCardAmountApplied}}</span>
+          <span class="total">Gift Card Applied <i [popover]="gcAppliedPopover" class="fa fa-info-circle info-icon" aria-hidden="true"></i></span>
+        <popover-content #gcAppliedPopover 
+              title="Gift Card Applied" 
+              placement="top"
+              [animation]="true" 
+              [closeOnClickOutside]="true" >
+          This is the estimated amount that will be applied to the order from your gift card. 
+      </popover-content>
+        </div>
+        <div class="total-div">
+          <span class="total-amount pull-right">${{shoppingCart.total}}</span>
+          <span class="total">Total</span>
+        </div>
+      </div>
+      <button [routerLink]="['/date-selection']" class="btn btn-primary complete-order-btn">Checkout</button>
+    </div> -->
+  </div>
+
+
+  <div *ngIf="shoppingCart.services && shoppingCart.services.length > 0" class="col-lg-8">
+    <div class="col-lg-12 appointment-info-div">
+      <div class="col-lg-12 col-no-padding appointment-info-header-div">
+          
+          <div class="col-lg-12 col-no-padding appointment-payment-details-header-div-inner">
+            <span class="appointment-payment-details-header-text">Additional Options</span>
+            <div class="appointment-location-details-edit">
+              <a (click)="openCustomizations();" href="javascript:void(0);">Edit</a>
+            </div>
+          </div>
+        </div>
+      <div class="col-lg-12 col-no-padding">
+          <hr class="checkout-hr"/>
+      </div>
+      <div class="details-info-div">
+        <div *ngIf="shoppingCart.orderCustomizationGroups.length == 0">
+          <span (click)="openCustomizations();" class="additional-options-span pointer span-block">Click to view additional options</span>
+        </div>
+
+        <div class="customization-div">
+          <app-order-customizations [orderCustomizationGroups]="shoppingCart.orderCustomizationGroups"></app-order-customizations>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</div>
+
+
+<!-- Mobile version -->
+
+<div *ngIf="shoppingCart.services && shoppingCart.services.length > 0" class="mobile-container col-xs-12 hidden-lg hidden-xl">
+  <div class="page-header-sm">
+      Shopping Cart
+      <div class="page-header-underline-sm"></div>
+  </div>
+  <div class="row mobile-row-section" *ngFor="let service of shoppingCart.services" >
+    <div class="col-xs-12">
+      <div class="mobile-service-img-div pull-left"><img [imgSrc]="service.imgUrl" onerror="this.onerror=null;this.src='images/md-placholder.png';" class="mobile-service-img"/></div>
+      <div class="mobile-service-name-qty-div pull-left">
+        <span class="mobile-service-name-span span-block">{{service.name}}</span>
+        <span class="mobile-service-qty-span">{{service.quantity}}x</span>
+        <span (click)="removeService(service.id)" class="delete-service-mobile">Delete</span>
+      </div>
+      <div class="mobile-service-price-div pull-right"><span class="pull-right mobile-service-price">${{service.price}}<span class="qty-desc" *ngIf="service.quantityDescription">/{{service.quantityDescription}}</span></span></div>
+    </div>
+  </div>
+  <div class="row mobile-row-section">
+    <div class="col-xs-12">
+      <div class="additional-options-mobile-header additional-options-mgn">
+        <span><b>Additional Options</b></span>
+        <span (click)="openCustomizations();" *ngIf="shoppingCart.orderCustomizationGroups.length != 0" class="pull-right edit-color">Edit</span>
+        <span (click)="openCustomizations();" *ngIf="shoppingCart.orderCustomizationGroups.length == 0" class="additional-options-span span-block">Touch to view additional options</span>
+      </div>
+      <app-order-customizations [orderCustomizationGroups]="shoppingCart.orderCustomizationGroups"></app-order-customizations>
+    </div>
+  </div>
+  <div class="row mobile-row-section">
+    <div class="col-xs-12">
+      <div class="subtotal-div">
+        <span class="subtotal-amount brand-dark-color pull-right">${{shoppingCart.subtotal}}</span>
+        <span class="subtotal">Subtotal</span>
+      </div>
+      <div class="booking-fee-div">
+        <span class="booking-fee-amount brand-dark-color pull-right">${{shoppingCart.bookingFee}}</span>
+        <span class="booking-fee">Booking Fee &nbsp;<i [popover]="smBookingFeePopover" class="fa fa-info-circle info-icon" aria-hidden="true"></i></span>
+          <popover-content #smBookingFeePopover 
+                title="Booking Fee" 
+                placement="right"
+                [animation]="true" 
+                [closeOnClickOutside]="true" >
+            A booking fee will be charged to all orders.
+        </popover-content>
+      </div>
+      <div class="tax-div">
+        <span class="tax-amount pull-right brand-dark-color">${{shoppingCart.tax}}</span>
+        <span class="tax">Tax</span>
+      </div>
+    </div>
+  </div>
+  <div class="row mobile-row-section">
+    <div *ngIf="shoppingCart.giftCardAmountApplied > 0" class="col-xs-12 mobile-total-div">
+      <span class="total-amount pull-right gc-amount">-${{shoppingCart.giftCardAmountApplied}}</span>
+      <span class="total">Gift Card <i [popover]="gcAppliedPopoverMobile" class="fa fa-info-circle info-icon" aria-hidden="true"></i></span>
+      <popover-content #gcAppliedPopoverMobile
+            title="Gift Card Applied" 
+            placement="right"
+            [animation]="true" 
+            [closeOnClickOutside]="true" >
+            This is the estimated amount that will be applied to the order from your gift card.
+    </popover-content>
+    </div>
+    <div class="col-xs-12 mobile-total-div">
+      <span class="total-amount pull-right brand-dark-color">${{shoppingCart.total}}</span>
+      <span class="total">Estimated Total <i [popover]="totalPopoverMobile" class="fa fa-info-circle info-icon" aria-hidden="true"></i></span>
+      <popover-content #totalPopoverMobile 
+            title="Estimated Total" 
+            placement="top"
+            [animation]="true" 
+            [closeOnClickOutside]="true" >
+        This is just an estimated cost for your order.  Your card on file will NOT be charged until your order is laundered, dried, weighed, prepared for return and the proper total is determined upon completion!
+    </popover-content>
+    </div>
+  </div>
+  <br/>
+
+</div>
+
+<div *ngIf="!shoppingCart.services || !shoppingCart.services.length > 0" class="mobile-container col-xs-12 hidden-lg hidden-xl">
+    <div class="page-header-sm">
+        Shopping Cart
+        <div class="page-header-underline-sm"></div>
+    </div>
+    <h4>Your Shopping Cart is empty.</h4>
+    <span [routerLink]="['/locations']" class="continue-shopping">Continue Shopping</span>
+</div>
+
+<div *ngIf="shoppingCart.services && shoppingCart.services.length > 0" class="col-xs-12 col-no-padding hidden-lg hidden-xl navbar-fixed-bottom">
+  <div class="container-fluid footer-nav-div">
+    <a [routerLink]="['/date-selection']" href="javascript:void(0);" class="btn btn-primary checkout-button">Checkout</a>
+  </div>
+</div>
+
+<app-order-customization-component #orderCustomizationComponent></app-order-customization-component>
